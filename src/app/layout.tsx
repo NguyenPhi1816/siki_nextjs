@@ -5,6 +5,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import { CssBaseline } from "@mui/material";
 import "./global.css";
+import Topbar from "./components/navbar/TopBar";
+import ComprehensiveNavbar from "./components/navbar/components/ComprehensiveNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +26,9 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ key: "css" }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <Topbar>
+              <ComprehensiveNavbar />
+            </Topbar>
             {children}
           </ThemeProvider>
         </AppRouterCacheProvider>
