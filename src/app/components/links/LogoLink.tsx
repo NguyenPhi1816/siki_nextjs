@@ -1,21 +1,35 @@
-import { Link, Typography } from "@mui/material";
-import { Luckiest_Guy } from "next/font/google";
+import { Box, Link, Typography } from "@mui/material";
+import Image from "next/image";
+import React from "react";
 
-const luckiestGuy = Luckiest_Guy({
-  weight: ["400"],
-  subsets: ["latin"],
-});
+export enum LogoSize {
+  md,
+  lg,
+}
 
-const LogoLink = () => {
+interface LogoLinkProps {
+  size?: LogoSize;
+}
+
+const LogoLink: React.FC<LogoLinkProps> = ({ size }) => {
+  const logoSizeMd = { width: "50px", height: "21px" };
+  const logoSizeLg = { width: "70px", height: "29px" };
+
   return (
     <Link href="/" underline="none" color="inherit">
-      <Typography
-        sx={{ fontFamily: luckiestGuy.style.fontFamily }}
-        variant="h4"
-        component="h1"
+      <Box
+        component="div"
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        SIKI
-      </Typography>
+        <Image
+          priority
+          style={size === LogoSize.md ? logoSizeMd : logoSizeLg}
+          src="/logo.png"
+          alt="logo"
+          width={279}
+          height={116}
+        />
+      </Box>
     </Link>
   );
 };

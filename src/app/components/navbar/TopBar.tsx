@@ -7,8 +7,8 @@ interface ITopbar {
 
 const Topbar: React.FC<ITopbar> = ({ children }) => {
   return (
-    <AppBar position="fixed" sx={{ color: "var(--white)" }}>
-      <Toolbar variant="regular">{children}</Toolbar>
+    <AppBar position="fixed">
+      <Toolbar variant="dense">{children}</Toolbar>
     </AppBar>
   );
 };

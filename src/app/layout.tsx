@@ -6,7 +6,7 @@ import theme from "../theme";
 import { CssBaseline } from "@mui/material";
 import "./global.css";
 import Topbar from "./components/navbar/TopBar";
-import ComprehensiveNavbar from "./components/navbar/components/ComprehensiveNavbar";
+import ComprehensiveNavbar from "./components/navbar/components/ComprehensiveNavbar/ComprehensiveNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
