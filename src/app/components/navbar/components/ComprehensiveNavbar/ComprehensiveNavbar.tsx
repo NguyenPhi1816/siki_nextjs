@@ -23,7 +23,9 @@ import {
   CustomLinkBoxStyles,
   CustomLinkBoxTypoStyles,
   MenuButtonStyles,
+  searchResultStyles,
 } from "./styles";
+import SearchResult from "@/app/components/search/SearchResult";
 
 const ComprehensiveNavbar = () => {
   const theme = useTheme();
@@ -41,7 +43,12 @@ const ComprehensiveNavbar = () => {
       )}
       <LogoLink size={isSmScreen ? LogoSize.md : LogoSize.lg} />
       <Box sx={searchBarBoxStyles}>
-        <SearchBar sx={searchBarStyles} />
+        <SearchResult
+          sx={searchResultStyles}
+          renderInput={(params) => (
+            <SearchBar sx={searchBarStyles} autoCompleteParams={params} />
+          )}
+        />
       </Box>
       {!isSmScreen && (
         <>

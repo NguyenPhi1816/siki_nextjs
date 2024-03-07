@@ -18,8 +18,12 @@ export const searchBarBoxStyles = {
   justifyContent: "flex-end",
 };
 
+export const searchResultStyles = {
+  width: "100%",
+  maxWidth: "700px!important",
+};
+
 export const searchBarStyles = {
-  maxWidth: "600px!important",
   bgcolor: "var(--pink-secondary)",
 };
 

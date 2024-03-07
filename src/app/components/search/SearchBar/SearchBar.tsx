@@ -5,13 +5,19 @@ import { Container, IconButton, TextField } from "@mui/material";
 import { containerStyles, textFieldStyles, iconButtonStyles } from "./styles";
 
 interface SearchBarProps {
+  autoCompleteParams?: any;
   sx?: any;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ sx }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ autoCompleteParams, sx }) => {
   return (
     <Container component="form" sx={{ ...sx, ...containerStyles }}>
-      <TextField placeholder="Search..." size="small" sx={textFieldStyles} />
+      <TextField
+        {...autoCompleteParams}
+        placeholder="Search..."
+        size="small"
+        sx={textFieldStyles}
+      />
       <IconButton sx={iconButtonStyles}>
         <Search />
       </IconButton>
