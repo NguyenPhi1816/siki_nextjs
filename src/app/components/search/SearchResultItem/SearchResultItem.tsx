@@ -1,20 +1,55 @@
-import { Search } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import { Clear, Search } from "@mui/icons-material";
+import { Box, IconButton, Link, Typography } from "@mui/material";
+import { button, icon, leftSide, wrapper } from "./styles";
+import { searchTypes } from "../SearchResult/SearchResult";
+import { default as NextLink } from "next/link";
 
 interface SearchResultItemProps {
   props: any;
   option: any;
+  onRemoveItem: (id: number) => void;
 }
 
 const SearchResultItem: React.FC<SearchResultItemProps> = ({
   props,
   option,
+  onRemoveItem,
 }) => {
-  const { key, ...restProps } = { ...props };
+  const { key, ...restProps } = props;
+
+  const handleRemoveItem = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => {
+    e.preventDefault();
+    onRemoveItem(id);
+  };
+
   return (
     <li key={key} {...restProps}>
-      <Search />
-      <Typography variant="body1">{option.label}</Typography>
+      <Link
+        component={NextLink}
+        href={`search?q=${option.label}`}
+        underline="none"
+        sx={{ width: "100%" }}
+      >
+        <Box component="div" sx={wrapper}>
+          <Box component="div" sx={leftSide}>
+            <Search sx={{ mr: 1, ...icon }} />
+            <Typography variant="body1">{option.label}</Typography>
+          </Box>
+          {option.type === searchTypes.SEARCH_HISTORY ? (
+            <IconButton
+              sx={button}
+              onClick={(e) => handleRemoveItem(e, option.id)}
+            >
+              <Clear sx={icon} fontSize="small" />
+            </IconButton>
+          ) : (
+            <Box sx={button} />
+          )}
+        </Box>
+      </Link>
     </li>
   );
 };

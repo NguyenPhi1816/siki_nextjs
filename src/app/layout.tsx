@@ -7,6 +7,7 @@ import { CssBaseline } from "@mui/material";
 import "./global.css";
 import Topbar from "./components/navbar/TopBar";
 import ComprehensiveNavbar from "./components/navbar/components/ComprehensiveNavbar/ComprehensiveNavbar";
+import StoreProvider from "./StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,18 +22,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AppRouterCacheProvider options={{ key: "css" }}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Topbar>
-              <ComprehensiveNavbar />
-            </Topbar>
-            {children}
-          </ThemeProvider>
-        </AppRouterCacheProvider>
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <AppRouterCacheProvider options={{ key: "css" }}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Topbar>
+                <ComprehensiveNavbar />
+              </Topbar>
+              {children}
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }

@@ -1,11 +1,5 @@
 "use client";
-import {
-  Box,
-  Container,
-  IconButton,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Container, IconButton, Typography } from "@mui/material";
 import LogoLink, { LogoSize } from "../../../links/LogoLink";
 import SearchBar from "../../../search/SearchBar";
 import CustomLink, {
@@ -14,7 +8,6 @@ import CustomLink, {
 } from "../../../links/CustomLink";
 import { AccountCircle, Menu } from "@mui/icons-material";
 import CartButton from "../../../cart/CartButton";
-import { useTheme } from "@mui/material/styles";
 import {
   containerStyles,
   searchBarStyles,
@@ -26,22 +19,25 @@ import {
   searchResultStyles,
 } from "./styles";
 import SearchResult from "@/app/components/search/SearchResult";
+import { useAppSelector } from "../../../../../../lib/hooks";
+import { selectIsMobileScreen } from "../../../../../../lib/feartures/ui/uiSlice";
 
 const ComprehensiveNavbar = () => {
-  const theme = useTheme();
-  const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobileScreen = useAppSelector(selectIsMobileScreen);
 
   return (
     <Container
       component="div"
       sx={{ ...containerStyles, padding: "8px 0px!important" }}
     >
-      {isSmScreen && (
+      {isMobileScreen && (
         <IconButton sx={MenuButtonStyles}>
           <Menu />
         </IconButton>
       )}
-      <LogoLink size={isSmScreen ? LogoSize.md : LogoSize.lg} />
+      {!isMobileScreen && (
+        <LogoLink size={isMobileScreen ? LogoSize.md : LogoSize.lg} />
+      )}
       <Box sx={searchBarBoxStyles}>
         <SearchResult
           sx={searchResultStyles}
@@ -50,7 +46,7 @@ const ComprehensiveNavbar = () => {
           )}
         />
       </Box>
-      {!isSmScreen && (
+      {!isMobileScreen && (
         <>
           <CustomLink
             href="/auth/login"

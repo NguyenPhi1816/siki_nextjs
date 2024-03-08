@@ -1,20 +1,16 @@
 "use client";
 import SignUpForm from "@/app/components/auth/SignUpForm";
-import { useTheme } from "@mui/material/styles";
+import { Box, Container, Grid, Link, Typography } from "@mui/material";
+import { useAppSelector } from "../../../../lib/hooks";
 import {
-  Box,
-  Container,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+  selectIsMobileScreen,
+  uiState,
+} from "../../../../lib/feartures/ui/uiSlice";
 
 const SignUp = () => {
-  const theme = useTheme();
-  const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   const url = process.env.NEXT_PUBLIC_SIGN_UP_BACKGROUND_IMAGE_URL;
+
+  const isMobileScreen = useAppSelector(selectIsMobileScreen);
 
   return (
     <Container
@@ -26,7 +22,7 @@ const SignUp = () => {
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
-        alignItems: isSmScreen ? "flex-start" : "center",
+        alignItems: isMobileScreen ? "flex-start" : "center",
       }}
     >
       <Box
@@ -41,8 +37,8 @@ const SignUp = () => {
           <Grid item xs={12} sm={6}>
             <Box
               sx={{
-                padding: isSmScreen ? "0" : "20px",
-                backgroundImage: isSmScreen ? "" : `url(${url})`,
+                padding: isMobileScreen ? "0" : "20px",
+                backgroundImage: isMobileScreen ? "" : `url(${url})`,
                 backgroundPosition: "bottom",
                 height: "100%",
                 display: "flex",
@@ -53,7 +49,7 @@ const SignUp = () => {
             >
               <Typography
                 component="h1"
-                variant={isSmScreen ? "h4" : "h2"}
+                variant={isMobileScreen ? "h4" : "h2"}
                 sx={{ fontWeight: 700 }}
               >
                 Sign up
