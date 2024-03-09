@@ -1,5 +1,7 @@
 :root {
+  --black: #000000;
   --white: #ffffff;
+  --grey: #d2d2d2;
   --overlay: rgba(0, 0, 0, 0.3);
   --pink-primary: #f0739d;
   --pink-secondary: #f7a3b7;

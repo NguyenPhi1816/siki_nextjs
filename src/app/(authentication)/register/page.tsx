@@ -1,11 +1,8 @@
 "use client";
-import SignUpForm from "@/app/components/auth/SignUpForm";
+import SignUpForm from "@/components/auth/SignUpForm";
 import { Box, Container, Grid, Link, Typography } from "@mui/material";
 import { useAppSelector } from "../../../../lib/hooks";
-import {
-  selectIsMobileScreen,
-  uiState,
-} from "../../../../lib/feartures/ui/uiSlice";
+import { selectIsMobileScreen } from "../../../../lib/feartures/ui/uiSlice";
 
 const SignUp = () => {
   const url = process.env.NEXT_PUBLIC_SIGN_UP_BACKGROUND_IMAGE_URL;
@@ -60,7 +57,7 @@ const SignUp = () => {
             <SignUpForm />
             <Grid container justifyContent="flex-start">
               <Grid item>
-                <Link href="/auth/login" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

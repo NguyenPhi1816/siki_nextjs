@@ -18,12 +18,16 @@ import {
   MenuButtonStyles,
   searchResultStyles,
 } from "./styles";
-import SearchResult from "@/app/components/search/SearchResult";
-import { useAppSelector } from "../../../../../../lib/hooks";
-import { selectIsMobileScreen } from "../../../../../../lib/feartures/ui/uiSlice";
+import SearchResult from "@/components/search/SearchResult";
+import { useAppSelector } from "../../../../../lib/hooks";
+import { selectIsMobileScreen } from "../../../../../lib/feartures/ui/uiSlice";
+import { createPortal } from "react-dom";
+import CustomDrawer from "@/components/drawer/Drawer";
+import { useState } from "react";
 
 const ComprehensiveNavbar = () => {
   const isMobileScreen = useAppSelector(selectIsMobileScreen);
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   return (
     <Container
@@ -31,10 +35,22 @@ const ComprehensiveNavbar = () => {
       sx={{ ...containerStyles, padding: "8px 0px!important" }}
     >
       {isMobileScreen && (
-        <IconButton sx={MenuButtonStyles}>
+        <IconButton
+          sx={MenuButtonStyles}
+          onClick={() => setOpenDrawer((prev) => !prev)}
+        >
           <Menu />
         </IconButton>
       )}
+      <>
+        {createPortal(
+          <CustomDrawer
+            open={openDrawer}
+            setOpen={() => setOpenDrawer((prev) => !prev)}
+          />,
+          document.body
+        )}
+      </>
       {!isMobileScreen && (
         <LogoLink size={isMobileScreen ? LogoSize.md : LogoSize.lg} />
       )}
@@ -49,7 +65,7 @@ const ComprehensiveNavbar = () => {
       {!isMobileScreen && (
         <>
           <CustomLink
-            href="/auth/login"
+            href="/login"
             color={LinkColor.white}
             noUnderline
             component={LinkComponent.button}

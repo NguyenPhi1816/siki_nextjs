@@ -1,9 +1,9 @@
 "use client";
 import { Autocomplete, Paper } from "@mui/material";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import SearchResultItem from "../SearchResultItem";
-import { useAppSelector } from "../../../../../lib/hooks";
-import { selectIsMobileScreen } from "../../../../../lib/feartures/ui/uiSlice";
+import { useAppSelector } from "../../../../lib/hooks";
+import { selectIsMobileScreen } from "../../../../lib/feartures/ui/uiSlice";
 
 export enum searchTypes {
   SEARCH_KEYWORD,

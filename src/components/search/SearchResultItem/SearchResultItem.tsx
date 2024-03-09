@@ -1,6 +1,6 @@
 import { Clear, Search } from "@mui/icons-material";
 import { Box, IconButton, Link, Typography } from "@mui/material";
-import { button, icon, leftSide, wrapper } from "./styles";
+import { button, icon, leftSide, link, wrapper } from "./styles";
 import { searchTypes } from "../SearchResult/SearchResult";
 import { default as NextLink } from "next/link";
 
@@ -21,6 +21,7 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: number
   ) => {
+    e.stopPropagation();
     e.preventDefault();
     onRemoveItem(id);
   };
@@ -31,7 +32,7 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
         component={NextLink}
         href={`search?q=${option.label}`}
         underline="none"
-        sx={{ width: "100%" }}
+        sx={link}
       >
         <Box component="div" sx={wrapper}>
           <Box component="div" sx={leftSide}>

@@ -1,12 +1,16 @@
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
+const SCREEN_SM = 600;
 
 export interface uiState {
   isMobileScreen: boolean;
 }
 
 const initialState: uiState = {
-  isMobileScreen: false,
+  isMobileScreen: screen.width < SCREEN_SM,
 };
 
 export const uiSlice = createSlice({

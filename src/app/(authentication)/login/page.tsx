@@ -1,4 +1,4 @@
-import SignInForm from "@/app/components/auth/SignInForm";
+import SignInForm from "@/components/auth/SignInForm";
 import { Box, Container, Grid, Link, Typography } from "@mui/material";
 
 const SignIn = () => {
@@ -53,12 +53,12 @@ const SignIn = () => {
           <SignInForm />
           <Grid container justifyContent="space-between" spacing={1}>
             <Grid item>
-              <Link href="/auth/forgot-password" variant="body2">
+              <Link href="/forgot-password" variant="body2">
                 Forgot your password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/auth/register" variant="body2">
+              <Link href="/register" variant="body2">
                 Dont have an account? Sign up
               </Link>
             </Grid>
