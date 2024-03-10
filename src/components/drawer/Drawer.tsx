@@ -60,7 +60,7 @@ const CustomDrawer: React.FC<ICustomDrawer> = ({ open, setOpen }) => {
             </Box>
             <Box>
               <Typography variant="body1" fontSize="13px">
-                User's Name
+                User Name
               </Typography>
               <Typography variant="body1" fontSize="11px">
                 useremail@gmail.com

@@ -79,13 +79,14 @@ const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
   const [top, setTop] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
 
+  const rect = ref?.current?.getBoundingClientRect();
+
   useLayoutEffect(() => {
-    const rect = ref?.current?.getBoundingClientRect();
     if (rect) {
       setTop(rect.top);
       setLeft(rect.left);
     }
-  });
+  }, [rect]);
 
   const removeSearchHistoryItem = (id: number) => {
     setSearchHistory(searchHistory.filter((item) => item.id !== id));
