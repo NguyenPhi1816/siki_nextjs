@@ -4,7 +4,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["i0.wp.com"],
+    remotePatterns: [{ protocol: "https", hostname: "i0.wp.com" }],
   },
 };
 

@@ -42,15 +42,10 @@ const ComprehensiveNavbar = () => {
           <Menu />
         </IconButton>
       )}
-      <>
-        {createPortal(
-          <CustomDrawer
-            open={openDrawer}
-            setOpen={() => setOpenDrawer((prev) => !prev)}
-          />,
-          document.body
-        )}
-      </>
+      <CustomDrawer
+        open={openDrawer}
+        setOpen={() => setOpenDrawer((prev) => !prev)}
+      />
       {!isMobileScreen && (
         <LogoLink size={isMobileScreen ? LogoSize.md : LogoSize.lg} />
       )}

@@ -13,6 +13,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { IconButton, Link, Typography } from "@mui/material";
 import { ChevronRight } from "@mui/icons-material";
 import Image from "next/image";
+import { createPortal } from "react-dom";
 
 interface ICustomDrawer {
   open: boolean;
@@ -102,13 +103,17 @@ const CustomDrawer: React.FC<ICustomDrawer> = ({ open, setOpen }) => {
     </Box>
   );
 
-  return (
-    <div>
-      <Drawer open={open} onClose={toggleDrawer()}>
-        {DrawerList}
-      </Drawer>
-    </div>
+  const content = (
+    <Drawer open={open} onClose={toggleDrawer()}>
+      {DrawerList}
+    </Drawer>
   );
+
+  if (typeof window === "object") {
+    return createPortal(content, document.body);
+  }
+
+  return null;
 };
 
 export default CustomDrawer;
