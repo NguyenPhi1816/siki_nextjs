@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@mui/material";
 import Topbar from "../../components/navbar/TopBar";
-import ComprehensiveNavbar from "../../components/navbar/components/ComprehensiveNavbar/ComprehensiveNavbar";
 
 export const metadata: Metadata = {
   title: "Siki - Home",
@@ -15,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <Container>
-      <Topbar>
-        <ComprehensiveNavbar />
-      </Topbar>
+      <Topbar />
       {children}
     </Container>
   );

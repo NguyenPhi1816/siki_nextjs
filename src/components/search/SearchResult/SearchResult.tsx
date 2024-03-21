@@ -1,9 +1,19 @@
 "use client";
-import { Autocomplete, Paper } from "@mui/material";
+import {
+  Autocomplete,
+  IconButton,
+  Paper,
+  Theme,
+  makeStyles,
+} from "@mui/material";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import SearchResultItem from "../SearchResultItem";
 import { useAppSelector } from "../../../../lib/hooks";
-import { selectIsMobileScreen } from "../../../../lib/feartures/ui/uiSlice";
+import {
+  selectIsMobileScreen,
+  selectIsStatesInitialized,
+} from "../../../../lib/feartures/ui/uiSlice";
+import useStyles from "@/useStyles";
 
 export enum searchTypes {
   SEARCH_KEYWORD,
@@ -72,21 +82,25 @@ interface SearchResultProps {
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
+  const classes = useStyles();
+
   const [searchHistory, setSearchHistory] = useState(_searchHistory);
   const isMobileScreen = useAppSelector(selectIsMobileScreen);
+  const isStatesInitialized: boolean = useAppSelector(
+    selectIsStatesInitialized
+  );
 
   const ref = useRef<HTMLDivElement>();
   const [top, setTop] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
 
-  const rect = ref?.current?.getBoundingClientRect();
-
   useLayoutEffect(() => {
-    if (rect) {
+    const rect = ref?.current?.getBoundingClientRect();
+    if (rect && isStatesInitialized) {
       setTop(rect.top);
       setLeft(rect.left);
     }
-  }, [rect]);
+  }, [isStatesInitialized]);
 
   const removeSearchHistoryItem = (id: number) => {
     setSearchHistory(searchHistory.filter((item) => item.id !== id));
@@ -132,6 +146,9 @@ const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
       )}
       sx={{ ...sx }}
       renderInput={renderInput}
+      classes={{
+        popupIndicator: classes.popupIndicator,
+      }}
     />
   );
 };

@@ -5,15 +5,12 @@ const SCREEN_SM = 600;
 
 export interface uiState {
   isMobileScreen: boolean;
+  isStatesInitialized: boolean;
 }
 
 const initialState: uiState = {
-  isMobileScreen: (() => {
-    if (typeof window !== "undefined") {
-      return window.screen.width < SCREEN_SM;
-    }
-    return false;
-  })(),
+  isMobileScreen: false,
+  isStatesInitialized: false,
 };
 
 export const uiSlice = createSlice({
@@ -22,16 +19,19 @@ export const uiSlice = createSlice({
   reducers: {
     setScreen: (state, action: PayloadAction<boolean>) => {
       state.isMobileScreen = action.payload;
+      state.isStatesInitialized = true;
     },
   },
   selectors: {
     selectIsMobileScreen: (ui) => ui.isMobileScreen,
+    selectIsStatesInitialized: (ui) => ui.isStatesInitialized,
   },
 });
 
 // Action creators are generated for each case reducer function
 export const { setScreen } = uiSlice.actions;
 
-export const { selectIsMobileScreen } = uiSlice.selectors;
+export const { selectIsMobileScreen, selectIsStatesInitialized } =
+  uiSlice.selectors;
 
 export default uiSlice.reducer;
