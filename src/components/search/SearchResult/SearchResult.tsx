@@ -13,7 +13,6 @@ import {
   selectIsMobileScreen,
   selectIsStatesInitialized,
 } from "../../../../lib/feartures/ui/uiSlice";
-import useStyles from "@/useStyles";
 
 export enum searchTypes {
   SEARCH_KEYWORD,
@@ -82,8 +81,6 @@ interface SearchResultProps {
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
-  const classes = useStyles();
-
   const [searchHistory, setSearchHistory] = useState(_searchHistory);
   const isMobileScreen = useAppSelector(selectIsMobileScreen);
   const isStatesInitialized: boolean = useAppSelector(
@@ -144,11 +141,11 @@ const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
           {...props}
         />
       )}
-      sx={{ ...sx }}
-      renderInput={renderInput}
-      classes={{
-        popupIndicator: classes.popupIndicator,
+      sx={{
+        ...sx,
+        "& .MuiAutocomplete-popupIndicator": { color: "var(--white)" },
       }}
+      renderInput={renderInput}
     />
   );
 };
