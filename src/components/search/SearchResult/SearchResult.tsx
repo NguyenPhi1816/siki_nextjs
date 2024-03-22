@@ -123,7 +123,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
             isMobileScreen
               ? {
                   width: "100vw",
-                  height: "calc(100vh - 56px)",
+                  height: "calc(100vh - 3.5rem)",
                   transform: `translate(-${left}px, ${top}px)`,
                   "& ul": {
                     height: "100%!important",

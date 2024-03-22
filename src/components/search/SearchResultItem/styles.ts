@@ -15,4 +15,4 @@ export const leftSide = {
 
 export const icon = { color: "var(--grey)" };
 
-export const button = { width: "36px", height: "36px" };
+export const button = { width: "2.25rem", height: "2.25rem" };

@@ -12,8 +12,8 @@ interface LogoLinkProps {
 }
 
 const LogoLink: React.FC<LogoLinkProps> = ({ size }) => {
-  const logoSizeMd = { width: "50px", height: "21px" };
-  const logoSizeLg = { width: "70px", height: "29px" };
+  const logoSizeMd = { width: "3.125rem", height: "1.3125rem" };
+  const logoSizeLg = { width: "4.375rem", height: "1.8125rem" };
 
   return (
     <Link href="/" underline="none" color="inherit">

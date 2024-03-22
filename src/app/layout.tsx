@@ -5,6 +5,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import { CssBaseline } from "@mui/material";
 import "./global.css";
+import "swiper/css";
+import "swiper/css/bundle";
 import StoreProvider from "../components/redux/StoreProvider";
 import UIControl from "@/components/redux/UIControl";
 

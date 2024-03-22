@@ -36,7 +36,7 @@ const DrawerList = () => {
           <Link underline="none" sx={{ width: "100%", color: "var(--white)" }}>
             <Box
               sx={{
-                padding: "8px 16px",
+                padding: "0.5rem 1rem",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -44,8 +44,8 @@ const DrawerList = () => {
             >
               <Box
                 sx={{
-                  width: "40px",
-                  height: "40px",
+                  width: "2.5rem",
+                  height: "2.5rem",
                   borderRadius: 10,
                   overflow: "hidden",
                 }}
@@ -60,10 +60,10 @@ const DrawerList = () => {
                 )}
               </Box>
               <Box>
-                <Typography variant="body1" fontSize="13px">
+                <Typography variant="body1" fontSize="0.8125rem">
                   User Name
                 </Typography>
-                <Typography variant="body1" fontSize="11px">
+                <Typography variant="body1" fontSize="0.6875rem">
                   useremail@gmail.com
                 </Typography>
               </Box>

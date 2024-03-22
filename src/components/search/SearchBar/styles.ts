@@ -1,7 +1,7 @@
 export const containerStyles = {
   position: "relative",
-  margin: "0px!important",
-  padding: "0px!important",
+  margin: "0!important",
+  padding: "0!important",
   display: "flex",
   borderRadius: 1,
 };
@@ -12,7 +12,7 @@ export const textFieldStyles = {
     border: "none",
   },
   "& div": {
-    paddingRight: "40px",
+    paddingRight: "2.5rem",
   },
   "& input": {
     width: "100%",

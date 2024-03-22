@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@mui/material";
 import Topbar from "../../components/navbar/TopBar";
+import { Box } from "@mui/system";
 
 export const metadata: Metadata = {
   title: "Siki - Home",
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <Container>
       <Topbar />
-      {children}
+      <Box sx={{ mt: "4rem" }}>{children}</Box>
     </Container>
   );
 }

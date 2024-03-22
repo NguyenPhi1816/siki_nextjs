@@ -21,9 +21,8 @@ interface ICustomLink {
 }
 
 const ButtonLink = styled(Link)({
-  padding: "8px!important",
+  padding: "0.5rem!important",
   backgroundColor: "transparent",
-  // borderRadius: "4px",
   textDecoration: "none",
   ":hover": {
     backgroundColor: "var(--pink-secondary)",
@@ -59,7 +58,7 @@ const CustomLink: React.FC<ICustomLink> = ({
     ComponentProps.underline = "none";
   }
   if (component === LinkComponent.button) {
-    ComponentProps.borderRadius = "4px";
+    ComponentProps.borderRadius = "0.25rem";
   } else if (component === LinkComponent.roundedButton) {
     ComponentProps.borderRadius = "5rem";
   }

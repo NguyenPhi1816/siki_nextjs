@@ -22,7 +22,7 @@ const LargeScreenNavbar = () => {
   return (
     <Container
       component="div"
-      sx={{ ...containerStyles, padding: "8px 0px!important" }}
+      sx={{ ...containerStyles, padding: "0.5rem 0!important" }}
     >
       <LogoLink size={LogoSize.lg} />
       <Box sx={searchBarBoxStyles}>
@@ -34,20 +34,6 @@ const LargeScreenNavbar = () => {
         />
       </Box>
       <CustomLink
-        href="/login"
-        color={LinkColor.white}
-        noUnderline
-        component={LinkComponent.button}
-        sx={CustomLinkStyles}
-      >
-        <Box sx={CustomLinkBoxStyles}>
-          <AccountCircle />
-          <Typography variant="body1" sx={CustomLinkBoxTypoStyles}>
-            Account
-          </Typography>
-        </Box>
-      </CustomLink>
-      <CustomLink
         href="/cart"
         color={LinkColor.white}
         noUnderline
@@ -55,6 +41,15 @@ const LargeScreenNavbar = () => {
         sx={CustomLinkStyles}
       >
         <CartButton />
+      </CustomLink>
+      <CustomLink
+        href="/login"
+        color={LinkColor.white}
+        noUnderline
+        component={LinkComponent.roundedButton}
+        sx={CustomLinkStyles}
+      >
+        <AccountCircle />
       </CustomLink>
     </Container>
   );

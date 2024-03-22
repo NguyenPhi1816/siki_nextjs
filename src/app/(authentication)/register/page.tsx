@@ -24,7 +24,7 @@ const SignUp = () => {
     >
       <Box
         sx={{
-          padding: "20px",
+          padding: "1.25rem",
           height: "fit-content",
           borderRadius: 1,
           boxShadow: 3,
@@ -34,7 +34,7 @@ const SignUp = () => {
           <Grid item xs={12} sm={6}>
             <Box
               sx={{
-                padding: isMobileScreen ? "0" : "20px",
+                padding: isMobileScreen ? "0" : "1.25rem",
                 backgroundImage: isMobileScreen ? "" : `url(${url})`,
                 backgroundPosition: "bottom",
                 height: "100%",

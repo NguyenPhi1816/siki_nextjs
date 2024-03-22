@@ -24,7 +24,7 @@ const MobileScreenNavbar = () => {
   return (
     <Container
       component="div"
-      sx={{ ...containerStyles, padding: "8px 0px!important" }}
+      sx={{ ...containerStyles, padding: "0.5rem 0!important" }}
     >
       <IconButton
         sx={MenuButtonStyles}

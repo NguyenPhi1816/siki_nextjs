@@ -5,7 +5,7 @@ const CartButton = () => {
   return (
     <Box
       component="div"
-      sx={{ width: "24px", height: "24px", position: "relative" }}
+      sx={{ width: "1.5rem", height: "1.5rem", position: "relative" }}
     >
       <ShoppingCart />
       <Typography
