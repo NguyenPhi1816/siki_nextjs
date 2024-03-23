@@ -14,3 +14,19 @@ body {
   background-color: var(--main-grey) !important;
   overflow: hidden;
 }
+
+/* swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 2rem !important;
+  height: 2rem !important;
+  background-color: var(--white);
+  border-radius: 100%;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 0.75rem !important;
+  font-weight: 700;
+  color: var(--pink-primary);
+}

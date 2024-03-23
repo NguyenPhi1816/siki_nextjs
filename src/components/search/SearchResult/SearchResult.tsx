@@ -144,6 +144,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
       sx={{
         ...sx,
         "& .MuiAutocomplete-popupIndicator": { color: "var(--white)" },
+        "& .MuiAutocomplete-clearIndicator": { color: "var(--white)" },
       }}
       renderInput={renderInput}
     />

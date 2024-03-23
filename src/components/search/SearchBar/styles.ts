@@ -15,6 +15,7 @@ export const textFieldStyles = {
     paddingRight: "2.5rem",
   },
   "& input": {
+    paddingRight: "38px!important",
     width: "100%",
     color: "var(--white)",
 
