@@ -1,5 +1,5 @@
 :root {
-  --main-background: #efefef;
+  --main-grey: #efefef;
   --black: #000000;
   --white: #ffffff;
   --grey: #d2d2d2;
@@ -11,5 +11,6 @@
 body {
   width: 100vw;
   height: 100vh;
-  background-color: var(--main-background) !important;
+  background-color: var(--main-grey) !important;
+  overflow: hidden;
 }

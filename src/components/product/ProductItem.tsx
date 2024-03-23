@@ -11,7 +11,13 @@ const ProductItem = () => {
   const url = process.env.NEXT_PUBLIC_SIGN_IN_BACKGROUND_IMAGE_URL;
 
   return (
-    <Card>
+    <Card
+      sx={{
+        margin: "0.125rem 0",
+        boxShadow: "0",
+        border: "1px solid var(--main-grey)",
+      }}
+    >
       <CardMedia sx={{ paddingTop: "80%" }} image={url} title={"Hello world"} />
       <CardContent>
         <Typography variant="h3" fontSize="0.75rem">

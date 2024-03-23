@@ -5,7 +5,7 @@ import { Box, Container, Tab, Tabs } from "@mui/material";
 export default function Home() {
   return (
     <main>
-      <Container>
+      <Container sx={{ p: 0 }}>
         <ProductSwiper />
       </Container>
     </main>
