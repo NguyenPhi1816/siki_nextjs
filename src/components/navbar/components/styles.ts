@@ -19,7 +19,6 @@ export const searchBarBoxStyles = {
 };
 
 export const searchResultStyles = {
-  margin: "0 1.875rem",
   width: "100%",
   maxWidth: "37.5rem!important",
 };

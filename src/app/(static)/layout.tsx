@@ -14,9 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container>
+    <>
       <Topbar />
       <Box sx={{ mt: "4rem" }}>{children}</Box>
-    </Container>
+    </>
   );
 }

@@ -10,7 +10,7 @@ import {
 } from "../../../lib/feartures/ui/uiSlice";
 
 const ProductSwiper = () => {
-  const MOBILE_SLIDE_PER_VIEW = 3;
+  const MOBILE_SLIDE_PER_VIEW = 2;
   const DESKTOP_SLIDE_PER_VIEW = 6;
 
   const MOBILE_SLIDE_PER_GROUP = 1;
