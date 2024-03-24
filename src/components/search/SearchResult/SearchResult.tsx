@@ -3,6 +3,7 @@ import {
   Autocomplete,
   IconButton,
   Paper,
+  SxProps,
   Theme,
   makeStyles,
 } from "@mui/material";
@@ -76,7 +77,7 @@ const _searchHistory = [
 ];
 
 interface SearchResultProps {
-  sx?: any;
+  sx?: SxProps;
   renderInput: (params: any) => React.ReactNode;
 }
 

@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <>
       <Topbar />
-      <Box sx={{ mt: "4rem" }}>{children}</Box>
+      <main className="main">{children}</main>
     </>
   );
 }

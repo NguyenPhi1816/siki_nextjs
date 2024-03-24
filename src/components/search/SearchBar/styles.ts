@@ -1,11 +1,3 @@
-export const containerStyles = {
-  position: "relative",
-  margin: "0!important",
-  padding: "0!important",
-  display: "flex",
-  borderRadius: 1,
-};
-
 export const textFieldStyles = {
   width: "100%",
   "& fieldset": {

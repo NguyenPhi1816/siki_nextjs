@@ -6,6 +6,7 @@
   --overlay: rgba(0, 0, 0, 0.3);
   --pink-primary: #f0739d;
   --pink-secondary: #f7a3b7;
+  --pink-secondary-opacity-20: rgba(247, 163, 183, 0.2);
 }
 
 body {
@@ -13,6 +14,30 @@ body {
   height: 100vh;
   background-color: var(--main-grey) !important;
   overflow: hidden;
+}
+
+.main {
+  height: calc(100vh - 3.5rem);
+  margin-top: 3.5rem;
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* scrollbar */
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 /* swiper */
