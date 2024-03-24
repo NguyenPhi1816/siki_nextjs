@@ -32,7 +32,7 @@ export default function Home() {
       };
       fetchData();
     }, 3000);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (product.length !== 0) {
@@ -55,7 +55,7 @@ export default function Home() {
       };
       fetchData();
     }
-  }, [product]);
+  }, [product, dispatch]);
 
   return (
     <Container sx={{ p: 0 }}>

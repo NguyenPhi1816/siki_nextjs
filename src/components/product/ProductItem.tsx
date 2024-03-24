@@ -28,7 +28,18 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
           title={data.name}
         />
         <CardContent>
-          <Typography variant="h3" fontSize="0.75rem">
+          <Typography
+            variant="h3"
+            fontSize="0.75rem"
+            sx={{
+              minHeight: "1.75rem",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
             {data.name}
           </Typography>
 

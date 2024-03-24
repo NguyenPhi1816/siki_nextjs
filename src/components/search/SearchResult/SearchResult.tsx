@@ -11,7 +11,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import SearchResultItem from "../SearchResultItem";
 import { useAppSelector } from "../../../../lib/hooks";
 import {
-  selectIsMobileScreen,
+  selectIsMobile,
   selectIsStatesInitialized,
 } from "../../../../lib/feartures/ui/uiSlice";
 
@@ -83,7 +83,7 @@ interface SearchResultProps {
 
 const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
   const [searchHistory, setSearchHistory] = useState(_searchHistory);
-  const isMobileScreen = useAppSelector(selectIsMobileScreen);
+  const isMobile = useAppSelector(selectIsMobile);
   const isStatesInitialized: boolean = useAppSelector(
     selectIsStatesInitialized
   );
@@ -121,7 +121,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ sx, renderInput }) => {
       PaperComponent={(props) => (
         <Paper
           sx={
-            isMobileScreen
+            isMobile
               ? {
                   width: "100vw",
                   height: "calc(100vh - 3.5rem)",

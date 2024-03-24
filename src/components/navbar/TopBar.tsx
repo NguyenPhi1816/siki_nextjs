@@ -3,7 +3,7 @@ import { AppBar, Toolbar } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../../lib/hooks";
 import {
-  selectIsMobileScreen,
+  selectIsMobile,
   selectIsStatesInitialized,
 } from "../../../lib/feartures/ui/uiSlice";
 import MobileScreenNavbar from "./components/MobileScreenNavbar";
@@ -15,7 +15,7 @@ interface ITopbar {
 }
 
 const Topbar: React.FC<ITopbar> = ({ onlyLogo = false }) => {
-  const isMobileScreen: boolean = useAppSelector(selectIsMobileScreen);
+  const isMobile: boolean = useAppSelector(selectIsMobile);
   const isStatesInitialized: boolean = useAppSelector(
     selectIsStatesInitialized
   );
@@ -25,7 +25,7 @@ const Topbar: React.FC<ITopbar> = ({ onlyLogo = false }) => {
         <Toolbar variant="dense">
           {onlyLogo ? (
             <LogoLinkNavbar />
-          ) : isMobileScreen ? (
+          ) : isMobile ? (
             <MobileScreenNavbar />
           ) : (
             <LargeScreenNavbar />

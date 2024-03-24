@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-const SCREEN_SM = 600;
-
 export interface uiState {
-  isMobileScreen: boolean;
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktop: boolean;
   isStatesInitialized: boolean;
 }
 
 const initialState: uiState = {
-  isMobileScreen: false,
+  isMobile: false,
+  isTablet: false,
+  isDesktop: false,
   isStatesInitialized: false,
 };
 
@@ -17,21 +19,36 @@ export const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    setScreen: (state, action: PayloadAction<boolean>) => {
-      state.isMobileScreen = action.payload;
-      state.isStatesInitialized = true;
+    setMobile: (state, action: PayloadAction<boolean>) => {
+      state.isMobile = action.payload;
+    },
+    setTablet: (state, action: PayloadAction<boolean>) => {
+      state.isTablet = action.payload;
+    },
+    setDesktop: (state, action: PayloadAction<boolean>) => {
+      state.isDesktop = action.payload;
+    },
+    setStatesInitialized: (state, action: PayloadAction<boolean>) => {
+      state.isStatesInitialized = action.payload;
     },
   },
   selectors: {
-    selectIsMobileScreen: (ui) => ui.isMobileScreen,
+    selectIsMobile: (ui) => ui.isMobile,
+    selectIsTablet: (ui) => ui.isTablet,
+    selectIsDesktop: (ui) => ui.isDesktop,
     selectIsStatesInitialized: (ui) => ui.isStatesInitialized,
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setScreen } = uiSlice.actions;
+export const { setMobile, setTablet, setDesktop, setStatesInitialized } =
+  uiSlice.actions;
 
-export const { selectIsMobileScreen, selectIsStatesInitialized } =
-  uiSlice.selectors;
+export const {
+  selectIsMobile,
+  selectIsDesktop,
+  selectIsTablet,
+  selectIsStatesInitialized,
+} = uiSlice.selectors;
 
 export default uiSlice.reducer;

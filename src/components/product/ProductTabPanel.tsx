@@ -135,6 +135,7 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx }) => {
           <Tabs
             value={value}
             onChange={handleChange}
+            variant="scrollable"
             aria-label="basic tabs example"
             sx={{
               "& .Mui-selected": {

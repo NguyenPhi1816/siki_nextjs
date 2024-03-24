@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ProductItem from "./ProductItem";
 import { useAppSelector } from "../../../lib/hooks";
 import {
-  selectIsMobileScreen,
+  selectIsMobile,
   selectIsStatesInitialized,
+  selectIsTablet,
 } from "../../../lib/feartures/ui/uiSlice";
 import { IProduct } from "./products";
 import React from "react";
@@ -20,13 +21,28 @@ interface IProductSwiper {
 
 const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
   const MOBILE_SLIDE_PER_VIEW = 2;
+  const TABLET_SLIDE_PER_VIEW = 4;
   const DESKTOP_SLIDE_PER_VIEW = 6;
 
   const MOBILE_SLIDE_PER_GROUP = 1;
+  const TABLET_SLIDE_PER_GROUP = 4;
   const DESKTOP_SLIDE_PER_GROUP = 6;
 
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
-  const isMobile = useAppSelector(selectIsMobileScreen);
+  const isMobile = useAppSelector(selectIsMobile);
+  const isTablet = useAppSelector(selectIsTablet);
+
+  const getSlidesPerGroup = () => {
+    if (isMobile) return MOBILE_SLIDE_PER_GROUP;
+    if (isTablet) return TABLET_SLIDE_PER_GROUP;
+    return DESKTOP_SLIDE_PER_GROUP;
+  };
+
+  const getSlidesPerView = () => {
+    if (isMobile) return MOBILE_SLIDE_PER_VIEW;
+    if (isTablet) return TABLET_SLIDE_PER_VIEW;
+    return DESKTOP_SLIDE_PER_VIEW;
+  };
 
   return (
     isAppLoaded && (
@@ -36,12 +52,8 @@ const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
         </Typography>
         <Box marginTop={2}>
           <Swiper
-            slidesPerGroup={
-              isMobile ? MOBILE_SLIDE_PER_GROUP : DESKTOP_SLIDE_PER_GROUP
-            }
-            slidesPerView={
-              isMobile ? MOBILE_SLIDE_PER_VIEW : DESKTOP_SLIDE_PER_VIEW
-            }
+            slidesPerGroup={getSlidesPerGroup()}
+            slidesPerView={getSlidesPerView()}
             spaceBetween={10}
             navigation={!isMobile}
             modules={[Navigation]}
@@ -56,17 +68,13 @@ const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
                 );
               })}
             {data.length === 0 &&
-              new Array(
-                isMobile ? MOBILE_SLIDE_PER_VIEW : DESKTOP_SLIDE_PER_VIEW
-              )
-                .fill(0)
-                .map((item, i) => {
-                  return (
-                    <SwiperSlide key={i}>
-                      <ProductItemSkeleton />
-                    </SwiperSlide>
-                  );
-                })}
+              new Array(getSlidesPerView()).fill(0).map((item, i) => {
+                return (
+                  <SwiperSlide key={i}>
+                    <ProductItemSkeleton />
+                  </SwiperSlide>
+                );
+              })}
           </Swiper>
         </Box>
       </Box>
