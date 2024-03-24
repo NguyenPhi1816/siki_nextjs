@@ -129,7 +129,7 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx }) => {
           variant={"h4"}
           sx={{ marginBottom: 1, fontSize: "1.125rem", fontWeight: "700" }}
         >
-          Today's recommendations
+          Today recommendations
         </Typography>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs

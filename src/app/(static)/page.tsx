@@ -24,30 +24,36 @@ export default function Home() {
 
   useEffect(() => {
     setTimeout(() => {
-      _setProduct(PRODUCTS);
-      dispatch(setProduct(PRODUCTS));
+      const fetchData = () => {
+        _setProduct(PRODUCTS);
+        dispatch(setProduct(PRODUCTS));
 
-      dispatch(setProductLabel(TAB_LABEL));
+        dispatch(setProductLabel(TAB_LABEL));
+      };
+      fetchData();
     }, 3000);
   }, []);
 
   useEffect(() => {
     if (product.length !== 0) {
-      const apple = product.filter((item) => item.storeName === "Apple");
-      _setAppleCategory(apple);
-      dispatch(setAppleCategory(apple));
+      const fetchData = () => {
+        const apple = product.filter((item) => item.storeName === "Apple");
+        _setAppleCategory(apple);
+        dispatch(setAppleCategory(apple));
 
-      const samsung = product.filter((item) => item.storeName === "Samsung");
-      _setSamSungCategory(samsung);
-      dispatch(setSamsungCategory(samsung));
+        const samsung = product.filter((item) => item.storeName === "Samsung");
+        _setSamSungCategory(samsung);
+        dispatch(setSamsungCategory(samsung));
 
-      const xiaomi = product.filter((item) => item.storeName === "Xiaomi");
-      _setXiaomiCategory(xiaomi);
-      dispatch(setXiaomiCategory(xiaomi));
+        const xiaomi = product.filter((item) => item.storeName === "Xiaomi");
+        _setXiaomiCategory(xiaomi);
+        dispatch(setXiaomiCategory(xiaomi));
 
-      const oppo = product.filter((item) => item.storeName === "OPPO");
-      _setOppoCategory(oppo);
-      dispatch(setOppoCategory(oppo));
+        const oppo = product.filter((item) => item.storeName === "OPPO");
+        _setOppoCategory(oppo);
+        dispatch(setOppoCategory(oppo));
+      };
+      fetchData();
     }
   }, [product]);
 
