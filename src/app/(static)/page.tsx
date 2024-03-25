@@ -4,7 +4,7 @@ import ProductTabPanel from "@/components/product/ProductTabPanel";
 import { IProduct, PRODUCTS, TAB_LABEL } from "@/components/product/products";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
 import {
   setAppleCategory,
   setOppoCategory,
@@ -14,8 +14,11 @@ import {
   setXiaomiCategory,
 } from "../../../lib/feartures/product/productSlice";
 import Sidebar from "@/components/sidebar/Sidebar";
+import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 
 export default function Home() {
+  const isMobile = useAppSelector(selectIsMobile);
+
   const dispatch = useAppDispatch();
   const [product, _setProduct] = useState<IProduct[]>([]);
   const [appleCategory, _setAppleCategory] = useState<IProduct[]>([]);
@@ -67,23 +70,25 @@ export default function Home() {
         overflow: "hidden",
       }}
     >
+      {!isMobile && (
+        <Box
+          sx={{
+            marginRight: "1rem",
+            width: "14.375rem",
+            height: "100%",
+            overflowY: "scroll",
+            msOverflowStyle: "none",
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
+          <Sidebar />
+        </Box>
+      )}
       <Box
         sx={{
-          marginRight: "1rem",
-          width: "14.375rem",
-          height: "100%",
-          overflowY: "scroll",
-          msOverflowStyle: "none",
-          "::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        <Sidebar />
-      </Box>
-      <Box
-        sx={{
-          width: "calc(100% - 14.375rem - 1rem)",
+          width: !isMobile ? "calc(100% - 14.375rem - 1rem)" : "100%",
           height: "100%",
           overflowY: "scroll",
         }}
