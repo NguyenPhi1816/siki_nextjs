@@ -8,6 +8,7 @@ const nextConfig = {
       { protocol: "https", hostname: "i0.wp.com" },
       { protocol: "https", hostname: "salt.tikicdn.com" },
       { protocol: "https", hostname: "upload.wikimedia.org" },
+      { protocol: "https", hostname: "cdn.tgdd.vn" },
     ],
   },
 };

@@ -2,7 +2,7 @@
 import ProductSwiper from "@/components/product/ProductSwiper";
 import ProductTabPanel from "@/components/product/ProductTabPanel";
 import { IProduct, PRODUCTS, TAB_LABEL } from "@/components/product/products";
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../lib/hooks";
 import {
@@ -13,6 +13,7 @@ import {
   setSamsungCategory,
   setXiaomiCategory,
 } from "../../../lib/feartures/product/productSlice";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -58,24 +59,53 @@ export default function Home() {
   }, [product, dispatch]);
 
   return (
-    <Container sx={{ p: 0 }}>
-      <ProductSwiper title="Apple products" data={appleCategory} />
-      <ProductSwiper
-        title="Samsung products"
-        data={samsungCategory}
-        sx={{ marginTop: 2 }}
-      />
-      <ProductSwiper
-        title="Xiaomi products"
-        data={xiaomiCategory}
-        sx={{ marginTop: 2 }}
-      />
-      <ProductSwiper
-        title="OPPO products"
-        data={oppoCategory}
-        sx={{ marginTop: 2 }}
-      />
-      <ProductTabPanel sx={{ marginTop: 2 }} />
-    </Container>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        overflow: "hidden",
+      }}
+    >
+      <Box
+        sx={{
+          marginRight: "1rem",
+          width: "14.375rem",
+          height: "100%",
+          overflowY: "scroll",
+          msOverflowStyle: "none",
+          "::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
+        <Sidebar />
+      </Box>
+      <Box
+        sx={{
+          width: "calc(100% - 14.375rem - 1rem)",
+          height: "100%",
+          overflowY: "scroll",
+        }}
+      >
+        <ProductSwiper title="Apple products" data={appleCategory} />
+        <ProductSwiper
+          title="Samsung products"
+          data={samsungCategory}
+          sx={{ marginTop: 2 }}
+        />
+        <ProductSwiper
+          title="Xiaomi products"
+          data={xiaomiCategory}
+          sx={{ marginTop: 2 }}
+        />
+        <ProductSwiper
+          title="OPPO products"
+          data={oppoCategory}
+          sx={{ marginTop: 2 }}
+        />
+        <ProductTabPanel sx={{ marginTop: 2 }} />
+      </Box>
+    </Box>
   );
 }

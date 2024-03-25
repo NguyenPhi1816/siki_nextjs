@@ -16,7 +16,14 @@ export default function RootLayout({
   return (
     <>
       <Topbar />
-      <main className="main">{children}</main>
+      <main className="main">
+        <Container
+          sx={{ p: 0, height: "100%", overflowY: "scroll" }}
+          maxWidth="lg"
+        >
+          {children}
+        </Container>
+      </main>
     </>
   );
 }

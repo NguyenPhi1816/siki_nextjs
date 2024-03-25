@@ -1,9 +1,10 @@
-import { Link, styled } from "@mui/material";
+import { Link, SxProps, styled } from "@mui/material";
 import React from "react";
 
 export enum LinkColor {
   primaryPink = "var(--pink-primary)",
   white = "var(--white)",
+  black = "var(--black)",
 }
 
 export enum LinkComponent {
@@ -17,7 +18,8 @@ interface ICustomLink {
   component?: LinkComponent;
   noUnderline?: boolean;
   children: React.ReactNode;
-  sx?: {};
+  sx?: SxProps;
+  hoverBgColor?: string;
 }
 
 const ButtonLink = styled(Link)({
@@ -39,6 +41,7 @@ const CustomLink: React.FC<ICustomLink> = ({
   noUnderline,
   color,
   sx,
+  hoverBgColor = "",
 }) => {
   let Component: any = Link;
   if (
@@ -50,7 +53,17 @@ const CustomLink: React.FC<ICustomLink> = ({
 
   const ComponentProps: Record<string, any> = {};
   ComponentProps.href = href;
+
+  if (hoverBgColor.trim().length !== 0) {
+    sx = {
+      ...sx,
+      ":hover": {
+        backgroundColor: hoverBgColor,
+      },
+    };
+  }
   ComponentProps.sx = { ...sx };
+
   if (color) {
     ComponentProps.sx = { ...ComponentProps.sx, color: color };
   }

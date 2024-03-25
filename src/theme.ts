@@ -34,6 +34,17 @@ const theme = createTheme({
   palette: {
     primary: createColor("#F0739D"),
   },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          "&.MuiContainer-maxWidthLg": {
+            maxWidth: "1440px",
+          },
+        },
+      },
+    },
+  },
 });
 
 export default theme;
