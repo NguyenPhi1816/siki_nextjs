@@ -3,6 +3,7 @@
   --black: #000000;
   --white: #ffffff;
   --grey: #d2d2d2;
+  --text-grey: #808089;
   --overlay: rgba(0, 0, 0, 0.3);
   --pink-primary: #f0739d;
   --pink-secondary: #f7a3b7;
@@ -20,8 +21,7 @@ body {
   height: calc(100vh - 3.5rem);
   margin-top: 3.5rem;
   padding-top: 0.5rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
 /* scrollbar */

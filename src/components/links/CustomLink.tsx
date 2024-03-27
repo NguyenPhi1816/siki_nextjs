@@ -5,6 +5,7 @@ export enum LinkColor {
   primaryPink = "var(--pink-primary)",
   white = "var(--white)",
   black = "var(--black)",
+  grey = "var(--text-grey)",
 }
 
 export enum LinkComponent {
@@ -15,6 +16,7 @@ export enum LinkComponent {
 interface ICustomLink {
   href: string;
   color?: LinkColor;
+  fontSize?: string;
   component?: LinkComponent;
   noUnderline?: boolean;
   children: React.ReactNode;
@@ -40,6 +42,7 @@ const CustomLink: React.FC<ICustomLink> = ({
   component,
   noUnderline,
   color,
+  fontSize,
   sx,
   hoverBgColor = "",
 }) => {
@@ -74,6 +77,9 @@ const CustomLink: React.FC<ICustomLink> = ({
     ComponentProps.borderRadius = "0.25rem";
   } else if (component === LinkComponent.roundedButton) {
     ComponentProps.borderRadius = "5rem";
+  }
+  if (fontSize?.length !== 0) {
+    ComponentProps.fontSize = fontSize;
   }
 
   return <Component {...ComponentProps}>{children}</Component>;

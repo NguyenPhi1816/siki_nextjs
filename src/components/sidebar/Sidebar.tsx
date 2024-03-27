@@ -11,13 +11,13 @@ const Sidebar = () => {
   return (
     isStatesInitialized && (
       <Box sx={{ bgcolor: "var(--white)", borderRadius: 1 }}>
-        <List>
-          <ListItem>
+        <List sx={{ padding: "1rem 0.5rem" }}>
+          <ListItem sx={{ padding: 0, paddingLeft: "0.5rem" }}>
             <Typography fontWeight={700}>Categories</Typography>
           </ListItem>
           {new Array(20).fill(0).map((item, i) => {
             return (
-              <ListItem key={i}>
+              <ListItem key={i} disablePadding>
                 <CustomLink
                   sx={{ width: "100%" }}
                   href="/"

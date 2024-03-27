@@ -13,3 +13,8 @@ export interface IProductLabel {
   imageUrl: string;
   storeName: string;
 }
+
+export interface ICategory {
+  parent: string;
+  children: string[];
+}

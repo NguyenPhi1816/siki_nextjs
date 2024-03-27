@@ -15,6 +15,7 @@ import {
 } from "../../../lib/feartures/product/productSlice";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
+import Footer from "@/components/footer/Footer";
 
 export default function Home() {
   const isMobile = useAppSelector(selectIsMobile);
@@ -110,6 +111,7 @@ export default function Home() {
           sx={{ marginTop: 2 }}
         />
         <ProductTabPanel sx={{ marginTop: 2 }} />
+        {!isMobile && <Footer />}
       </Box>
     </Box>
   );
