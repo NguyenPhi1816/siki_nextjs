@@ -18,7 +18,7 @@ import {
   selectSamsungCategory,
   selectXiaomiCategory,
 } from "../../../lib/feartures/product/productSlice";
-import { Grid, Skeleton } from "@mui/material";
+import { Button, Grid, Skeleton } from "@mui/material";
 import ProductItemSkeleton from "./ProductItemSkeleton";
 import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
 
@@ -112,7 +112,6 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx }) => {
     { storeName: "OPPO", product: useAppSelector(selectOppoCategory) },
   ];
 
-  const url = process.env.NEXT_PUBLIC_NO_USER_IMAGE;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -163,19 +162,31 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx }) => {
           </Tabs>
         </Box>
         {productLabel.length !== 0 ? (
-          productLabel.map((item) => {
-            const dataItem = data.find((i) => i.storeName === item.storeName);
-            if (dataItem) {
-              return (
-                <CustomTabPanel
-                  key={item.id}
-                  value={value}
-                  index={item.id}
-                  data={dataItem.product}
-                />
-              );
-            }
-          })
+          <>
+            {productLabel.map((item) => {
+              const dataItem = data.find((i) => i.storeName === item.storeName);
+              if (dataItem) {
+                return (
+                  <CustomTabPanel
+                    key={item.id}
+                    value={value}
+                    index={item.id}
+                    data={dataItem.product}
+                  />
+                );
+              }
+            })}
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button variant="outlined">Xem thêm</Button>
+            </Box>
+          </>
         ) : (
           <Grid
             container

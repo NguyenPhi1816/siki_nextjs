@@ -8,6 +8,9 @@
   --pink-primary: #f0739d;
   --pink-secondary: #f7a3b7;
   --pink-secondary-opacity-20: rgba(247, 163, 183, 0.2);
+
+  --top-bar-height: 3.5rem;
+  --bottom-bar-height: 3.5rem;
 }
 
 body {
@@ -18,10 +21,15 @@ body {
 }
 
 .main {
-  height: calc(100vh - 3.5rem);
-  margin-top: 3.5rem;
-  padding-top: 0.5rem;
+  height: 100vh;
+  padding-top: var(--top-bar-height);
   overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding-bottom: var(--top-bar-height);
+  }
 }
 
 /* scrollbar */

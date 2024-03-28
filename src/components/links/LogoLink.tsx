@@ -5,15 +5,28 @@ import React from "react";
 export enum LogoSize {
   md,
   lg,
+  xl,
+}
+
+export enum LogoColor {
+  pink,
+  white,
 }
 
 interface LogoLinkProps {
   size?: LogoSize;
+  color?: LogoColor;
 }
 
-const LogoLink: React.FC<LogoLinkProps> = ({ size }) => {
+const LogoLink: React.FC<LogoLinkProps> = ({
+  size,
+  color = LogoColor.white,
+}) => {
   const logoSizeMd = { width: "3.125rem", height: "1.3125rem" };
   const logoSizeLg = { width: "4.375rem", height: "1.8125rem" };
+  const logoSizeXl = { width: "8.375rem", height: "3.4696rem" };
+
+  const logoSrc = color === LogoColor.white ? "/logo.png" : "/logo_pink.png";
 
   return (
     <Link href="/" underline="none" color="inherit">
@@ -23,8 +36,14 @@ const LogoLink: React.FC<LogoLinkProps> = ({ size }) => {
       >
         <Image
           priority
-          style={size === LogoSize.md ? logoSizeMd : logoSizeLg}
-          src="/logo.png"
+          style={
+            size === LogoSize.md
+              ? logoSizeMd
+              : size === LogoSize.lg
+              ? logoSizeLg
+              : logoSizeXl
+          }
+          src={logoSrc}
           alt="logo"
           width={279}
           height={116}

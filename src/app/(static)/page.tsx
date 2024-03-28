@@ -16,6 +16,8 @@ import {
 import Sidebar from "@/components/sidebar/Sidebar";
 import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 import Footer from "@/components/footer/Footer";
+import { setCategory } from "../../../lib/feartures/category/categorySlice";
+import categoriesData from "@/components/footer/categoryData";
 
 export default function Home() {
   const isMobile = useAppSelector(selectIsMobile);
@@ -34,6 +36,7 @@ export default function Home() {
         dispatch(setProduct(PRODUCTS));
 
         dispatch(setProductLabel(TAB_LABEL));
+        dispatch(setCategory(categoriesData));
       };
       fetchData();
     }, 3000);

@@ -19,6 +19,7 @@ interface ICustomLink {
   fontSize?: string;
   component?: LinkComponent;
   noUnderline?: boolean;
+  hoverUnderline?: boolean;
   children: React.ReactNode;
   sx?: SxProps;
   hoverBgColor?: string;
@@ -41,6 +42,7 @@ const CustomLink: React.FC<ICustomLink> = ({
   children,
   component,
   noUnderline,
+  hoverUnderline,
   color,
   fontSize,
   sx,
@@ -72,6 +74,14 @@ const CustomLink: React.FC<ICustomLink> = ({
   }
   if (noUnderline) {
     ComponentProps.underline = "none";
+  }
+  if (hoverUnderline) {
+    ComponentProps.sx = {
+      ...ComponentProps.sx,
+      ":hover": {
+        textDecoration: "underline",
+      },
+    };
   }
   if (component === LinkComponent.button) {
     ComponentProps.borderRadius = "0.25rem";

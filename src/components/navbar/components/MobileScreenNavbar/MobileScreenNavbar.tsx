@@ -17,6 +17,7 @@ import {
 import SearchResult from "@/components/search/SearchResult";
 import CustomDrawer from "@/components/drawer/Drawer";
 import { useState } from "react";
+import LogoLink, { LogoSize } from "@/components/links/LogoLink";
 
 const MobileScreenNavbar = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
@@ -26,16 +27,7 @@ const MobileScreenNavbar = () => {
       component="div"
       sx={{ ...containerStyles, padding: "0.5rem 0!important" }}
     >
-      <IconButton
-        sx={MenuButtonStyles}
-        onClick={() => setOpenDrawer((prev) => !prev)}
-      >
-        <Menu />
-      </IconButton>
-      <CustomDrawer
-        open={openDrawer}
-        setOpen={() => setOpenDrawer((prev) => !prev)}
-      />
+      <LogoLink size={LogoSize.md} />
       <Box sx={searchBarBoxStyles}>
         <SearchResult
           sx={searchResultStyles}

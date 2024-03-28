@@ -2,6 +2,9 @@ import { ICategory } from "@/types/types";
 
 const categoriesData: ICategory[] = [
   {
+    id: 1,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/13/64/43/226301adcc7660ffcf44a61bb6df99b7.png.webp",
     parent: "Đồ Chơi - Mẹ & Bé",
     children: [
       "Thời Trang Cho Mẹ Và Bé",
@@ -18,6 +21,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 2,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/40/0f/9b/62a58fd19f540c70fce804e2a9bb5b2d.png.webp",
     parent: "Thực Phẩm Tươi Sống",
     children: [
       "Trái Cây",
@@ -40,6 +46,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 3,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/54/c0/ff/fe98a4afa2d3e5142dc8096addc4e40b.png.webp",
     parent: "Điện Thoại - Máy Tính Bảng",
     children: [
       "Điện thoại Smartphone",
@@ -50,6 +59,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 4,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/73/0e/89/d7ca146de7198a6808580239e381a0c8.png.webp",
     parent: "Làm Đẹp - Sức Khỏe",
     children: [
       "Chăm sóc da mặt",
@@ -68,10 +80,16 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 5,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/61/d4/ea/e6ea3ffc1fcde3b6224d2bb691ea16a2.png.webp",
     parent: "Điện Gia Dụng",
     children: ["Đồ dùng nhà bếp", "Thiết bị gia đình"],
   },
   {
+    id: 6,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/55/5b/80/48cbaafe144c25d5065786ecace86d38.png.webp",
     parent: "Thời trang nữ",
     children: [
       "Áo nữ",
@@ -87,6 +105,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 7,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/00/5d/97/384ca1a678c4ee93a0886a204f47645d.png.webp",
     parent: "Thời trang nam",
     children: [
       "Áo thun nam",
@@ -104,6 +125,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 8,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/cf/ed/e1/96216aae6dd0e2beeb5e91d301649d28.png.webp",
     parent: "Giày - Dép nữ",
     children: [
       "Giày cao gót",
@@ -118,6 +142,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 9,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/d6/7f/6c/5d53b60efb9448b6a1609c825c29fa40.png.webp",
     parent: "Giày - Dép nam",
     children: [
       "Giày lười nam",
@@ -130,6 +157,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 10,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/31/a7/94/6524d2ecbec216816d91b6066452e3f2.png.webp",
     parent: "Túi thời trang nữ",
     children: [
       "Túi đeo chéo, túi đeo vai nữ",
@@ -140,6 +170,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 11,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/9b/31/af/669e6a133118e5439d6c175e27c1f963.png.webp",
     parent: "Túi thời trang nam",
     children: [
       "Ví nam",
@@ -149,6 +182,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 12,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/3e/c0/30/1110651bd36a3e0d9b962cf135c818ee.png.webp",
     parent: "Balo và Vali",
     children: [
       "Balo",
@@ -158,10 +194,16 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 13,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/ca/53/64/49c6189a0e1c1bf7cb91b01ff6d3fe43.png.webp",
     parent: "Phụ kiện thời trang",
     children: ["Phụ kiện thời trang nữ", "Mắt kính", "Phụ kiện thời trang nam"],
   },
   {
+    id: 14,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/8b/d4/a8/5924758b5c36f3b1c43b6843f52d6dd2.png.webp",
     parent: "Đồng hồ và Trang sức",
     children: [
       "Trang sức",
@@ -172,6 +214,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 15,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/92/b5/c0/3ffdb7dbfafd5f8330783e1df20747f6.png.webp",
     parent: "Laptop - Máy Vi Tính - Linh kiện",
     children: [
       "Linh Kiện Máy Tính - Phụ Kiện Máy Tính",
@@ -183,6 +228,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 16,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/f6/22/46/7e2185d2cf1bca72d5aeac385a865b2b.png.webp",
     parent: "Nhà Cửa - Đời Sống",
     children: [
       "Trang trí nhà cửa",
@@ -200,6 +248,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 17,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/40/0f/9b/62a58fd19f540c70fce804e2a9bb5b2d.png.webp",
     parent: "Bách Hóa Online",
     children: [
       "Chăm sóc thú cưng",
@@ -215,6 +266,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 18,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/3c/e4/99/eeee1801c838468d94af9997ec2bbe42.png.webp",
     parent: "Hàng Quốc Tế",
     children: [
       "Nhà Cửa - Đời Sống",
@@ -235,6 +289,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 19,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/75/34/29/d900f845e51e95a2c41b5b035468f959.png.webp",
     parent: "Thiết Bị Số - Phụ Kiện Số",
     children: [
       "Phụ Kiện Điện Thoại và Máy Tính Bảng",
@@ -246,6 +303,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 20,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/0a/c9/7b/8e466bdf6d4a5f5e14665ce56e58631d.png.webp",
     parent: "Voucher - Dịch vụ",
     children: [
       "Thanh toán hóa đơn",
@@ -261,6 +321,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 21,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/69/f5/36/c6cd9e2849854630ed74ff1678db8f19.png.webp",
     parent: "Ô Tô - Xe Máy - Xe Đạp",
     children: [
       "Phụ kiện - Chăm sóc xe",
@@ -273,6 +336,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 22,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/ed/20/60/afa9b3b474bf7ad70f10dd6443211d5f.png.webp",
     parent: "Nhà Sách Tiki",
     children: [
       "Sách tiếng Việt",
@@ -282,6 +348,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 23,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/c8/82/d4/64c561c4ced585c74b9c292208e4995a.png.webp",
     parent: "Điện Tử - Điện Lạnh",
     children: [
       "Âm thanh & Phụ kiện Tivi",
@@ -298,6 +367,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 24,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/0b/5e/3d/00941c9eb338ea62a47d5b1e042843d8.png.webp",
     parent: "Thể Thao - Dã Ngoại",
     children: [
       "Trang phục thể thao nữ",
@@ -318,6 +390,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 25,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/2d/7c/45/e4976f3fa4061ab310c11d2a1b759e5b.png.webp",
     parent: "Máy Ảnh - Máy Quay Phim",
     children: [
       "Phụ Kiện Máy Ảnh, Máy Quay",
@@ -333,6 +408,9 @@ const categoriesData: ICategory[] = [
     ],
   },
   {
+    id: 26,
+    imageUrl:
+      "https://salt.tikicdn.com/cache/100x100/ts/category/c8/82/d4/64c561c4ced585c74b9c292208e4995a.png.webp",
     parent: "Từ Khóa Được Quan Tâm",
     children: [
       "máy sưởi",

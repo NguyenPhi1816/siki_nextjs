@@ -15,6 +15,8 @@ export interface IProductLabel {
 }
 
 export interface ICategory {
+  id: number;
+  imageUrl: string;
   parent: string;
   children: string[];
 }

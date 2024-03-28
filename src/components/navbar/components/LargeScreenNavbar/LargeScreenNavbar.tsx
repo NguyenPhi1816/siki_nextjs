@@ -12,8 +12,6 @@ import {
   searchBarStyles,
   searchBarBoxStyles,
   CustomLinkStyles,
-  CustomLinkBoxStyles,
-  CustomLinkBoxTypoStyles,
   searchResultStyles,
 } from "../styles";
 import SearchResult from "@/components/search/SearchResult";

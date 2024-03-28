@@ -20,6 +20,8 @@ const FooterLink: React.FC<IFooterLink> = ({
         fontSize: isHeader ? "0.875rem" : "0.75rem",
         fontWeight: isHeader ? "700" : "400",
       }}
+      noUnderline
+      hoverUnderline
     >
       {children}
     </CustomLink>

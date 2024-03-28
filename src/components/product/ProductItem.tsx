@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { IProduct } from "./products";
+import { currencyFormat } from "../numberFormat/currency";
 
 interface IProductItem {
   data: IProduct;
@@ -53,8 +54,7 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
           </Typography>
 
           <Typography variant="h2" sx={{ fontSize: "1rem", fontWeight: "700" }}>
-            {data.price}
-            <sup>đ</sup>
+            {currencyFormat(data.price)}
           </Typography>
         </CardContent>
       </Card>
