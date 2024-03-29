@@ -7,7 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { IconButton, Link, Typography } from "@mui/material";
+import { Grid, IconButton, Link, Typography } from "@mui/material";
 import {
   AccountCircle,
   ChevronRight,
@@ -16,6 +16,9 @@ import {
   Notifications,
 } from "@mui/icons-material";
 import Image from "next/image";
+import DrawerListItem from "./DrawerListItem";
+import { useAppSelector } from "../../../lib/hooks";
+import { selectCategory } from "../../../lib/feartures/category/categorySlice";
 
 const items = [
   { icon: <Home />, title: "Home" },
@@ -25,66 +28,30 @@ const items = [
 ];
 
 const DrawerList = () => {
-  const noUserImage = process.env.NEXT_PUBLIC_NO_USER_IMAGE;
+  const category = useAppSelector(selectCategory);
+
   return (
-    <>
-      <List sx={{ p: 0 }}>
-        <ListItem
-          disablePadding
-          sx={{ width: "100%", bgcolor: "var(--pink-primary)" }}
-        >
-          <Link underline="none" sx={{ width: "100%", color: "var(--white)" }}>
-            <Box
-              sx={{
-                padding: "0.5rem 1rem",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "2.5rem",
-                  height: "2.5rem",
-                  borderRadius: 10,
-                  overflow: "hidden",
-                }}
-              >
-                {noUserImage && (
-                  <Image
-                    height={40}
-                    width={40}
-                    alt="User Avatar"
-                    src={noUserImage}
-                  />
-                )}
-              </Box>
-              <Box>
-                <Typography variant="body1" fontSize="0.8125rem">
-                  User Name
-                </Typography>
-                <Typography variant="body1" fontSize="0.6875rem">
-                  useremail@gmail.com
-                </Typography>
-              </Box>
-              <Box>
-                <IconButton>
-                  <ChevronRight sx={{ color: "var(--white)" }} />
-                </IconButton>
-              </Box>
-            </Box>
-          </Link>
-        </ListItem>
-        {items.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </>
+    category && (
+      <Box
+        sx={{
+          padding: "1rem",
+          width: "100%",
+          height: "100%",
+          overflowY: "scroll",
+          "::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
+        <Grid container spacing={2}>
+          {category.map((item) => (
+            <Grid item xs={4} key={item.id}>
+              <DrawerListItem data={item} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    )
   );
 };
 

@@ -2,17 +2,35 @@
 import { Category, Home, Notifications, Person } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useAppSelector } from "../../../lib/hooks";
 import {
   selectIsMobile,
   selectIsStatesInitialized,
 } from "../../../lib/feartures/ui/uiSlice";
+import { useRouter } from "next/navigation";
+import CustomDrawer from "../drawer/Drawer";
 
 const BottomBar = () => {
   const isStatesInitialized = useAppSelector(selectIsStatesInitialized);
   const isMobile = useAppSelector(selectIsMobile);
-  const [value, setValue] = useState(0);
+  const router = useRouter();
+  const [value, setValue] = useState<string>("/");
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+
+  const handleChange = (
+    event: SyntheticEvent<Element, Event>,
+    newValue: string
+  ) => {
+    if (newValue === "") {
+      setOpenDrawer((prev) => !prev);
+    } else {
+      setOpenDrawer(false);
+      router.push(newValue);
+    }
+
+    setValue(newValue);
+  };
 
   return (
     isStatesInitialized &&
@@ -26,18 +44,32 @@ const BottomBar = () => {
           zIndex: 9999,
         }}
       >
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction label="Trang Chủ" icon={<Home />} />
-          <BottomNavigationAction label="Danh mục" icon={<Category />} />
-          <BottomNavigationAction label="Thông báo" icon={<Notifications />} />
-          <BottomNavigationAction label="Cá nhân" icon={<Person />} />
+        <BottomNavigation showLabels value={value} onChange={handleChange}>
+          <BottomNavigationAction
+            label="Trang Chủ"
+            icon={<Home />}
+            value={"/"}
+          />
+          <BottomNavigationAction
+            label="Danh mục"
+            icon={<Category />}
+            value={""}
+          />
+          <BottomNavigationAction
+            label="Thông báo"
+            icon={<Notifications />}
+            value={"/notification"}
+          />
+          <BottomNavigationAction
+            label="Cá nhân"
+            icon={<Person />}
+            value={"/account"}
+          />
         </BottomNavigation>
+        <CustomDrawer
+          open={openDrawer}
+          setOpen={() => setOpenDrawer((prev) => !prev)}
+        />
       </Box>
     )
   );
