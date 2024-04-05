@@ -1,14 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Rating,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, Skeleton } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { IProduct } from "./products";
 
 const ProductItemSkeleton = () => {
   return (

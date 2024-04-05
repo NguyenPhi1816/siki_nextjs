@@ -1,15 +1,19 @@
 import { Tuple, combineSlices, configureStore } from "@reduxjs/toolkit";
 import { uiSlice } from "./feartures/ui/uiSlice";
-import { productSlice } from "./feartures/product/productSlice";
 import logger from "redux-logger";
-import { categorySlice } from "./feartures/category/categorySlice";
+import { productApi } from "./feartures/product/productSlice";
+import { categoryApi } from "./feartures/category/categorySlice";
 
-const rootReducer = combineSlices(uiSlice, productSlice, categorySlice);
+const rootReducer = combineSlices(uiSlice, categoryApi, productApi);
 
 export const makeStore = () => {
   return configureStore({
     reducer: rootReducer,
-    middleware: () => new Tuple(logger),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(
+        productApi.middleware,
+        categoryApi.middleware
+      ),
   });
 };
 

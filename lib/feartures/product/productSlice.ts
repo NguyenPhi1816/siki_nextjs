@@ -1,75 +1,30 @@
-import { IProduct, IProductLabel } from "@/types/types";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+// Need to use the React-specific entry point to import createApi
+import { IProduct, IProductFull, IRecommendation } from "@/types/types";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export interface productState {
-  product: IProduct[];
-  productLabel: IProductLabel[];
-  appleCategory: IProduct[];
-  samsungCategory: IProduct[];
-  xiaomiCategory: IProduct[];
-  oppoCategory: IProduct[];
-}
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const initialState: productState = {
-  product: [],
-  productLabel: [],
-  appleCategory: [],
-  samsungCategory: [],
-  xiaomiCategory: [],
-  oppoCategory: [],
-};
-
-export const productSlice = createSlice({
-  name: "product",
-  initialState,
-  reducers: {
-    setProduct: (state, action: PayloadAction<IProduct[]>) => {
-      state.product = action.payload;
-    },
-    setProductLabel: (state, action: PayloadAction<IProductLabel[]>) => {
-      state.productLabel = action.payload;
-    },
-    setAppleCategory: (state, action: PayloadAction<IProduct[]>) => {
-      state.appleCategory = action.payload;
-    },
-    setSamsungCategory: (state, action: PayloadAction<IProduct[]>) => {
-      state.samsungCategory = action.payload;
-    },
-    setXiaomiCategory: (state, action: PayloadAction<IProduct[]>) => {
-      state.xiaomiCategory = action.payload;
-    },
-    setOppoCategory: (state, action: PayloadAction<IProduct[]>) => {
-      state.oppoCategory = action.payload;
-    },
-  },
-  selectors: {
-    selectProduct: (product) => product.product,
-    selectProductLabel: (product) => product.productLabel,
-    selectAppleCategory: (product) => product.appleCategory,
-    selectSamsungCategory: (product) => product.samsungCategory,
-    selectXiaomiCategory: (product) => product.xiaomiCategory,
-    selectOppoCategory: (product) => product.oppoCategory,
-  },
+export const productApi = createApi({
+  reducerPath: "productApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: apiBaseUrl,
+  }),
+  endpoints: (builder) => ({
+    getProducts: builder.query<IProduct[], void>({
+      query: () => "products",
+    }),
+    getRecommendations: builder.query<IRecommendation[], void>({
+      query: () => "recommendations",
+    }),
+    getProductsById: builder.query<IProductFull, number>({
+      query: (id) => `products/${id}`,
+    }),
+  }),
+  keepUnusedDataFor: 120, // time in seconds
 });
 
-// Action creators are generated for each case reducer function
 export const {
-  setProduct,
-  setProductLabel,
-  setAppleCategory,
-  setOppoCategory,
-  setSamsungCategory,
-  setXiaomiCategory,
-} = productSlice.actions;
-
-export const {
-  selectProduct,
-  selectProductLabel,
-  selectAppleCategory,
-  selectOppoCategory,
-  selectSamsungCategory,
-  selectXiaomiCategory,
-} = productSlice.selectors;
-
-export default productSlice.reducer;
+  useGetProductsQuery,
+  useGetRecommendationsQuery,
+  useGetProductsByIdQuery,
+} = productApi;

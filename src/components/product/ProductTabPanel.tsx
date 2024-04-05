@@ -8,19 +8,10 @@ import { SxProps } from "@mui/system";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import ProductList from "./ProductList";
-import { IProduct } from "./products";
 import { useAppSelector } from "../../../lib/hooks";
-import {
-  selectAppleCategory,
-  selectOppoCategory,
-  selectProduct,
-  selectProductLabel,
-  selectSamsungCategory,
-  selectXiaomiCategory,
-} from "../../../lib/feartures/product/productSlice";
-import { Button, Grid, Skeleton } from "@mui/material";
-import ProductItemSkeleton from "./ProductItemSkeleton";
+import { Button, Skeleton } from "@mui/material";
 import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
+import { IProduct, IRecommendation } from "@/types/types";
 
 interface ICustomLabel {
   imageUrl: string | StaticImport;
@@ -48,24 +39,6 @@ const CustomLabel: React.FC<ICustomLabel> = ({ imageUrl, title }) => {
       >
         {title}
       </Typography>
-    </Box>
-  );
-};
-
-const CustomLabelSkeleton = () => {
-  return (
-    <Box
-      sx={{
-        width: "16.6%",
-        padding: "12px 16px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Skeleton variant="rectangular" width={"2rem"} height={"2rem"} />
-      <Skeleton width={"4rem"} />
     </Box>
   );
 };
@@ -98,20 +71,11 @@ function a11yProps(index: number) {
 
 interface IProductTabPanel {
   sx?: SxProps;
+  data: IRecommendation[];
 }
 
-const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx }) => {
+const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx, data }) => {
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
-  const productLabel = useAppSelector(selectProductLabel);
-
-  const data = [
-    { storeName: "AllProduct", product: useAppSelector(selectProduct) },
-    { storeName: "Apple", product: useAppSelector(selectAppleCategory) },
-    { storeName: "Samsung", product: useAppSelector(selectSamsungCategory) },
-    { storeName: "Xiaomi", product: useAppSelector(selectXiaomiCategory) },
-    { storeName: "OPPO", product: useAppSelector(selectOppoCategory) },
-  ];
-
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -142,65 +106,43 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx }) => {
               },
             }}
           >
-            {productLabel.length !== 0
-              ? productLabel.map((item) => (
-                  <Tab
-                    key={item.id}
-                    sx={{ width: "16.6%" }}
-                    label={
-                      <CustomLabel
-                        imageUrl={item.imageUrl}
-                        title={item.title}
-                      />
-                    }
-                    {...a11yProps(item.id)}
+            {data.map((item: IRecommendation) => (
+              <Tab
+                key={item.id}
+                sx={{ width: "16.6%" }}
+                label={
+                  <CustomLabel
+                    imageUrl={item.imageUrl}
+                    title={item.storeName}
                   />
-                ))
-              : new Array(6)
-                  .fill(0)
-                  .map((item, i) => <CustomLabelSkeleton key={i} />)}
+                }
+                {...a11yProps(item.id)}
+              />
+            ))}
           </Tabs>
         </Box>
-        {productLabel.length !== 0 ? (
-          <>
-            {productLabel.map((item) => {
-              const dataItem = data.find((i) => i.storeName === item.storeName);
-              if (dataItem) {
-                return (
-                  <CustomTabPanel
-                    key={item.id}
-                    value={value}
-                    index={item.id}
-                    data={dataItem.product}
-                  />
-                );
-              }
-            })}
-            <Box
-              sx={{
-                marginTop: "1rem",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Button variant="outlined">Xem thêm</Button>
-            </Box>
-          </>
-        ) : (
-          <Grid
-            container
-            spacing={2}
-            paddingTop={"0.5rem"}
-            columns={{ xs: 4, sm: 8, md: 12 }}
+        <>
+          {data?.map((item: IRecommendation) => {
+            return (
+              <CustomTabPanel
+                key={item.id}
+                value={value}
+                index={item.id}
+                data={item.products}
+              />
+            );
+          })}
+          <Box
+            sx={{
+              marginTop: "1rem",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            {new Array(25).fill(0).map((item, i) => (
-              <Grid item xs={2} key={i}>
-                <ProductItemSkeleton key={i} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+            <Button variant="outlined">Xem thêm</Button>
+          </Box>
+        </>
       </Box>
     )
   );

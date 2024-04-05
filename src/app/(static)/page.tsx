@@ -1,121 +1,97 @@
 "use client";
 import ProductSwiper from "@/components/product/ProductSwiper";
 import ProductTabPanel from "@/components/product/ProductTabPanel";
-import { IProduct, PRODUCTS, TAB_LABEL } from "@/components/product/products";
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
-import {
-  setAppleCategory,
-  setOppoCategory,
-  setProduct,
-  setProductLabel,
-  setSamsungCategory,
-  setXiaomiCategory,
-} from "../../../lib/feartures/product/productSlice";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 import Footer from "@/components/footer/Footer";
-import { setCategory } from "../../../lib/feartures/category/categorySlice";
-import categoriesData from "@/components/footer/categoryData";
+import ProductSwiperSkeleton from "@/components/product/ProductSwiperSkeleton";
+import ProductTabPanelSkeleton from "@/components/product/ProductTabPanelSkeleton";
+import MessageModal, { MessageType } from "@/components/modal/MessageModal";
+import Wrapper from "@/components/wrapper/Wrapper";
+import { useGetRecommendationsQuery } from "../../../lib/feartures/product/productSlice";
+import { useGetCategoriesQuery } from "../../../lib/feartures/category/categorySlice";
+import SidebarSkeleton from "@/components/sidebar/SidebarSkeleton";
 
 export default function Home() {
-  const isMobile = useAppSelector(selectIsMobile);
+  const {
+    refetch: recommendationsRefetch,
+    data: recommendationsData,
+    error: recommendationsError,
+    isLoading: isRecommendationsLoading,
+  } = useGetRecommendationsQuery();
 
-  const dispatch = useAppDispatch();
-  const [product, _setProduct] = useState<IProduct[]>([]);
-  const [appleCategory, _setAppleCategory] = useState<IProduct[]>([]);
-  const [samsungCategory, _setSamSungCategory] = useState<IProduct[]>([]);
-  const [xiaomiCategory, _setXiaomiCategory] = useState<IProduct[]>([]);
-  const [oppoCategory, _setOppoCategory] = useState<IProduct[]>([]);
+  const {
+    refetch: categoriesRefetch,
+    data: categoriesData,
+    error: categoriesError,
+    isLoading: isCategoriesLoading,
+  } = useGetCategoriesQuery();
 
-  useEffect(() => {
-    setTimeout(() => {
-      const fetchData = () => {
-        _setProduct(PRODUCTS);
-        dispatch(setProduct(PRODUCTS));
-
-        dispatch(setProductLabel(TAB_LABEL));
-        dispatch(setCategory(categoriesData));
-      };
-      fetchData();
-    }, 3000);
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (product.length !== 0) {
-      const fetchData = () => {
-        const apple = product.filter((item) => item.storeName === "Apple");
-        _setAppleCategory(apple);
-        dispatch(setAppleCategory(apple));
-
-        const samsung = product.filter((item) => item.storeName === "Samsung");
-        _setSamSungCategory(samsung);
-        dispatch(setSamsungCategory(samsung));
-
-        const xiaomi = product.filter((item) => item.storeName === "Xiaomi");
-        _setXiaomiCategory(xiaomi);
-        dispatch(setXiaomiCategory(xiaomi));
-
-        const oppo = product.filter((item) => item.storeName === "OPPO");
-        _setOppoCategory(oppo);
-        dispatch(setOppoCategory(oppo));
-      };
-      fetchData();
-    }
-  }, [product, dispatch]);
+  !isRecommendationsLoading && console.log(recommendationsData);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        overflow: "hidden",
-      }}
-    >
-      {!isMobile && (
-        <Box
+    <>
+      {!categoriesError && !recommendationsError && (
+        <Wrapper
           sx={{
-            marginRight: "1rem",
-            width: "14.375rem",
-            height: "100%",
-            overflowY: "scroll",
-            msOverflowStyle: "none",
-            "::-webkit-scrollbar": {
-              display: "none",
-            },
+            display: "flex",
+            overflow: "hidden",
           }}
         >
-          <Sidebar />
-        </Box>
+          {!isCategoriesLoading ? (
+            !!categoriesData && <Sidebar data={categoriesData} />
+          ) : (
+            <SidebarSkeleton />
+          )}
+          <Box
+            sx={{
+              marginTop: "1rem",
+              flex: 1,
+              height: "100%",
+              overflowY: "scroll",
+            }}
+          >
+            {!isRecommendationsLoading ? (
+              !!recommendationsData && (
+                <>
+                  {recommendationsData
+                    .slice(1, recommendationsData.length)
+                    .map((item) => (
+                      <ProductSwiper
+                        key={item.id}
+                        title={item.storeName}
+                        data={item.products}
+                        sx={{ marginBottom: 2 }}
+                      />
+                    ))}
+                  <ProductTabPanel
+                    data={recommendationsData}
+                    sx={{ marginBottom: 2 }}
+                  />
+                </>
+              )
+            ) : (
+              <>
+                {[0, 1, 2, 3].map((item) => (
+                  <ProductSwiperSkeleton key={item} />
+                ))}
+                <ProductTabPanelSkeleton />
+              </>
+            )}
+            {categoriesData && <Footer data={categoriesData} />}
+          </Box>
+        </Wrapper>
       )}
-      <Box
-        sx={{
-          width: !isMobile ? "calc(100% - 14.375rem - 1rem)" : "100%",
-          height: "100%",
-          overflowY: "scroll",
+      <MessageModal
+        type={MessageType.ERROR}
+        title="Oops! Đã có lỗi xảy ra"
+        message="Có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại"
+        open={!!categoriesError || !!recommendationsError}
+        onClose={() => {
+          if (!!recommendationsError) recommendationsRefetch();
+          if (!!categoriesError) categoriesRefetch();
         }}
-      >
-        <ProductSwiper title="Apple products" data={appleCategory} />
-        <ProductSwiper
-          title="Samsung products"
-          data={samsungCategory}
-          sx={{ marginTop: 2 }}
-        />
-        <ProductSwiper
-          title="Xiaomi products"
-          data={xiaomiCategory}
-          sx={{ marginTop: 2 }}
-        />
-        <ProductSwiper
-          title="OPPO products"
-          data={oppoCategory}
-          sx={{ marginTop: 2 }}
-        />
-        <ProductTabPanel sx={{ marginTop: 2 }} />
-        {!isMobile && <Footer />}
-      </Box>
-    </Box>
+      />
+    </>
   );
 }

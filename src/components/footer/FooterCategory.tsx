@@ -12,7 +12,7 @@ const FooterCategory: React.FC<IFooterCategory> = ({ data }) => {
   return (
     <Box marginBottom={"1rem"}>
       <Box marginBottom={"0.25rem"}>
-        <FooterLink href="/" isHeader>
+        <FooterLink href={`/category/${data.id}`} isHeader>
           {data?.parent}
         </FooterLink>
       </Box>
@@ -24,7 +24,7 @@ const FooterCategory: React.FC<IFooterCategory> = ({ data }) => {
         >
           {data?.children.map((item, index) => (
             <React.Fragment key={item}>
-              <FooterLink href="/">{item}</FooterLink>
+              <FooterLink href={`/category/${data.id}`}>{item}</FooterLink>
               {index !== data.children.length - 1 && <>&nbsp;/&nbsp;</>}
             </React.Fragment>
           ))}

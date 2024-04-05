@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@mui/material";
 import Topbar from "../../components/navbar/TopBar";
-import { Box } from "@mui/system";
 import BottomBar from "@/components/navbar/BottomBar";
 
 export const metadata: Metadata = {
@@ -17,14 +16,16 @@ export default function RootLayout({
   return (
     <>
       <Topbar />
-      <main className="main">
-        <Container
-          sx={{ p: 0, height: "100%", overflow: "hidden" }}
-          maxWidth="lg"
-        >
-          {children}
-        </Container>
-      </main>
+      <Container
+        component={"main"}
+        sx={{
+          height: "100vh",
+          overflow: "hidden",
+        }}
+        maxWidth="lg"
+      >
+        {children}
+      </Container>
       <BottomBar />
     </>
   );

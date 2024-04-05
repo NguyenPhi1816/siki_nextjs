@@ -8,9 +8,14 @@
   --pink-primary: #f0739d;
   --pink-secondary: #f7a3b7;
   --pink-secondary-opacity-20: rgba(247, 163, 183, 0.2);
+  --error: #e85e6c;
+  --success: #3cb878;
 
   --top-bar-height: 3.5rem;
   --bottom-bar-height: 3.5rem;
+  --product-page-main-image: 26rem;
+  --product-page-slide-image: 5.625rem;
+  --side-bar-width: 14.375rem;
 }
 
 body {
@@ -20,19 +25,13 @@ body {
   overflow: hidden;
 }
 
-.main {
-  height: 100vh;
-  padding-top: var(--top-bar-height);
-  overflow: hidden;
-}
-
+/* scrollbar */
 @media (max-width: 600px) {
-  .main {
-    padding-bottom: var(--top-bar-height);
+  html *::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* scrollbar */
 html *::-webkit-scrollbar {
   border-radius: 0;
   width: 8px;

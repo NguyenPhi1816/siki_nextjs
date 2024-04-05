@@ -1,8 +1,6 @@
 "use client";
-import { Box, SxProps, Typography } from "@mui/material";
-import { Navigation } from "swiper/modules";
+import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductItem from "./ProductItem";
 import { useAppSelector } from "../../../lib/hooks";
 import {
   selectIsMobile,
@@ -10,21 +8,15 @@ import {
   selectIsTablet,
 } from "../../../lib/feartures/ui/uiSlice";
 import React from "react";
-import { IProduct } from "@/types/types";
+import ProductItemSkeleton from "./ProductItemSkeleton";
 
-interface IProductSwiper {
-  title: string;
-  data: IProduct[];
-  sx?: SxProps;
-}
-
-const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
+const ProductSwiperSkeleton = () => {
   const MOBILE_SLIDE_PER_VIEW = 2;
-  const TABLET_SLIDE_PER_VIEW = 3;
+  const TABLET_SLIDE_PER_VIEW = 4;
   const DESKTOP_SLIDE_PER_VIEW = 6;
 
   const MOBILE_SLIDE_PER_GROUP = 1;
-  const TABLET_SLIDE_PER_GROUP = 3;
+  const TABLET_SLIDE_PER_GROUP = 4;
   const DESKTOP_SLIDE_PER_GROUP = 6;
 
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
@@ -45,27 +37,27 @@ const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
 
   return (
     isAppLoaded && (
-      <Box padding={2} sx={{ ...sx, bgcolor: "var(--white)", borderRadius: 1 }}>
+      <Box
+        padding={2}
+        sx={{ marginBottom: 2, bgcolor: "var(--white)", borderRadius: 1 }}
+      >
         <Typography variant={"h4"} fontSize={"1.125rem"} fontWeight={700}>
-          {title}
+          Recommendation
         </Typography>
         <Box marginTop={2}>
           <Swiper
             slidesPerGroup={getSlidesPerGroup()}
             slidesPerView={getSlidesPerView()}
             spaceBetween={10}
-            navigation={!isMobile}
-            modules={[Navigation]}
             className="mySwiper"
           >
-            {data.length !== 0 &&
-              data.map((item) => {
-                return (
-                  <SwiperSlide key={item.id}>
-                    <ProductItem data={item} />
-                  </SwiperSlide>
-                );
-              })}
+            {new Array(getSlidesPerView()).fill(0).map((item, i) => {
+              return (
+                <SwiperSlide key={i}>
+                  <ProductItemSkeleton />
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </Box>
       </Box>
@@ -73,4 +65,4 @@ const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
   );
 };
 
-export default ProductSwiper;
+export default ProductSwiperSkeleton;

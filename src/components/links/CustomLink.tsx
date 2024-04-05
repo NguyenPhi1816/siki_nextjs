@@ -1,3 +1,4 @@
+"use client";
 import { Link, SxProps, styled } from "@mui/material";
 import React from "react";
 

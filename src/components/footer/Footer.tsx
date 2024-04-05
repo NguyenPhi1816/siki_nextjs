@@ -1,20 +1,27 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import FooterCategory from "./FooterCategory";
-import categoriesData from "./categoryData";
 import { useAppSelector } from "../../../lib/hooks";
-import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
+import {
+  selectIsMobile,
+  selectIsStatesInitialized,
+} from "../../../lib/feartures/ui/uiSlice";
 import LogoLink, { LogoColor, LogoSize } from "../links/LogoLink";
 import FooterLink from "./FooterLink";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { selectCategory } from "../../../lib/feartures/category/categorySlice";
+import { ICategory } from "@/types/types";
 
-const Footer = () => {
+interface IFooter {
+  data: ICategory[];
+}
+
+const Footer: React.FC<IFooter> = ({ data }) => {
+  const isMobile = useAppSelector(selectIsMobile);
   const isStatesInitialized = useAppSelector(selectIsStatesInitialized);
-  const category = useAppSelector(selectCategory);
 
   return (
-    isStatesInitialized && (
+    isStatesInitialized &&
+    !isMobile && (
       <Box
         sx={{
           marginTop: "1rem",
@@ -83,7 +90,7 @@ const Footer = () => {
             &#169; 2024 Siki Company. All rights reserved.
           </Typography>
         </Box>
-        {category.length !== 0 && (
+        {data && (
           <>
             <Typography
               variant="h4"
@@ -95,40 +102,40 @@ const Footer = () => {
             </Typography>
             <Grid container spacing={2} columns={5}>
               <Grid item xs={1}>
-                <FooterCategory data={category[0]} />
-                <FooterCategory data={category[1]} />
-                <FooterCategory data={category[2]} />
-                <FooterCategory data={category[3]} />
-                <FooterCategory data={category[4]} />
+                <FooterCategory data={data[0]} />
+                <FooterCategory data={data[1]} />
+                <FooterCategory data={data[2]} />
+                <FooterCategory data={data[3]} />
+                <FooterCategory data={data[4]} />
               </Grid>
               <Grid item xs={1}>
-                <FooterCategory data={category[5]} />
-                <FooterCategory data={category[6]} />
-                <FooterCategory data={category[7]} />
-                <FooterCategory data={category[8]} />
-                <FooterCategory data={category[9]} />
-                <FooterCategory data={category[10]} />
+                <FooterCategory data={data[5]} />
+                <FooterCategory data={data[6]} />
+                <FooterCategory data={data[7]} />
+                <FooterCategory data={data[8]} />
+                <FooterCategory data={data[9]} />
+                <FooterCategory data={data[10]} />
               </Grid>
               <Grid item xs={1}>
-                <FooterCategory data={category[11]} />
-                <FooterCategory data={category[12]} />
-                <FooterCategory data={category[13]} />
-                <FooterCategory data={category[14]} />
-                <FooterCategory data={category[15]} />
-                <FooterCategory data={category[16]} />
+                <FooterCategory data={data[11]} />
+                <FooterCategory data={data[12]} />
+                <FooterCategory data={data[13]} />
+                <FooterCategory data={data[14]} />
+                <FooterCategory data={data[15]} />
+                <FooterCategory data={data[16]} />
               </Grid>
               <Grid item xs={1}>
-                <FooterCategory data={category[17]} />
-                <FooterCategory data={category[18]} />
-                <FooterCategory data={category[19]} />
-                <FooterCategory data={category[20]} />
-                <FooterCategory data={category[21]} />
+                <FooterCategory data={data[17]} />
+                <FooterCategory data={data[18]} />
+                <FooterCategory data={data[19]} />
+                <FooterCategory data={data[20]} />
+                <FooterCategory data={data[21]} />
               </Grid>
               <Grid item xs={1}>
-                <FooterCategory data={category[22]} />
-                <FooterCategory data={category[23]} />
-                <FooterCategory data={category[24]} />
-                <FooterCategory data={category[25]} />
+                <FooterCategory data={data[22]} />
+                <FooterCategory data={data[23]} />
+                <FooterCategory data={data[24]} />
+                <FooterCategory data={data[25]} />
               </Grid>
             </Grid>
           </>

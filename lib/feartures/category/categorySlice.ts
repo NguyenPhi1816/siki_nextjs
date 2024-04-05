@@ -1,31 +1,20 @@
+// Need to use the React-specific entry point to import createApi
 import { ICategory } from "@/types/types";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export interface categoryState {
-  category: ICategory[];
-}
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const initialState: categoryState = {
-  category: [],
-};
-
-export const categorySlice = createSlice({
-  name: "category",
-  initialState,
-  reducers: {
-    setCategory: (state, action: PayloadAction<ICategory[]>) => {
-      state.category = action.payload;
-    },
-  },
-  selectors: {
-    selectCategory: (category) => category.category,
-  },
+export const categoryApi = createApi({
+  reducerPath: "categoryApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: apiBaseUrl,
+  }),
+  endpoints: (builder) => ({
+    getCategories: builder.query<ICategory[], void>({
+      query: () => "categories",
+    }),
+  }),
+  keepUnusedDataFor: 120, // time in seconds
 });
 
-// Action creators are generated for each case reducer function
-export const { setCategory } = categorySlice.actions;
-
-export const { selectCategory } = categorySlice.selectors;
-
-export default categorySlice.reducer;
+export const { useGetCategoriesQuery } = categoryApi;
