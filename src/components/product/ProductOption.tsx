@@ -35,7 +35,7 @@ const ProductOption: React.FC<IProductOptionComponent> = ({
           : "1px solid var(--grey)",
       }}
     >
-      {data && data.imageUrl && (
+      {data && data.image && (
         <Box
           sx={{
             marginRight: "0.25rem",
@@ -44,7 +44,7 @@ const ProductOption: React.FC<IProductOptionComponent> = ({
           }}
         >
           <Image
-            src={data.imageUrl}
+            src={data.image}
             alt={data.value}
             width={50}
             height={50}
