@@ -19,7 +19,7 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
 
   return (
     data && (
-      <Link href={`/product/${data.id}`} underline="none">
+      <Link href={`/product/${data.slug}?spid=${data.id}`} underline="none">
         <Card
           sx={{
             margin: "0.125rem 0",

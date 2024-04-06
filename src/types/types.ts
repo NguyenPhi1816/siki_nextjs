@@ -1,6 +1,7 @@
 // base product: category, brand, productAttributeValues
 export interface IProduct {
   id: number;
+  slug: string;
   imageUrl: string;
   name: string;
   rating: number;
@@ -40,26 +41,26 @@ export interface IBrandDto {
 }
 
 export interface IProductVariant {
-  productId: number;
+  id: number;
+  quantity: number;
+  price: number;
+  productImages: IProductImage[];
   productAttributeValues: IProductAttributeValue[];
 }
 
 export interface IProductFull {
   id: number;
+  slug: string;
   name: string;
   description: string;
   status: boolean;
-  quantity: number;
-  price: number;
   rating: number;
   numberOfReviews: number;
   numberOfPurchases: number;
   isShowIndividually: boolean;
   storeDto: IStoreDto;
   brandDto: IBrandDto;
-  productImages: IProductImage[];
   productAttributeSet: IProductAttributeSet;
-  productAttributeValues: IProductAttributeValue[];
   productVariants: IProductVariant[];
 }
 

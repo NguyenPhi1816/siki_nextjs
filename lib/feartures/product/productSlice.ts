@@ -16,8 +16,8 @@ export const productApi = createApi({
     getRecommendations: builder.query<IRecommendation[], void>({
       query: () => "recommendations",
     }),
-    getProductsById: builder.query<IProductFull, number>({
-      query: (id) => `products/${id}`,
+    getProductsBySlug: builder.query<IProductFull, string>({
+      query: (slug: string) => `products/${slug}`,
     }),
   }),
   keepUnusedDataFor: 120, // time in seconds
@@ -26,5 +26,5 @@ export const productApi = createApi({
 export const {
   useGetProductsQuery,
   useGetRecommendationsQuery,
-  useGetProductsByIdQuery,
+  useGetProductsBySlugQuery,
 } = productApi;

@@ -19,34 +19,58 @@ import { Navigation } from "swiper/modules";
 import { Add, AddShoppingCart, Remove } from "@mui/icons-material";
 import { currencyFormat } from "@/components/numberFormat/currency";
 import ProductOptionPanel from "@/components/product/ProductOptionPanel";
-import { useGetProductsByIdQuery } from "../../../../../lib/feartures/product/productSlice";
 import Wrapper from "@/components/wrapper/Wrapper";
 import MessageModal, { MessageType } from "@/components/modal/MessageModal";
-import { IProductAttributeValue, IProductImage } from "@/types/types";
-import { redirect } from "next/navigation";
+import {
+  IProductAttributeValue,
+  IProductImage,
+  IProductVariant,
+} from "@/types/types";
+import { useRouter } from "next/navigation";
+import { useGetProductsBySlugQuery } from "../../../../../lib/feartures/product/productSlice";
 
-const ProductPage = ({ params }: { params: { slug: string } }) => {
+const ProductPage = ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { spid: string };
+}) => {
+  const router = useRouter();
   const isMobile = useAppSelector(selectIsMobile);
   const {
     refetch,
     data: product,
     error,
     isLoading,
-  } = useGetProductsByIdQuery(Number.parseInt(params.slug));
+  } = useGetProductsBySlugQuery(params.slug);
   const [mainImage, setMainImage] = useState<IProductImage | null>(null);
+  const [selectedProductVariant, setSelectedProductVariant] =
+    useState<IProductVariant | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<
     IProductAttributeValue[]
   >([]);
 
   useEffect(() => {
     if (product) {
-      const productImage: IProductImage = product.productImages.find(
-        (item) => item.isDefault
-      )!;
-      setMainImage(productImage);
-      setSelectedOptions(product.productAttributeValues);
+      const selectedProductVariant = product.productVariants.find(
+        (item) => item.id === Number.parseInt(searchParams.spid)
+      );
+      if (selectedProductVariant) {
+        setSelectedProductVariant(selectedProductVariant);
+      }
     }
   }, [product]);
+
+  useEffect(() => {
+    if (selectedProductVariant) {
+      const mainImage = selectedProductVariant.productImages.find(
+        (image) => image.isDefault
+      );
+      if (mainImage) setMainImage(mainImage);
+      setSelectedOptions(selectedProductVariant.productAttributeValues);
+    }
+  }, [selectedProductVariant]);
 
   const handleChangeImage = (image: IProductImage) => {
     setMainImage(image);
@@ -71,9 +95,10 @@ const ProductPage = ({ params }: { params: { slug: string } }) => {
         JSON.stringify(selectedOptions)
     );
     if (variant) {
-      redirect(`/product/${variant.productId}`);
+      setSelectedProductVariant(variant);
+      router.push(`/product/${product?.slug}?spid=${variant.id}`);
     }
-  }, [selectedOptions]);
+  }, [product, selectedOptions]);
 
   return (
     <>
@@ -116,7 +141,7 @@ const ProductPage = ({ params }: { params: { slug: string } }) => {
                   modules={[Navigation]}
                   className="mySwiper"
                 >
-                  {product?.productImages.map((item) => (
+                  {selectedProductVariant?.productImages.map((item) => (
                     <SwiperSlide key={item.id}>
                       <Button
                         onClick={() => handleChangeImage(item)}
@@ -233,7 +258,7 @@ const ProductPage = ({ params }: { params: { slug: string } }) => {
                     variant="body2"
                     sx={{ fontSize: "1.875rem", fontWeight: 700 }}
                   >
-                    {currencyFormat(product?.price!)}
+                    {currencyFormat(selectedProductVariant?.price!)}
                   </Typography>
                 </Box>
                 {product?.productAttributeSet.productAttributes.map((item) => (
@@ -242,7 +267,7 @@ const ProductPage = ({ params }: { params: { slug: string } }) => {
                     name={item.name}
                     productOptions={item.productAttributeValues}
                     defaultValue={
-                      product.productAttributeValues.find(
+                      selectedProductVariant?.productAttributeValues.find(
                         (value) => value.attributeId === item.id
                       )!
                     }

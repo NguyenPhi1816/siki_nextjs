@@ -1,6 +1,7 @@
+"use client";
 import { Box, Grid, SxProps, Typography } from "@mui/material";
 import ProductOption from "./ProductOption";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IProductAttributeValue } from "@/types/types";
 
 interface IProductOptionPanel {
@@ -18,7 +19,11 @@ const ProductOptionPanel: React.FC<IProductOptionPanel> = ({
   sx,
   onOptionChange,
 }) => {
-  const [selectedItem, setSelectedItem] = useState<number>(defaultValue.id);
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (defaultValue) setSelectedItem(defaultValue.id);
+  }, [defaultValue]);
 
   const handleSelect = (option: IProductAttributeValue) => {
     setSelectedItem(option.id);
