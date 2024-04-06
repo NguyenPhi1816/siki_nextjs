@@ -60,7 +60,7 @@ const ProductPage = ({
         setSelectedProductVariant(selectedProductVariant);
       }
     }
-  }, [product]);
+  }, [product, searchParams.spid]);
 
   useEffect(() => {
     if (selectedProductVariant) {
@@ -98,7 +98,7 @@ const ProductPage = ({
       setSelectedProductVariant(variant);
       router.push(`/product/${product?.slug}?spid=${variant.id}`);
     }
-  }, [product, selectedOptions]);
+  }, [product, selectedOptions, router]);
 
   return (
     <>
