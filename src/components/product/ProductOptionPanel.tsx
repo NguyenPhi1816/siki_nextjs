@@ -32,7 +32,7 @@ const ProductOptionPanel: React.FC<IProductOptionPanel> = ({
 
   return (
     <Grid container sx={{ ...sx, display: "flex", color: "var(--text-grey)" }}>
-      <Grid item xs={2}>
+      <Grid item xs={3} sm={2}>
         <Typography
           variant="body2"
           component="p"
@@ -41,7 +41,7 @@ const ProductOptionPanel: React.FC<IProductOptionPanel> = ({
           {name}
         </Typography>
       </Grid>
-      <Grid item xs={10}>
+      <Grid item xs={9} sm={10}>
         <Box sx={{ display: "flex", maxWidth: "515px", flexWrap: "wrap" }}>
           {productOptions?.map((item) => {
             return (

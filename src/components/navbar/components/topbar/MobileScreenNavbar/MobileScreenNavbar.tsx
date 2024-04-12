@@ -1,11 +1,11 @@
 import { Box, Container, IconButton } from "@mui/material";
-import SearchBar from "../../../search/SearchBar";
+import SearchBar from "../../../../search/SearchBar";
 import CustomLink, {
   LinkColor,
   LinkComponent,
-} from "../../../links/CustomLink";
+} from "../../../../links/CustomLink";
 import { Menu } from "@mui/icons-material";
-import CartButton from "../../../cart/CartButton";
+import CartButton from "../../../../cart/CartButton";
 import {
   containerStyles,
   searchBarStyles,

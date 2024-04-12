@@ -11,7 +11,6 @@ export interface IProduct {
 export interface IProductImage {
   id: number;
   url: string;
-  isDefault: boolean;
 }
 
 export interface IProductAttributeValue {
@@ -27,12 +26,6 @@ export interface IProductAttribute {
   productAttributeValues: IProductAttributeValue[];
 }
 
-export interface IProductAttributeSet {
-  id: number;
-  name: string;
-  productAttributes: IProductAttribute[];
-}
-
 export interface IStoreDto {}
 export interface IBrandDto {
   id: number;
@@ -44,6 +37,7 @@ export interface IProductVariant {
   id: number;
   quantity: number;
   price: number;
+  image: string;
   productImages: IProductImage[];
   productAttributeValues: IProductAttributeValue[];
 }
@@ -60,7 +54,7 @@ export interface IProductFull {
   isShowIndividually: boolean;
   storeDto: IStoreDto;
   brandDto: IBrandDto;
-  productAttributeSet: IProductAttributeSet;
+  productAttributes: IProductAttribute[];
   productVariants: IProductVariant[];
 }
 

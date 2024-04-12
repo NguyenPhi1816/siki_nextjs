@@ -1,12 +1,12 @@
 import { Box, Container, Typography } from "@mui/material";
-import LogoLink, { LogoSize } from "../../../links/LogoLink";
-import SearchBar from "../../../search/SearchBar";
+import LogoLink, { LogoSize } from "../../../../links/LogoLink";
+import SearchBar from "../../../../search/SearchBar";
 import CustomLink, {
   LinkColor,
   LinkComponent,
-} from "../../../links/CustomLink";
+} from "../../../../links/CustomLink";
 import { AccountCircle } from "@mui/icons-material";
-import CartButton from "../../../cart/CartButton";
+import CartButton from "../../../../cart/CartButton";
 import {
   containerStyles,
   searchBarStyles,

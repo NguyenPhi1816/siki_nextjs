@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import LogoLink from "../../../links/LogoLink";
+import LogoLink from "../../../../links/LogoLink";
 
 const LogoLinkNavbar = () => {
   return (

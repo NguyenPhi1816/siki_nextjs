@@ -3,11 +3,11 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
-interface IDrawerListItem {
+interface ICategoryDrawerItem {
   data: ICategory;
 }
 
-const DrawerListItem: React.FC<IDrawerListItem> = ({ data }) => {
+const CategoryDrawerItem: React.FC<ICategoryDrawerItem> = ({ data }) => {
   return (
     data && (
       <Box
@@ -42,4 +42,4 @@ const DrawerListItem: React.FC<IDrawerListItem> = ({ data }) => {
   );
 };
 
-export default DrawerListItem;
+export default CategoryDrawerItem;

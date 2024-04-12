@@ -2,36 +2,19 @@
 import { AppBar, Toolbar } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../../lib/hooks";
-import {
-  selectIsMobile,
-  selectIsStatesInitialized,
-} from "../../../lib/feartures/ui/uiSlice";
-import MobileScreenNavbar from "./components/MobileScreenNavbar";
-import LargeScreenNavbar from "./components/LargeScreenNavbar";
-import LogoLinkNavbar from "./components/LogoLinkNavbar/LogoLinkNavbar";
+import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
 
 interface ITopbar {
-  onlyLogo?: boolean;
+  children: React.ReactNode;
 }
 
-const Topbar: React.FC<ITopbar> = ({ onlyLogo = false }) => {
-  const isMobile: boolean = useAppSelector(selectIsMobile);
+const Topbar: React.FC<ITopbar> = ({ children }) => {
   const isStatesInitialized: boolean = useAppSelector(
     selectIsStatesInitialized
   );
   return (
     <AppBar position="fixed">
-      {isStatesInitialized && (
-        <Toolbar variant="dense">
-          {onlyLogo ? (
-            <LogoLinkNavbar />
-          ) : isMobile ? (
-            <MobileScreenNavbar />
-          ) : (
-            <LargeScreenNavbar />
-          )}
-        </Toolbar>
-      )}
+      {isStatesInitialized && <Toolbar variant="dense">{children}</Toolbar>}
     </AppBar>
   );
 };

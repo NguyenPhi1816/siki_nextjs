@@ -16,6 +16,9 @@
   --product-page-main-image: 26rem;
   --product-page-slide-image: 5.625rem;
   --side-bar-width: 14.375rem;
+
+  --navbar-z-index: 9998;
+  --drawer-z-index: 9999;
 }
 
 body {

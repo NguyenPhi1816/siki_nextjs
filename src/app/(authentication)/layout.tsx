@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TopBar from "../../components/navbar/TopBar";
+import LogoLinkNavbar from "@/components/navbar/components/topbar/LogoLinkNavbar/LogoLinkNavbar";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -14,7 +15,9 @@ export default function AuthLayout({
 }>) {
   return (
     <div>
-      <TopBar onlyLogo />
+      <TopBar>
+        <LogoLinkNavbar />
+      </TopBar>
       {children}
     </div>
   );
