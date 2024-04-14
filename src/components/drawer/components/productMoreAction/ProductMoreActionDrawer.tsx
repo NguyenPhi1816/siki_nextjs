@@ -29,7 +29,11 @@ const ProductMoreActionDrawer: React.FC<IProductMoreActionDrawer> = ({
     <CustomDrawer open={open} setOpen={setOpen}>
       <DrawerList>
         {actions.map((item) => (
-          <ProductMoreActionItem icon={item.icon} title={item.title} />
+          <ProductMoreActionItem
+            key={item.title}
+            icon={item.icon}
+            title={item.title}
+          />
         ))}
       </DrawerList>
     </CustomDrawer>

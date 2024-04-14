@@ -1,5 +1,5 @@
 "use client";
-import { Roboto } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import { PaletteColorOptions, createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
@@ -16,7 +16,7 @@ declare module "@mui/material/Button" {
   }
 }
 
-const roboto = Roboto({
+const inter = Inter({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
@@ -29,7 +29,7 @@ const createColor = (mainColor: string) =>
 
 const theme = createTheme({
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: inter.style.fontFamily,
   },
   palette: {
     primary: createColor("#F0739D"),

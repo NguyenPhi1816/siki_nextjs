@@ -1,9 +1,13 @@
 "use client";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Wrapper from "@/components/wrapper/Wrapper";
 import MessageModal, { MessageType } from "@/components/modal/MessageModal";
-import { IProductAttributeValue, IProductVariant } from "@/types/types";
+import {
+  IBreadcrumb,
+  IProductAttributeValue,
+  IProductVariant,
+} from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useGetProductsBySlugQuery } from "../../../../lib/feartures/product/productSlice";
 import ProductImageSlider from "@/components/product/ProductDetailSlider";
@@ -22,6 +26,25 @@ import CustomDrawer from "@/components/drawer/Drawer";
 import ProductDetailOption from "@/components/product/ProductDetailOption";
 import Image from "next/image";
 import { currencyFormat } from "@/components/numberFormat/currency";
+import { Verified } from "@mui/icons-material";
+import Footer from "@/components/footer/Footer";
+import { useGetCategoriesQuery } from "../../../../lib/feartures/category/categorySlice";
+import CustomLink, { LinkComponent } from "@/components/links/CustomLink";
+import ProductSwiper from "@/components/product/ProductSwiper";
+import BreadcrumbContainer from "@/components/breadcrumb/BreadcrumbContainer";
+
+const breadcrumb: IBreadcrumb[] = [
+  { path: "/", title: "Trang chủ" },
+  {
+    path: "/category/dien-thoai-may-tinh-bang",
+    title: "Điện thoại - Máy tính bảng",
+  },
+  { path: "/category/dien-thoai-smartphone", title: "Điện thoại Smartphone" },
+  {
+    path: "/product/iphone-15-pro-max-12345?spid=1",
+    title: "Iphone 15 Pro Max",
+  },
+];
 
 const ProductPage = ({
   params,
@@ -30,15 +53,26 @@ const ProductPage = ({
   params: { slug: string };
   searchParams: { spid: string };
 }) => {
+  const HIDE_DESC = "10";
+  const SHOW_DESC = "unset";
+
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
   const isMobile = useAppSelector(selectIsMobile);
-  const router = useRouter();
+
   const {
     refetch,
     data: product,
     error,
     isLoading,
   } = useGetProductsBySlugQuery(params.slug);
+  const {
+    refetch: categoriesRefetch,
+    data: categoriesData,
+    error: categoriesError,
+    isLoading: isCategoriesLoading,
+  } = useGetCategoriesQuery();
+
+  const router = useRouter();
   const [slideImages, setSlideImages] = useState<string[] | null>(null);
   const [selectedProductVariant, setSelectedProductVariant] =
     useState<IProductVariant | null>(null);
@@ -47,6 +81,7 @@ const ProductPage = ({
   >([]);
   const [showMobileOptionDrawer, setShowMobileOptionDrawer] =
     useState<boolean>(false);
+  const [showDesc, setShowDesc] = useState<string>(HIDE_DESC);
 
   useEffect(() => {
     if (product) {
@@ -96,16 +131,45 @@ const ProductPage = ({
     }
   }, [product, selectedOptions, router]);
 
+  const handleToggleDesc = () => {
+    setShowDesc((prev) => {
+      if (prev === HIDE_DESC) {
+        return SHOW_DESC;
+      }
+      return HIDE_DESC;
+    });
+  };
+
   return (
     isAppLoaded && (
-      <>
-        {!error && (
-          <>
+      <Container
+        sx={{
+          p: 0,
+          m: "0 auto",
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        {!error && !categoriesError && product && (
+          <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
             <Topbar>
               {isMobile ? <ProductNavbar /> : <DefaultTopNavbar />}
             </Topbar>
-            <Wrapper sx={{ bgcolor: "white" }}>
-              <Box sx={{ width: "100%", height: "100%", overflowY: "scroll" }}>
+            <Wrapper sx={{ overflow: "scroll" }}>
+              {!isMobile && (
+                <Box sx={{ margin: "0.5rem 0" }}>
+                  <BreadcrumbContainer data={breadcrumb} />
+                </Box>
+              )}
+              <Box
+                sx={{
+                  marginBottom: "1rem",
+                  bgcolor: "white",
+                  width: "100%",
+                  overflowY: "scroll",
+                }}
+              >
                 <Grid
                   container
                   direction="row"
@@ -130,13 +194,141 @@ const ProductPage = ({
                   </Grid>
                 </Grid>
               </Box>
+              <Box
+                sx={{
+                  marginTop: "1rem",
+                  padding: "2rem",
+                  bgcolor: "white",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box sx={{ display: "flex" }}>
+                  <Box
+                    sx={{
+                      width: "4rem",
+                      height: "4rem",
+                      borderRadius: "5rem",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Image
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                      src={product.brandDto.logo}
+                      alt={product.brandDto.name}
+                      width={100}
+                      height={100}
+                    />
+                  </Box>
+                  <Box sx={{ marginLeft: "1rem" }}>
+                    <Typography
+                      variant="h6"
+                      sx={{ fontSize: "1.125rem", fontWeight: 700 }}
+                    >
+                      {product.brandDto.name}
+                    </Typography>
+                    <Box
+                      sx={{
+                        marginTop: "0.25rem",
+                        display: "flex",
+                        color: "var(--pink-primary)",
+                      }}
+                    >
+                      <Verified fontSize="small" />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          marginLeft: "0.25rem",
+                          fontWeight: 700,
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        Offical
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box>
+                  <CustomLink
+                    sx={{ fontSize: "0.875rem" }}
+                    href="/store/1"
+                    component={LinkComponent.outlinedButton}
+                  >
+                    Xem cửa hàng
+                  </CustomLink>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  marginTop: "1rem",
+                  padding: "1rem",
+                  bgcolor: "white",
+                  width: "100%",
+                }}
+              >
+                <ProductSwiper
+                  data={product.relatedProducts}
+                  title="Các sản phẩm liên quan"
+                />
+              </Box>
+              <Box
+                sx={{
+                  marginTop: "1rem",
+                  padding: "2rem",
+                  bgcolor: "white",
+                  width: "100%",
+                }}
+              >
+                <Typography
+                  variant={"h4"}
+                  fontSize={"1.125rem"}
+                  fontWeight={700}
+                >
+                  Mô tả sản phẩm
+                </Typography>
+                <Box
+                  dangerouslySetInnerHTML={{ __html: product.description }}
+                  sx={{
+                    h3: { fontSize: "1rem" },
+                    p: { fontSize: "0.875rem" },
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: showDesc,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                />
+                <Box
+                  sx={{
+                    marginTop: "1rem",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={handleToggleDesc}
+                    sx={{ textTransform: "unset" }}
+                  >
+                    {showDesc === SHOW_DESC ? "Ẩn bớt" : "Xem thêm"}
+                  </Button>
+                </Box>
+              </Box>
+              {categoriesData && <Footer data={categoriesData} />}
             </Wrapper>
             <BottomBar>
               <ProductBottomNavbar
                 onClick={() => setShowMobileOptionDrawer(true)}
               />
             </BottomBar>
-          </>
+          </Box>
         )}
         <CustomDrawer
           open={showMobileOptionDrawer}
@@ -188,12 +380,13 @@ const ProductPage = ({
           open={!!error}
           onClose={() => {
             refetch();
+            categoriesRefetch();
           }}
           type={MessageType.ERROR}
           title="Oops! Đã có lỗi xảy ra"
           message="Đã có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại."
         />
-      </>
+      </Container>
     )
   );
 };

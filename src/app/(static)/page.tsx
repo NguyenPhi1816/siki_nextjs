@@ -8,17 +8,17 @@ import ProductSwiperSkeleton from "@/components/product/ProductSwiperSkeleton";
 import ProductTabPanelSkeleton from "@/components/product/ProductTabPanelSkeleton";
 import MessageModal, { MessageType } from "@/components/modal/MessageModal";
 import Wrapper from "@/components/wrapper/Wrapper";
-import { useGetRecommendationsQuery } from "../../../lib/feartures/product/productSlice";
+import { useGetHomeQuery } from "../../../lib/feartures/product/productSlice";
 import { useGetCategoriesQuery } from "../../../lib/feartures/category/categorySlice";
 import SidebarSkeleton from "@/components/sidebar/SidebarSkeleton";
 
 export default function Home() {
   const {
-    refetch: recommendationsRefetch,
-    data: recommendationsData,
-    error: recommendationsError,
-    isLoading: isRecommendationsLoading,
-  } = useGetRecommendationsQuery();
+    refetch: homeRefetch,
+    data: homeData,
+    error: homeError,
+    isLoading: isHomeLoading,
+  } = useGetHomeQuery();
 
   const {
     refetch: categoriesRefetch,
@@ -27,11 +27,9 @@ export default function Home() {
     isLoading: isCategoriesLoading,
   } = useGetCategoriesQuery();
 
-  !isRecommendationsLoading && console.log(recommendationsData);
-
   return (
     <>
-      {!categoriesError && !recommendationsError && (
+      {!categoriesError && !homeError && (
         <Wrapper
           sx={{
             display: "flex",
@@ -51,23 +49,18 @@ export default function Home() {
               overflowY: "scroll",
             }}
           >
-            {!isRecommendationsLoading ? (
-              !!recommendationsData && (
+            {!isHomeLoading ? (
+              !!homeData && (
                 <>
-                  {recommendationsData
-                    .slice(1, recommendationsData.length)
-                    .map((item) => (
-                      <ProductSwiper
-                        key={item.id}
-                        title={item.storeName}
-                        data={item.products}
-                        sx={{ marginBottom: 2 }}
-                      />
-                    ))}
-                  <ProductTabPanel
-                    data={recommendationsData}
-                    sx={{ marginBottom: 2 }}
-                  />
+                  {homeData.slice(1, homeData.length).map((item) => (
+                    <ProductSwiper
+                      key={item.id}
+                      title={item.name}
+                      data={item.products}
+                      sx={{ marginBottom: 2 }}
+                    />
+                  ))}
+                  <ProductTabPanel data={homeData} sx={{ marginBottom: 2 }} />
                 </>
               )
             ) : (
@@ -86,9 +79,9 @@ export default function Home() {
         type={MessageType.ERROR}
         title="Oops! Đã có lỗi xảy ra"
         message="Có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại"
-        open={!!categoriesError || !!recommendationsError}
+        open={!!categoriesError || !!homeError}
         onClose={() => {
-          if (!!recommendationsError) recommendationsRefetch();
+          if (!!homeError) homeRefetch();
           if (!!categoriesError) categoriesRefetch();
         }}
       />

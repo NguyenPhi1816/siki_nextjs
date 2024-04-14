@@ -14,7 +14,7 @@ import {
   IProductAttributeValue,
   IProductVariant,
 } from "@/types/types";
-import React, { useState } from "react";
+import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 
 interface IProductDetailOption {
   productAttributes: IProductAttribute[] | undefined;
@@ -27,17 +27,59 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
   selectedProductVariant,
   onChangeOption,
 }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<string>("1");
 
   const increaseQuantity = () => {
     if (selectedProductVariant) {
       setQuantity((prev) => {
-        let newValue = prev + 1;
+        let newValue = Number.parseInt(prev) + 1;
         if (newValue > selectedProductVariant.quantity) {
           newValue = selectedProductVariant.quantity;
         }
-        return newValue;
+        return newValue.toString();
       });
+    }
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((prev) => {
+      let newValue = Number.parseInt(prev) - 1;
+      if (newValue <= 0) {
+        newValue = 1;
+      }
+      return newValue.toString();
+    });
+  };
+
+  const isNumeric = (str: string) => /^[+-]?\d+(\.\d+)?$/.test(str);
+
+  const handleQuantityChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (selectedProductVariant) {
+      let value = e.target.value;
+      if (value.trim().length === 0) {
+        setQuantity("");
+      } else if (!isNumeric(value)) {
+        return;
+      } else {
+        let newValue = Number.parseInt(value);
+        if (newValue > selectedProductVariant.quantity) {
+          newValue = selectedProductVariant.quantity;
+        } else if (newValue <= 0) {
+          newValue = 1;
+        }
+        setQuantity(newValue.toString());
+      }
+    }
+  };
+
+  const handleQuantifyUnfocused = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
+  ) => {
+    const value = e.target.value;
+    if (value.trim().length === 0) {
+      setQuantity("1");
     }
   };
 
@@ -77,39 +119,44 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
                   width: "2rem",
                   height: "2rem",
                   border: "1px solid var(--grey)",
-                  borderRadius: 0,
+                  borderRadius: 1,
                 }}
+                onClick={decreaseQuantity}
               >
                 <Remove />
               </IconButton>
               <TextField
                 sx={{
+                  margin: "0 0.25rem",
                   "& input": {
                     p: 0,
                     width: "3.125rem",
                     height: "2rem",
                     textAlign: "center",
-                    borderRadius: 0,
+                    borderRadius: 1,
                   },
                   "& fieldset": {
-                    borderRadius: 0,
+                    borderRadius: 1,
                   },
                 }}
                 value={quantity}
+                onChange={(e) => handleQuantityChange(e)}
+                onBlur={(e) => handleQuantifyUnfocused(e)}
               />
               <IconButton
                 sx={{
                   width: "2rem",
                   height: "2rem",
                   border: "1px solid var(--grey)",
-                  borderRadius: 0,
+                  borderRadius: 1,
                 }}
+                onClick={increaseQuantity}
               >
                 <Add />
               </IconButton>
             </Box>
             <Typography variant="body2" component="p">
-              6520 sản phẩm có sẵn
+              {selectedProductVariant?.quantity} sản phẩm có sẵn
             </Typography>
           </Box>
         </Grid>

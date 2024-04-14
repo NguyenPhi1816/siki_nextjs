@@ -3,14 +3,7 @@ import {
   IProductFull,
   IProductVariant,
 } from "@/types/types";
-import {
-  Box,
-  Button,
-  Divider,
-  Rating,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, Rating, Skeleton, Typography } from "@mui/material";
 import React from "react";
 import { currencyFormat } from "../numberFormat/currency";
 import { useAppSelector } from "../../../lib/hooks";
@@ -64,12 +57,12 @@ const ProductDetailPrice: React.FC<IProductDetailPrice> = ({
               component="p"
               sx={{ fontSize: "1rem", marginRight: "0.25rem" }}
             >
-              {product?.rating}
+              {product?.averageRating}
             </Typography>
             <Rating
               name="read-only"
               size="small"
-              value={product?.rating}
+              value={product?.averageRating}
               readOnly
             />
           </Box>

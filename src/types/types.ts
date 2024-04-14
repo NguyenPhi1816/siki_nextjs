@@ -2,9 +2,9 @@
 export interface IProduct {
   id: number;
   slug: string;
-  imageUrl: string;
+  image: string;
   name: string;
-  rating: number;
+  averageRating: number;
   price: number;
 }
 
@@ -26,7 +26,12 @@ export interface IProductAttribute {
   productAttributeValues: IProductAttributeValue[];
 }
 
-export interface IStoreDto {}
+export interface IStoreDto {
+  id: number;
+  name: string;
+  logo: string;
+}
+
 export interface IBrandDto {
   id: number;
   name: string;
@@ -48,20 +53,21 @@ export interface IProductFull {
   name: string;
   description: string;
   status: boolean;
-  rating: number;
+  averageRating: number;
   numberOfReviews: number;
   numberOfPurchases: number;
   isShowIndividually: boolean;
   storeDto: IStoreDto;
   brandDto: IBrandDto;
+  relatedProducts: IProduct[];
   productAttributes: IProductAttribute[];
   productVariants: IProductVariant[];
 }
 
-export interface IRecommendation {
+export interface IHome {
   id: number;
-  storeName: string;
-  imageUrl: string;
+  name: string;
+  image: string;
   products: IProduct[];
 }
 
@@ -77,4 +83,9 @@ export interface ICategory {
   imageUrl: string;
   parent: string;
   children: string[];
+}
+
+export interface IBreadcrumb {
+  path: string;
+  title: string;
 }

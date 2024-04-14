@@ -8,7 +8,9 @@ interface IProductBottomNavbar {
 
 const ProductBottomNavbar: React.FC<IProductBottomNavbar> = ({ onClick }) => {
   return (
-    <Box sx={{ padding: "0.5rem 1rem", display: "flex" }}>
+    <Box
+      sx={{ padding: "0.5rem 1rem", display: "flex", bgcolor: "var(--white)" }}
+    >
       <Button
         variant="outlined"
         sx={{

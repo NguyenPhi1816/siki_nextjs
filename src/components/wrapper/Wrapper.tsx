@@ -5,7 +5,7 @@ import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 
 interface IWrapper {
   children: React.ReactNode;
-  sx: SxProps;
+  sx?: SxProps;
 }
 
 const Wrapper: React.FC<IWrapper> = ({ children, sx }) => {

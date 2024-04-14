@@ -11,6 +11,7 @@ export enum LinkColor {
 
 export enum LinkComponent {
   button,
+  outlinedButton,
   roundedButton,
 }
 
@@ -38,6 +39,21 @@ const ButtonLink = styled(Link)({
   alignItems: "center",
 });
 
+const OutlinedButtonLink = styled(Link)({
+  padding: "0.5rem!important",
+  backgroundColor: "transparent",
+  textDecoration: "none",
+  ":hover": {
+    backgroundColor: "var(--pink-primary)",
+    color: "var(--white)",
+  },
+  border: "1px solid var(--pink-primary)",
+  borderRadius: "0.25rem",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
 const CustomLink: React.FC<ICustomLink> = ({
   href,
   children,
@@ -55,6 +71,8 @@ const CustomLink: React.FC<ICustomLink> = ({
     component === LinkComponent.roundedButton
   ) {
     Component = ButtonLink;
+  } else if (component === LinkComponent.outlinedButton) {
+    Component = OutlinedButtonLink;
   }
 
   const ComponentProps: Record<string, any> = {};

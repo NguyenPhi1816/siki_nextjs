@@ -15,8 +15,6 @@ interface IProductItem {
 }
 
 const ProductItem: React.FC<IProductItem> = ({ data }) => {
-  console.log(data);
-
   return (
     data && (
       <Link href={`/product/${data.slug}?spid=${data.id}`} underline="none">
@@ -29,7 +27,7 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
         >
           <CardMedia
             sx={{ paddingTop: "80%", backgroundSize: "contain" }}
-            image={data.imageUrl}
+            image={data.image}
             title={data.name}
           />
           <CardContent>
@@ -51,7 +49,7 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
             <Typography variant="body2" component="p">
               <Rating
                 name="read-only"
-                value={data.rating}
+                value={data.averageRating}
                 readOnly
                 sx={{ fontSize: "0.75rem" }}
               />

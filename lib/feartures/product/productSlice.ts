@@ -1,5 +1,5 @@
 // Need to use the React-specific entry point to import createApi
-import { IProduct, IProductFull, IRecommendation } from "@/types/types";
+import { IHome, IProduct, IProductFull } from "@/types/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -13,8 +13,8 @@ export const productApi = createApi({
     getProducts: builder.query<IProduct[], void>({
       query: () => "products",
     }),
-    getRecommendations: builder.query<IRecommendation[], void>({
-      query: () => "recommendations",
+    getHome: builder.query<IHome[], void>({
+      query: () => "home",
     }),
     getProductsBySlug: builder.query<IProductFull, string>({
       query: (slug: string) => `products/${slug}`,
@@ -25,6 +25,6 @@ export const productApi = createApi({
 
 export const {
   useGetProductsQuery,
-  useGetRecommendationsQuery,
+  useGetHomeQuery,
   useGetProductsBySlugQuery,
 } = productApi;

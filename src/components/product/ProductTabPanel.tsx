@@ -11,7 +11,7 @@ import ProductList from "./ProductList";
 import { useAppSelector } from "../../../lib/hooks";
 import { Button, Skeleton } from "@mui/material";
 import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
-import { IProduct, IRecommendation } from "@/types/types";
+import { IProduct, IHome } from "@/types/types";
 
 interface ICustomLabel {
   imageUrl: string | StaticImport;
@@ -71,7 +71,7 @@ function a11yProps(index: number) {
 
 interface IProductTabPanel {
   sx?: SxProps;
-  data: IRecommendation[];
+  data: IHome[];
 }
 
 const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx, data }) => {
@@ -106,23 +106,18 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx, data }) => {
               },
             }}
           >
-            {data.map((item: IRecommendation) => (
+            {data.map((item: IHome) => (
               <Tab
                 key={item.id}
                 sx={{ width: "16.6%" }}
-                label={
-                  <CustomLabel
-                    imageUrl={item.imageUrl}
-                    title={item.storeName}
-                  />
-                }
+                label={<CustomLabel imageUrl={item.image} title={item.name} />}
                 {...a11yProps(item.id)}
               />
             ))}
           </Tabs>
         </Box>
         <>
-          {data?.map((item: IRecommendation) => {
+          {data?.map((item: IHome) => {
             return (
               <CustomTabPanel
                 key={item.id}

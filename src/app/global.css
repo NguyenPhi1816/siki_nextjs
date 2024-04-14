@@ -57,6 +57,7 @@ html *::-webkit-scrollbar-track {
   height: 2rem !important;
   background-color: var(--white);
   border-radius: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
 }
 
 .swiper-button-next::after,
