@@ -3,8 +3,9 @@ import { uiSlice } from "./feartures/ui/uiSlice";
 import logger from "redux-logger";
 import { productApi } from "./feartures/product/productSlice";
 import { categoryApi } from "./feartures/category/categorySlice";
+import { modalSlice } from "./feartures/modal/modalSlice";
 
-const rootReducer = combineSlices(uiSlice, categoryApi, productApi);
+const rootReducer = combineSlices(uiSlice, categoryApi, productApi, modalSlice);
 
 export const makeStore = () => {
   return configureStore({

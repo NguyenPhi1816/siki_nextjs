@@ -2,7 +2,10 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Wrapper from "@/components/wrapper/Wrapper";
-import MessageModal, { MessageType } from "@/components/modal/MessageModal";
+import MessageModal, {
+  IMessageModalData,
+  MessageType,
+} from "@/components/modal/MessageModal";
 import {
   IBreadcrumb,
   IProductAttributeValue,
@@ -11,7 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useGetProductsBySlugQuery } from "../../../../lib/feartures/product/productSlice";
 import ProductImageSlider from "@/components/product/ProductDetailSlider";
-import { useAppSelector } from "../../../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../lib/hooks";
 import {
   selectIsMobile,
   selectIsStatesInitialized,
@@ -32,6 +35,15 @@ import { useGetCategoriesQuery } from "../../../../lib/feartures/category/catego
 import CustomLink, { LinkComponent } from "@/components/links/CustomLink";
 import ProductSwiper from "@/components/product/ProductSwiper";
 import BreadcrumbContainer from "@/components/breadcrumb/BreadcrumbContainer";
+import Feedback from "@/components/feedback/Feedback";
+import { Dispatch } from "@reduxjs/toolkit";
+import {
+  CloseAction,
+  ModalType,
+  openModal,
+  resetCloseAction,
+  selectCloseAction,
+} from "../../../../lib/feartures/modal/modalSlice";
 
 const breadcrumb: IBreadcrumb[] = [
   { path: "/", title: "Trang chủ" },
@@ -56,14 +68,16 @@ const ProductPage = ({
   const HIDE_DESC = "10";
   const SHOW_DESC = "unset";
 
+  const dispatch: Dispatch = useAppDispatch();
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
   const isMobile = useAppSelector(selectIsMobile);
+  const closeAction = useAppSelector(selectCloseAction);
 
   const {
-    refetch,
+    refetch: productRefetch,
     data: product,
-    error,
-    isLoading,
+    error: productError,
+    isLoading: isProductLoading,
   } = useGetProductsBySlugQuery(params.slug);
   const {
     refetch: categoriesRefetch,
@@ -82,6 +96,27 @@ const ProductPage = ({
   const [showMobileOptionDrawer, setShowMobileOptionDrawer] =
     useState<boolean>(false);
   const [showDesc, setShowDesc] = useState<string>(HIDE_DESC);
+
+  useEffect(() => {
+    if (categoriesError || productError) {
+      const messageData: IMessageModalData = {
+        type: MessageType.ERROR,
+        title: "Oops! Đã có lỗi xảy ra",
+        message: "Có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại",
+      };
+      dispatch(
+        openModal({ modalType: ModalType.message, modalProps: messageData })
+      );
+    }
+  }, [categoriesError, productError]);
+
+  useEffect(() => {
+    if (closeAction === CloseAction.refetchData) {
+      if (productError) productRefetch();
+      if (categoriesError) categoriesRefetch();
+      dispatch(resetCloseAction());
+    }
+  }, [closeAction, categoriesError, productError]);
 
   useEffect(() => {
     if (product) {
@@ -151,7 +186,7 @@ const ProductPage = ({
           overflow: "hidden",
         }}
       >
-        {!error && !categoriesError && product && (
+        {!productError && !categoriesError && product && (
           <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
             <Topbar>
               {isMobile ? <ProductNavbar /> : <DefaultTopNavbar />}
@@ -181,12 +216,12 @@ const ProductPage = ({
                   <Grid item xs={12} sm={12} md={5}>
                     <ProductImageSlider
                       images={slideImages}
-                      showSkeleton={isLoading}
+                      showSkeleton={isProductLoading}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={7}>
                     <ProductDetailPrice
-                      showSkeleton={isLoading}
+                      showSkeleton={isProductLoading}
                       product={product}
                       selectedProductVariant={selectedProductVariant}
                       onChangeOption={handleChangeOption}
@@ -321,7 +356,28 @@ const ProductPage = ({
                   </Button>
                 </Box>
               </Box>
-              {categoriesData && <Footer data={categoriesData} />}
+              <Box
+                sx={{
+                  marginTop: "1rem",
+                  padding: "2rem",
+                  bgcolor: "white",
+                  width: "100%",
+                }}
+              >
+                <Typography
+                  variant={"h4"}
+                  fontSize={"1.125rem"}
+                  fontWeight={700}
+                >
+                  Đánh giá sản phẩm
+                </Typography>
+                <Box sx={{ marginTop: "1rem" }}>
+                  <Feedback />
+                </Box>
+              </Box>
+              {categoriesData && !isCategoriesLoading && (
+                <Footer data={categoriesData} />
+              )}
             </Wrapper>
             <BottomBar>
               <ProductBottomNavbar
@@ -376,16 +432,6 @@ const ProductPage = ({
             </Box>
           )}
         </CustomDrawer>
-        <MessageModal
-          open={!!error}
-          onClose={() => {
-            refetch();
-            categoriesRefetch();
-          }}
-          type={MessageType.ERROR}
-          title="Oops! Đã có lỗi xảy ra"
-          message="Đã có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại."
-        />
       </Container>
     )
   );

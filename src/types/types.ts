@@ -89,3 +89,7 @@ export interface IBreadcrumb {
   path: string;
   title: string;
 }
+
+export interface IModal<T> {
+  data: T;
+}

@@ -1,6 +1,12 @@
+import { IModal } from "@/types/types";
 import { Error } from "@mui/icons-material";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import React from "react";
+import { useAppDispatch } from "../../../lib/hooks";
+import {
+  CloseAction,
+  closeModal,
+} from "../../../lib/feartures/modal/modalSlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -21,40 +27,30 @@ export enum MessageType {
   SUCCESS,
 }
 
-interface IMessageModal {
+export interface IMessageModalData {
   type: MessageType;
   title: string;
   message: string;
-  open: boolean;
-  onClose: () => void;
 }
 
-const MessageModal: React.FC<IMessageModal> = ({
-  type,
-  title,
-  message,
-  open,
-  onClose,
-}) => {
-  const handleClose = () => {
-    onClose();
-  };
+const MessageModal: React.FC<IModal<IMessageModalData>> = React.forwardRef(
+  ({ data }, ref) => {
+    const dispatch = useAppDispatch();
 
-  return (
-    <Modal
-      open={open}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    const handleClose = () => {
+      dispatch(closeModal({ closeAction: CloseAction.refetchData }));
+    };
+
+    return (
       <Box sx={style}>
         <Box
           sx={{
             p: "2rem 0",
             width: "100%",
             bgcolor:
-              type === MessageType.ERROR
+              data?.type === MessageType.ERROR
                 ? "var(--error)"
-                : type === MessageType.SUCCESS
+                : data?.type === MessageType.SUCCESS
                 ? "var(--success)"
                 : "var(--grey)",
             color: "var(--white)",
@@ -69,31 +65,31 @@ const MessageModal: React.FC<IMessageModal> = ({
           }}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {title}
+            {data?.title}
           </Typography>
           <Typography id="modal-modal-description" sx={{ m: "1rem 0" }}>
-            {message}
+            {data?.message}
           </Typography>
           <Button
             onClick={handleClose}
             variant="contained"
             sx={{
               bgcolor:
-                type === MessageType.ERROR
+                data?.type === MessageType.ERROR
                   ? "var(--error)"
-                  : type === MessageType.SUCCESS
+                  : data?.type === MessageType.SUCCESS
                   ? "var(--success)"
                   : "var(--grey)",
               color: "var(--white)",
               boxShadow: 0,
             }}
           >
-            {type === MessageType.ERROR ? "Thử lại" : "Đóng"}
+            {data?.type === MessageType.ERROR ? "Thử lại" : "Đóng"}
           </Button>
         </Box>
       </Box>
-    </Modal>
-  );
-};
+    );
+  }
+);
 
 export default MessageModal;

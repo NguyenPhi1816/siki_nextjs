@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/bundle";
 import StoreProvider from "../components/redux/StoreProvider";
 import UIControl from "@/components/redux/UIControl";
+import CustomModal from "@/components/modal/CustomModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <UIControl />
+              <CustomModal />
               {children}
             </ThemeProvider>
           </AppRouterCacheProvider>

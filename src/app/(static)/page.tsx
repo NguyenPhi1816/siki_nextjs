@@ -6,13 +6,29 @@ import Sidebar from "@/components/sidebar/Sidebar";
 import Footer from "@/components/footer/Footer";
 import ProductSwiperSkeleton from "@/components/product/ProductSwiperSkeleton";
 import ProductTabPanelSkeleton from "@/components/product/ProductTabPanelSkeleton";
-import MessageModal, { MessageType } from "@/components/modal/MessageModal";
+import {
+  IMessageModalData,
+  MessageType,
+} from "@/components/modal/MessageModal";
 import Wrapper from "@/components/wrapper/Wrapper";
 import { useGetHomeQuery } from "../../../lib/feartures/product/productSlice";
 import { useGetCategoriesQuery } from "../../../lib/feartures/category/categorySlice";
 import SidebarSkeleton from "@/components/sidebar/SidebarSkeleton";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
+import {
+  CloseAction,
+  ModalType,
+  openModal,
+  resetCloseAction,
+  selectCloseAction,
+} from "../../../lib/feartures/modal/modalSlice";
+import { Dispatch } from "@reduxjs/toolkit";
 
 export default function Home() {
+  const dispatch: Dispatch = useAppDispatch();
+  const closeAction = useAppSelector(selectCloseAction);
+
   const {
     refetch: homeRefetch,
     data: homeData,
@@ -26,6 +42,27 @@ export default function Home() {
     error: categoriesError,
     isLoading: isCategoriesLoading,
   } = useGetCategoriesQuery();
+
+  useEffect(() => {
+    if (categoriesError || homeError) {
+      const messageData: IMessageModalData = {
+        type: MessageType.ERROR,
+        title: "Oops! Đã có lỗi xảy ra",
+        message: "Có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại",
+      };
+      dispatch(
+        openModal({ modalType: ModalType.message, modalProps: messageData })
+      );
+    }
+  }, [categoriesError, homeError]);
+
+  useEffect(() => {
+    if (closeAction === CloseAction.refetchData) {
+      if (homeError) homeRefetch();
+      if (categoriesError) categoriesRefetch();
+      dispatch(resetCloseAction());
+    }
+  }, [closeAction, categoriesError, homeError]);
 
   return (
     <>
@@ -75,16 +112,6 @@ export default function Home() {
           </Box>
         </Wrapper>
       )}
-      <MessageModal
-        type={MessageType.ERROR}
-        title="Oops! Đã có lỗi xảy ra"
-        message="Có lỗi xảy ra trong quá trình tải dữ liệu. Vui lòng thử lại"
-        open={!!categoriesError || !!homeError}
-        onClose={() => {
-          if (!!homeError) homeRefetch();
-          if (!!categoriesError) categoriesRefetch();
-        }}
-      />
     </>
   );
 }
