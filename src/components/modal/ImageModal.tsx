@@ -149,4 +149,6 @@ const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
   }
 );
 
+ImageModal.displayName = "ImageModal";
+
 export default ImageModal;

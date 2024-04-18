@@ -92,4 +92,6 @@ const MessageModal: React.FC<IModal<IMessageModalData>> = React.forwardRef(
   }
 );
 
+MessageModal.displayName = "MessageModal";
+
 export default MessageModal;
