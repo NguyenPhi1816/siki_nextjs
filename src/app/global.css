@@ -14,11 +14,13 @@
   --top-bar-height: 3.5rem;
   --bottom-bar-height: 3.5rem;
   --product-page-main-image: 26rem;
+  --modal-main-image: 31rem;
   --product-page-slide-image: 5.625rem;
   --side-bar-width: 14.375rem;
 
   --navbar-z-index: 9998;
   --drawer-z-index: 9999;
+  --modal-z-index: 9999;
 }
 
 body {
@@ -51,6 +53,11 @@ html *::-webkit-scrollbar-track {
 }
 
 /* swiper */
+.mySwiper {
+  height: 100%;
+  width: 100%;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
   width: 2rem !important;

@@ -5,6 +5,7 @@ import { Box, Button, Skeleton } from "@mui/material";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import ImageButton from "../image/ImageButton";
 
 interface IProductDetailSlider {
   showSkeleton: boolean;
@@ -76,25 +77,11 @@ const ProductDetailSlider: React.FC<IProductDetailSlider> = ({
         >
           {images?.map((item, index) => (
             <SwiperSlide key={index}>
-              <Button
+              <ImageButton
+                url={item}
+                alt="Product Image"
                 onClick={() => handleChangeImage(item)}
-                sx={{
-                  width: "var(--product-page-slide-image)",
-                  height: "var(--product-page-slide-image)",
-                }}
-              >
-                <Image
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                  src={item}
-                  alt="image product"
-                  width={200}
-                  height={200}
-                />
-              </Button>
+              />
             </SwiperSlide>
           ))}
         </Swiper>

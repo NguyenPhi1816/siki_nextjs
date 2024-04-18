@@ -39,6 +39,7 @@ const CustomModal = () => {
       open={showModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      sx={{ zIndex: "var(--modal-z-index)" }}
     >
       {child}
     </Modal>

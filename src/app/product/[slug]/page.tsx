@@ -232,7 +232,7 @@ const ProductPage = ({
               <Box
                 sx={{
                   marginTop: "1rem",
-                  padding: "2rem",
+                  padding: !isMobile ? "2rem" : "1rem",
                   bgcolor: "white",
                   width: "100%",
                   display: "flex",
@@ -302,7 +302,7 @@ const ProductPage = ({
               <Box
                 sx={{
                   marginTop: "1rem",
-                  padding: "1rem",
+                  padding: !isMobile ? "1rem" : "0",
                   bgcolor: "white",
                   width: "100%",
                 }}
@@ -315,7 +315,7 @@ const ProductPage = ({
               <Box
                 sx={{
                   marginTop: "1rem",
-                  padding: "2rem",
+                  padding: !isMobile ? "2rem" : "1rem",
                   bgcolor: "white",
                   width: "100%",
                 }}
@@ -359,7 +359,7 @@ const ProductPage = ({
               <Box
                 sx={{
                   marginTop: "1rem",
-                  padding: "2rem",
+                  padding: !isMobile ? "2rem" : "1rem",
                   bgcolor: "white",
                   width: "100%",
                 }}
