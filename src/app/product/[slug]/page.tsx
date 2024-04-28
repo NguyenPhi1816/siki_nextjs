@@ -1,34 +1,29 @@
 "use client";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  SxProps,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Wrapper from "@/components/wrapper/Wrapper";
-import MessageModal, {
+import {
   IMessageModalData,
   MessageType,
 } from "@/components/modal/MessageModal";
-import {
-  IBreadcrumb,
-  IProductAttributeValue,
-  IProductVariant,
-} from "@/types/types";
-import { useRouter } from "next/navigation";
+import { IBreadcrumb } from "@/types/types";
 import { useGetProductsBySlugQuery } from "../../../../lib/feartures/product/productSlice";
-import ProductImageSlider from "@/components/product/ProductDetailSlider";
 import { useAppDispatch, useAppSelector } from "../../../../lib/hooks";
 import {
   selectIsMobile,
   selectIsStatesInitialized,
 } from "../../../../lib/feartures/ui/uiSlice";
-import ProductDetailPrice from "@/components/product/ProductDetailPrice";
 import Topbar from "@/components/navbar/TopBar";
 import ProductNavbar from "@/components/navbar/components/topbar/ProductNavbar";
 import DefaultTopNavbar from "@/components/navbar/components/topbar/DefaultTopNavbar";
-import BottomBar from "@/components/navbar/BottomBar";
-import ProductBottomNavbar from "@/components/navbar/components/bottombar/ProductBottomNavbar";
-import CustomDrawer from "@/components/drawer/Drawer";
-import ProductDetailOption from "@/components/product/ProductDetailOption";
 import Image from "next/image";
-import { currencyFormat } from "@/components/numberFormat/currency";
 import { Verified } from "@mui/icons-material";
 import Footer from "@/components/footer/Footer";
 import { useGetCategoriesQuery } from "../../../../lib/feartures/category/categorySlice";
@@ -44,6 +39,11 @@ import {
   resetCloseAction,
   selectCloseAction,
 } from "../../../../lib/feartures/modal/modalSlice";
+import { useGetReviewsQuery } from "../../../../lib/feartures/review/reviewSlice";
+import ProductDetail from "@/components/product/pageComponents/ProductDetail";
+import ProductStore from "@/components/product/pageComponents/ProductStore";
+import ProductDesc from "@/components/product/pageComponents/ProductDesc";
+import ProductFeedback from "@/components/product/pageComponents/ProductFeedback";
 
 const breadcrumb: IBreadcrumb[] = [
   { path: "/", title: "Trang chủ" },
@@ -58,6 +58,31 @@ const breadcrumb: IBreadcrumb[] = [
   },
 ];
 
+interface IProductPageSection {
+  children: React.ReactNode;
+  sx?: SxProps;
+}
+
+const ProductPageSection: React.FC<IProductPageSection> = ({
+  children,
+  sx,
+}) => {
+  return (
+    <Box
+      sx={{
+        ...sx,
+        marginBottom: "1rem",
+        bgcolor: "white",
+        width: "100%",
+        overflowY: "scroll",
+        borderRadius: 1,
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
+
 const ProductPage = ({
   params,
   searchParams,
@@ -65,9 +90,6 @@ const ProductPage = ({
   params: { slug: string };
   searchParams: { spid: string };
 }) => {
-  const HIDE_DESC = "10";
-  const SHOW_DESC = "unset";
-
   const dispatch: Dispatch = useAppDispatch();
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
   const isMobile = useAppSelector(selectIsMobile);
@@ -85,17 +107,6 @@ const ProductPage = ({
     error: categoriesError,
     isLoading: isCategoriesLoading,
   } = useGetCategoriesQuery();
-
-  const router = useRouter();
-  const [slideImages, setSlideImages] = useState<string[] | null>(null);
-  const [selectedProductVariant, setSelectedProductVariant] =
-    useState<IProductVariant | null>(null);
-  const [selectedOptions, setSelectedOptions] = useState<
-    IProductAttributeValue[]
-  >([]);
-  const [showMobileOptionDrawer, setShowMobileOptionDrawer] =
-    useState<boolean>(false);
-  const [showDesc, setShowDesc] = useState<string>(HIDE_DESC);
 
   useEffect(() => {
     if (categoriesError || productError) {
@@ -118,63 +129,6 @@ const ProductPage = ({
     }
   }, [closeAction, categoriesError, productError]);
 
-  useEffect(() => {
-    if (product) {
-      const selectedProductVariant = product.productVariants.find(
-        (item) => item.id === Number.parseInt(searchParams.spid)
-      );
-      if (selectedProductVariant) {
-        setSelectedProductVariant(selectedProductVariant);
-      }
-    }
-  }, [product, searchParams.spid]);
-
-  useEffect(() => {
-    if (selectedProductVariant) {
-      let _slideImages = [];
-      const _mainImage = selectedProductVariant.image;
-      const productImages = selectedProductVariant.productImages.map(
-        (image) => image.url
-      );
-      _slideImages = [_mainImage, ...productImages];
-      setSlideImages(_slideImages);
-      setSelectedOptions(selectedProductVariant.productAttributeValues);
-    }
-  }, [selectedProductVariant]);
-
-  const handleChangeOption = (option: IProductAttributeValue) => {
-    setSelectedOptions((prev) => {
-      const newSelectedOption = prev.map((item) => {
-        if (item.attributeId === option.attributeId) {
-          return option;
-        }
-        return item;
-      });
-      return newSelectedOption;
-    });
-  };
-
-  useEffect(() => {
-    const variant = product?.productVariants.find(
-      (item) =>
-        JSON.stringify(item.productAttributeValues) ===
-        JSON.stringify(selectedOptions)
-    );
-    if (variant) {
-      setSelectedProductVariant(variant);
-      router.push(`/product/${product?.slug}?spid=${variant.id}`);
-    }
-  }, [product, selectedOptions, router]);
-
-  const handleToggleDesc = () => {
-    setShowDesc((prev) => {
-      if (prev === HIDE_DESC) {
-        return SHOW_DESC;
-      }
-      return HIDE_DESC;
-    });
-  };
-
   return (
     isAppLoaded && (
       <Container
@@ -186,7 +140,7 @@ const ProductPage = ({
           overflow: "hidden",
         }}
       >
-        {!productError && !categoriesError && product && (
+        {!productError && !categoriesError && product && categoriesData && (
           <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
             <Topbar>
               {isMobile ? <ProductNavbar /> : <DefaultTopNavbar />}
@@ -197,241 +151,34 @@ const ProductPage = ({
                   <BreadcrumbContainer data={breadcrumb} />
                 </Box>
               )}
-              <Box
-                sx={{
-                  marginBottom: "1rem",
-                  bgcolor: "white",
-                  width: "100%",
-                  overflowY: "scroll",
-                }}
+              <ProductPageSection>
+                <ProductDetail
+                  data={product}
+                  isLoading={isProductLoading}
+                  spid={searchParams.spid}
+                />
+              </ProductPageSection>
+              <ProductPageSection
+                sx={{ padding: !isMobile ? "1rem 2rem" : "1rem" }}
               >
-                <Grid
-                  container
-                  direction="row"
-                  sx={{
-                    justifyContent: "center",
-                    flexDirection: { xs: "column", sm: "row" },
-                  }}
-                >
-                  <Grid item xs={12} sm={12} md={5}>
-                    <ProductImageSlider
-                      images={slideImages}
-                      showSkeleton={isProductLoading}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={7}>
-                    <ProductDetailPrice
-                      showSkeleton={isProductLoading}
-                      product={product}
-                      selectedProductVariant={selectedProductVariant}
-                      onChangeOption={handleChangeOption}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  padding: !isMobile ? "2rem" : "1rem",
-                  bgcolor: "white",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  <Box
-                    sx={{
-                      width: "4rem",
-                      height: "4rem",
-                      borderRadius: "5rem",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                      }}
-                      src={product.brandDto.logo}
-                      alt={product.brandDto.name}
-                      width={100}
-                      height={100}
-                    />
-                  </Box>
-                  <Box sx={{ marginLeft: "1rem" }}>
-                    <Typography
-                      variant="h6"
-                      sx={{ fontSize: "1.125rem", fontWeight: 700 }}
-                    >
-                      {product.brandDto.name}
-                    </Typography>
-                    <Box
-                      sx={{
-                        marginTop: "0.25rem",
-                        display: "flex",
-                        color: "var(--pink-primary)",
-                      }}
-                    >
-                      <Verified fontSize="small" />
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          marginLeft: "0.25rem",
-                          fontWeight: 700,
-                          fontSize: "0.875rem",
-                        }}
-                      >
-                        Offical
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box>
-                  <CustomLink
-                    sx={{ fontSize: "0.875rem" }}
-                    href="/store/1"
-                    component={LinkComponent.outlinedButton}
-                  >
-                    Xem cửa hàng
-                  </CustomLink>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  padding: !isMobile ? "1rem" : "0",
-                  bgcolor: "white",
-                  width: "100%",
-                }}
-              >
+                <ProductStore data={product} />
+              </ProductPageSection>
+              <ProductPageSection sx={{ padding: !isMobile ? "1rem" : "0" }}>
                 <ProductSwiper
                   data={product.relatedProducts}
                   title="Các sản phẩm liên quan"
                 />
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  padding: !isMobile ? "2rem" : "1rem",
-                  bgcolor: "white",
-                  width: "100%",
-                }}
-              >
-                <Typography
-                  variant={"h4"}
-                  fontSize={"1.125rem"}
-                  fontWeight={700}
-                >
-                  Mô tả sản phẩm
-                </Typography>
-                <Box
-                  dangerouslySetInnerHTML={{ __html: product.description }}
-                  sx={{
-                    h3: { fontSize: "1rem" },
-                    p: { fontSize: "0.875rem" },
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: showDesc,
-                    WebkitBoxOrient: "vertical",
-                  }}
-                />
-                <Box
-                  sx={{
-                    marginTop: "1rem",
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
-                    variant="outlined"
-                    onClick={handleToggleDesc}
-                    sx={{ textTransform: "unset" }}
-                  >
-                    {showDesc === SHOW_DESC ? "Ẩn bớt" : "Xem thêm"}
-                  </Button>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  padding: !isMobile ? "2rem" : "1rem",
-                  bgcolor: "white",
-                  width: "100%",
-                }}
-              >
-                <Typography
-                  variant={"h4"}
-                  fontSize={"1.125rem"}
-                  fontWeight={700}
-                >
-                  Đánh giá sản phẩm
-                </Typography>
-                <Box sx={{ marginTop: "1rem" }}>
-                  <Feedback />
-                </Box>
-              </Box>
-              {categoriesData && !isCategoriesLoading && (
-                <Footer data={categoriesData} />
-              )}
+              </ProductPageSection>
+              <ProductPageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
+                <ProductDesc content={product.description} />
+              </ProductPageSection>
+              <ProductPageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
+                <ProductFeedback slug={params.slug} />
+              </ProductPageSection>
+              {!isCategoriesLoading && <Footer data={categoriesData} />}
             </Wrapper>
-            <BottomBar>
-              <ProductBottomNavbar
-                onClick={() => setShowMobileOptionDrawer(true)}
-              />
-            </BottomBar>
           </Box>
         )}
-        <CustomDrawer
-          open={showMobileOptionDrawer}
-          setOpen={() => setShowMobileOptionDrawer((prev) => !prev)}
-        >
-          {selectedProductVariant && product && (
-            <Box sx={{ padding: "1rem 1rem 0.5rem" }}>
-              <Box
-                sx={{
-                  marginBottom: "1rem",
-                  width: "100%",
-                  height: "5.625rem",
-                  display: "flex",
-                }}
-              >
-                <Image
-                  style={{
-                    width: "5.625rem",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                  src={selectedProductVariant.image}
-                  alt="product image"
-                  width={90}
-                  height={90}
-                  priority
-                />
-                <Box sx={{ marginLeft: "1rem" }}>
-                  <Typography variant="body1">{product.name}</Typography>
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 700, color: "var(--pink-primary)" }}
-                  >
-                    {currencyFormat(selectedProductVariant.price)}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box>
-                <ProductDetailOption
-                  productAttributes={product?.productAttributes}
-                  selectedProductVariant={selectedProductVariant}
-                  onChangeOption={handleChangeOption}
-                />
-              </Box>
-            </Box>
-          )}
-        </CustomDrawer>
       </Container>
     )
   );

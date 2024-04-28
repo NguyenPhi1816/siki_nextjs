@@ -93,3 +93,30 @@ export interface IBreadcrumb {
 export interface IModal<T> {
   data: T;
 }
+
+export interface ICustomer {
+  id: number;
+  name: string;
+  image: string;
+}
+
+export interface IReviewItem {
+  id: number;
+  customer: ICustomer;
+  rating: number;
+  createAt: string;
+  variant: string;
+  content: string;
+  images: string[];
+}
+
+export interface IReview {
+  pageNum: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  sortDir: string;
+  sortField: string;
+  ratingStars: number[];
+  data: IReviewItem[];
+}

@@ -7,12 +7,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import ImageButton from "../image/ImageButton";
 
-interface IProductDetailSlider {
+interface IProductImageSlider {
   showSkeleton: boolean;
   images: string[] | null;
 }
 
-const ProductDetailSlider: React.FC<IProductDetailSlider> = ({
+const ProductImageSlider: React.FC<IProductImageSlider> = ({
   showSkeleton,
   images,
 }) => {
@@ -128,4 +128,4 @@ const ProductDetailSlider: React.FC<IProductDetailSlider> = ({
   );
 };
 
-export default ProductDetailSlider;
+export default ProductImageSlider;

@@ -15,24 +15,21 @@ import { IImageModalData } from "../modal/ImageModal";
 import React from "react";
 import ImageButton from "../image/ImageButton";
 import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
+import { IReviewItem } from "@/types/types";
 
-const IMAGES = [
-  "https://salt.tikicdn.com/cache/w200/ts/review/f6/91/0e/21dad5859e0db9eb6fb9fd5544915595.jpg",
-  "https://salt.tikicdn.com/cache/w200/ts/review/f6/91/0e/21dad5859e0db9eb6fb9fd5544915595.jpg",
-  "https://salt.tikicdn.com/cache/w200/ts/review/f6/91/0e/21dad5859e0db9eb6fb9fd5544915595.jpg",
-  "https://salt.tikicdn.com/cache/w200/ts/review/f6/91/0e/21dad5859e0db9eb6fb9fd5544915595.jpg",
-  "https://salt.tikicdn.com/cache/w200/ts/review/f6/91/0e/21dad5859e0db9eb6fb9fd5544915595.jpg",
-  "https://salt.tikicdn.com/cache/w200/ts/review/f6/91/0e/21dad5859e0db9eb6fb9fd5544915595.jpg",
-];
+interface IFeedbackComponent {
+  data: IReviewItem;
+}
 
-const Feedback = () => {
+const Feedback: React.FC<IFeedbackComponent> = ({ data }) => {
   const dispatch: Dispatch = useAppDispatch();
   const isMobile = useAppSelector(selectIsMobile);
 
-  const handleShowImageModal = () => {
+  const handleShowImageModal = (images: string[], defaultIndex: number) => {
     const modalProps: IImageModalData = {
       title: "Hình ảnh từ khách hàng",
-      images: IMAGES,
+      images: images,
+      defaultIndex: defaultIndex,
     };
     dispatch(openModal({ modalType: ModalType.image, modalProps: modalProps }));
   };
@@ -41,11 +38,13 @@ const Feedback = () => {
     <Card sx={{ boxShadow: 0 }}>
       <CardContent sx={{ padding: 0, display: "flex" }}>
         <Box>
-          <Avatar alt="User Feedback" src="" />
+          <Avatar alt={data.customer.name} src={data.customer.image} />
         </Box>
         <Box sx={{ margin: "0 1rem", flex: 1 }}>
           <Box sx={{ width: "100%", color: "var(--text-grey)" }}>
-            <Typography sx={{ fontSize: "0.75rem" }}>User name</Typography>
+            <Typography sx={{ fontSize: "0.75rem" }}>
+              {data.customer.name}
+            </Typography>
             <Rating name="read-only" size="small" value={5} readOnly />
             <Box
               sx={{
@@ -54,7 +53,7 @@ const Feedback = () => {
               }}
             >
               <Typography sx={{ fontSize: "0.75rem" }}>
-                2023-09-12 12:11
+                {data.createAt}
               </Typography>
               <Divider
                 orientation="vertical"
@@ -62,29 +61,28 @@ const Feedback = () => {
                 sx={{ margin: "0 0.25rem" }}
               />
               <Typography sx={{ fontSize: "0.75rem" }}>
-                Phân loại hàng: Lưới Vân Rồng Đen
+                Phân loại hàng: {data.variant}
               </Typography>
             </Box>
             <Box sx={{ margin: "1rem 0", width: "100%" }}>
               <Typography sx={{ fontSize: "0.875rem" }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                natus commodi numquam repellendus alias officia, temporibus, a
-                dicta voluptate praesentium, facilis earum minima recusandae
-                explicabo dolorum quibusdam dolores architecto doloribus!
+                {data.content}
               </Typography>
             </Box>
-            <Grid container spacing={2}>
-              {IMAGES.map((item, index) => (
-                <Grid item key={index}>
-                  <ImageButton
-                    url={item}
-                    alt={"Feedback Image"}
-                    onClick={handleShowImageModal}
-                    key={index}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+            {data.images.length > 0 && (
+              <Grid container spacing={2}>
+                {data.images.map((item, index) => (
+                  <Grid item key={index}>
+                    <ImageButton
+                      url={item}
+                      alt={"Feedback Image"}
+                      onClick={() => handleShowImageModal(data.images, index)}
+                      key={index}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            )}
           </Box>
         </Box>
       </CardContent>

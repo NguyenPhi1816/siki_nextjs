@@ -4,8 +4,15 @@ import logger from "redux-logger";
 import { productApi } from "./feartures/product/productSlice";
 import { categoryApi } from "./feartures/category/categorySlice";
 import { modalSlice } from "./feartures/modal/modalSlice";
+import { reviewApi } from "./feartures/review/reviewSlice";
 
-const rootReducer = combineSlices(uiSlice, categoryApi, productApi, modalSlice);
+const rootReducer = combineSlices(
+  uiSlice,
+  modalSlice,
+  categoryApi,
+  productApi,
+  reviewApi
+);
 
 export const makeStore = () => {
   return configureStore({
@@ -13,7 +20,8 @@ export const makeStore = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         productApi.middleware,
-        categoryApi.middleware
+        categoryApi.middleware,
+        reviewApi.middleware
       ),
   });
 };

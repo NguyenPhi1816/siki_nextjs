@@ -17,19 +17,31 @@ import { Dispatch } from "@reduxjs/toolkit";
 export interface IImageModalData {
   title: string;
   images: string[];
+  defaultIndex: number;
 }
 
 const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
   ({ data }, ref) => {
+    const DESKTOP_SLIDE_PER_VIEW = 6;
+    const MOBILE_SLIDE_PER_VIEW = 4;
+
     const dispatch: Dispatch = useAppDispatch();
     const isMobile = useAppSelector(selectIsMobile);
 
-    const swiperRef = useRef<any>(null);
+    const mainSwiperRef = useRef<any>(null);
+    const listSwiperRef = useRef<any>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
 
     useEffect(() => {
-      if (swiperRef.current) {
-        swiperRef.current.slideTo(selectedImage);
+      setSelectedImage(data.defaultIndex);
+    }, [data.defaultIndex]);
+
+    useEffect(() => {
+      if (mainSwiperRef.current) {
+        mainSwiperRef.current.slideTo(selectedImage);
+      }
+      if (listSwiperRef.current) {
+        listSwiperRef.current.slideTo(selectedImage);
       }
     }, [selectedImage]);
 
@@ -101,7 +113,10 @@ const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
               modules={[Navigation]}
               className="mySwiper"
               onSwiper={(swiper) => {
-                swiperRef.current = swiper;
+                mainSwiperRef.current = swiper;
+              }}
+              onSlideChange={(swiper) => {
+                setSelectedImage(swiper.activeIndex);
               }}
             >
               {data?.images.map((item, index) => (
@@ -125,11 +140,19 @@ const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
           </Box>
           <Box sx={{ width: "100%" }}>
             <Swiper
-              slidesPerView={!isMobile ? 6 : 4}
+              slidesPerView={
+                !isMobile ? DESKTOP_SLIDE_PER_VIEW : MOBILE_SLIDE_PER_VIEW
+              }
+              slidesPerGroup={
+                !isMobile ? DESKTOP_SLIDE_PER_VIEW : MOBILE_SLIDE_PER_VIEW
+              }
               spaceBetween={10}
               navigation={!isMobile}
               modules={[Navigation]}
               className="mySwiper"
+              onSwiper={(swiper) => {
+                listSwiperRef.current = swiper;
+              }}
             >
               {data?.images.map((image, index) => (
                 <SwiperSlide key={index}>
