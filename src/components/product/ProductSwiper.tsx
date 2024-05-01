@@ -10,7 +10,7 @@ import {
   selectIsTablet,
 } from "../../../lib/feartures/ui/uiSlice";
 import React from "react";
-import { IProduct } from "@/types/types";
+import { IProduct } from "@/types/product";
 
 interface IProductSwiper {
   title: string;
@@ -46,7 +46,7 @@ const ProductSwiper: React.FC<IProductSwiper> = ({ title, data, sx }) => {
   return (
     isAppLoaded && (
       <Box padding={2} sx={{ ...sx, bgcolor: "var(--white)", borderRadius: 1 }}>
-        <Typography variant={"h4"} fontSize={"1.125rem"} fontWeight={700}>
+        <Typography variant={"h4"} fontSize={"1rem"} fontWeight={700}>
           {title}
         </Typography>
         <Box marginTop={2}>

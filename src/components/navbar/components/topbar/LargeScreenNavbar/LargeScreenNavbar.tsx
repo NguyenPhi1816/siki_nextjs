@@ -20,7 +20,7 @@ const LargeScreenNavbar = () => {
   return (
     <Container
       component="div"
-      sx={{ ...containerStyles, padding: "0.5rem 0!important" }}
+      sx={{ ...containerStyles, padding: "0.5rem 1.5rem!important" }}
     >
       <LogoLink size={LogoSize.md} />
       <Box sx={searchBarBoxStyles}>

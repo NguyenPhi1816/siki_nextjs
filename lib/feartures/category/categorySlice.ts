@@ -1,5 +1,5 @@
 // Need to use the React-specific entry point to import createApi
-import { ICategory } from "@/types/types";
+import { ICategory } from "@/types/category";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;

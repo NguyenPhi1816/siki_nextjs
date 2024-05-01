@@ -1,4 +1,4 @@
-import { IBreadcrumb } from "@/types/types";
+import { IBreadcrumb } from "@/types/category";
 import { Box } from "@mui/material";
 import React from "react";
 import BreadcrumbItem from "./BreadcrumbItem";

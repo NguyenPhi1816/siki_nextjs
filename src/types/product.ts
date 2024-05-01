@@ -1,4 +1,3 @@
-// base product: category, brand, productAttributeValues
 export interface IProduct {
   id: number;
   slug: string;
@@ -76,47 +75,4 @@ export interface IProductLabel {
   title: string;
   imageUrl: string;
   storeName: string;
-}
-
-export interface ICategory {
-  id: number;
-  imageUrl: string;
-  parent: string;
-  children: string[];
-}
-
-export interface IBreadcrumb {
-  path: string;
-  title: string;
-}
-
-export interface IModal<T> {
-  data: T;
-}
-
-export interface ICustomer {
-  id: number;
-  name: string;
-  image: string;
-}
-
-export interface IReviewItem {
-  id: number;
-  customer: ICustomer;
-  rating: number;
-  createAt: string;
-  variant: string;
-  content: string;
-  images: string[];
-}
-
-export interface IReview {
-  pageNum: number;
-  pageSize: number;
-  totalElements: number;
-  totalPages: number;
-  sortDir: string;
-  sortField: string;
-  ratingStars: number[];
-  data: IReviewItem[];
 }

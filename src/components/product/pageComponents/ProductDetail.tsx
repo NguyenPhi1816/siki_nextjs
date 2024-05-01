@@ -5,7 +5,7 @@ import {
   IProductAttributeValue,
   IProductFull,
   IProductVariant,
-} from "@/types/types";
+} from "@/types/product";
 import React, { useEffect, useState } from "react";
 import ProductImageSlider from "../ProductImageSlider";
 import { useRouter } from "next/navigation";

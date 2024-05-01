@@ -1,5 +1,5 @@
 import ProductItem from "@/components/product/ProductItem";
-import { IProduct } from "@/types/types";
+import { IProduct } from "@/types/product";
 import { Box, Grid, SxProps } from "@mui/material";
 import React from "react";
 

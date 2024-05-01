@@ -1,19 +1,12 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  SxProps,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Container, SxProps } from "@mui/material";
+import React, { useEffect } from "react";
 import Wrapper from "@/components/wrapper/Wrapper";
 import {
   IMessageModalData,
   MessageType,
 } from "@/components/modal/MessageModal";
-import { IBreadcrumb } from "@/types/types";
+import { IBreadcrumb } from "@/types/category";
 import { useGetProductsBySlugQuery } from "../../../../lib/feartures/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../../../lib/hooks";
 import {
@@ -23,14 +16,9 @@ import {
 import Topbar from "@/components/navbar/TopBar";
 import ProductNavbar from "@/components/navbar/components/topbar/ProductNavbar";
 import DefaultTopNavbar from "@/components/navbar/components/topbar/DefaultTopNavbar";
-import Image from "next/image";
-import { Verified } from "@mui/icons-material";
 import Footer from "@/components/footer/Footer";
-import { useGetCategoriesQuery } from "../../../../lib/feartures/category/categorySlice";
-import CustomLink, { LinkComponent } from "@/components/links/CustomLink";
 import ProductSwiper from "@/components/product/ProductSwiper";
 import BreadcrumbContainer from "@/components/breadcrumb/BreadcrumbContainer";
-import Feedback from "@/components/feedback/Feedback";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
   CloseAction,
@@ -39,7 +27,6 @@ import {
   resetCloseAction,
   selectCloseAction,
 } from "../../../../lib/feartures/modal/modalSlice";
-import { useGetReviewsQuery } from "../../../../lib/feartures/review/reviewSlice";
 import ProductDetail from "@/components/product/pageComponents/ProductDetail";
 import ProductStore from "@/components/product/pageComponents/ProductStore";
 import ProductDesc from "@/components/product/pageComponents/ProductDesc";

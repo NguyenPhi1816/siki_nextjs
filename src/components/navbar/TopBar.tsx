@@ -15,7 +15,13 @@ const Topbar: React.FC<ITopbar> = ({ children }) => {
   return (
     <AppBar position="fixed" sx={{ boxShadow: "none" }}>
       {isStatesInitialized && (
-        <Toolbar variant="dense" sx={{ bgcolor: "var(--bg-white)" }}>
+        <Toolbar
+          variant="dense"
+          sx={{
+            bgcolor: "var(--bg-white)",
+            borderBottom: "1px solid var(--outline-light-grey)",
+          }}
+        >
           {children}
         </Toolbar>
       )}

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { currencyFormat } from "../numberFormat/currency";
-import { IProduct } from "@/types/types";
+import { IProduct } from "@/types/product";
 
 interface IProductItem {
   data: IProduct;
@@ -35,6 +35,7 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
               variant="h3"
               fontSize="0.75rem"
               sx={{
+                color: "var(--text-black)",
                 minHeight: "1.75rem",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -57,7 +58,11 @@ const ProductItem: React.FC<IProductItem> = ({ data }) => {
 
             <Typography
               variant="h2"
-              sx={{ fontSize: "1rem", fontWeight: "700" }}
+              sx={{
+                fontSize: "1rem",
+                fontWeight: "700",
+                color: "var(--text-black)",
+              }}
             >
               {currencyFormat(data.price)}
             </Typography>

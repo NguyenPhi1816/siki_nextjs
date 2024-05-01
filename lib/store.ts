@@ -5,13 +5,15 @@ import { productApi } from "./feartures/product/productSlice";
 import { categoryApi } from "./feartures/category/categorySlice";
 import { modalSlice } from "./feartures/modal/modalSlice";
 import { reviewApi } from "./feartures/review/reviewSlice";
+import { promotionApi } from "./feartures/promotion/promotionSlice";
 
 const rootReducer = combineSlices(
   uiSlice,
   modalSlice,
   categoryApi,
   productApi,
-  reviewApi
+  reviewApi,
+  promotionApi
 );
 
 export const makeStore = () => {
@@ -21,7 +23,8 @@ export const makeStore = () => {
       getDefaultMiddleware().concat(
         productApi.middleware,
         categoryApi.middleware,
-        reviewApi.middleware
+        reviewApi.middleware,
+        promotionApi.middleware
       ),
   });
 };

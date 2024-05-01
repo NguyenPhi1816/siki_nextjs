@@ -2,7 +2,7 @@ import {
   IProductAttributeValue,
   IProductFull,
   IProductVariant,
-} from "@/types/types";
+} from "@/types/product";
 import { Box, Divider, Rating, Skeleton, Typography } from "@mui/material";
 import React from "react";
 import { currencyFormat } from "../numberFormat/currency";

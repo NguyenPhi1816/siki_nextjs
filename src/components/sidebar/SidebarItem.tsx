@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import CustomLink, { LinkColor, LinkComponent } from "../links/CustomLink";
 import Image from "next/image";
-import { ICategory } from "@/types/types";
+import { ICategory } from "@/types/category";
 import React from "react";
 
 interface ISidebarItem {
@@ -27,7 +27,11 @@ const SidebarItem: React.FC<ISidebarItem> = ({ data }) => {
       >
         <Image src={data?.imageUrl} alt={data?.parent} width={32} height={32} />
         <Typography
-          sx={{ marginLeft: "0.5rem", fontSize: "0.875rem" }}
+          sx={{
+            marginLeft: "0.5rem",
+            fontSize: "0.875rem",
+            color: "var(--text-black)",
+          }}
           variant="body1"
         >
           {data?.parent}

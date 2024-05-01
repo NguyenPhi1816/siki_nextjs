@@ -1,4 +1,4 @@
-import { IModal } from "@/types/types";
+import { IModal } from "@/types/modal";
 import { Error } from "@mui/icons-material";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import React from "react";

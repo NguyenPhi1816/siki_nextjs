@@ -1,4 +1,4 @@
-import { ICategory } from "@/types/types";
+import { ICategory } from "@/types/category";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";

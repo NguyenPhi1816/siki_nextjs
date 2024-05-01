@@ -1,7 +1,7 @@
 "use client";
 import Feedback from "@/components/feedback/Feedback";
 import FilterItem from "@/components/feedback/FilterItem";
-import { IReview } from "@/types/types";
+import { IReview } from "@/types/review";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useGetReviewsQuery } from "../../../../lib/feartures/review/reviewSlice";

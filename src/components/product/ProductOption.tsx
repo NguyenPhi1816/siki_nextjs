@@ -1,4 +1,4 @@
-import { IProductAttributeValue } from "@/types/types";
+import { IProductAttributeValue } from "@/types/product";
 import { Check } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";

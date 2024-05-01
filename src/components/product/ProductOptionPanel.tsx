@@ -2,7 +2,7 @@
 import { Box, Grid, SxProps, Typography } from "@mui/material";
 import ProductOption from "./ProductOption";
 import React, { useEffect, useState } from "react";
-import { IProductAttributeValue } from "@/types/types";
+import { IProductAttributeValue } from "@/types/product";
 
 interface IProductOptionPanel {
   name: string;

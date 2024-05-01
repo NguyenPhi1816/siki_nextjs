@@ -1,5 +1,5 @@
 import CustomLink, { LinkComponent } from "@/components/links/CustomLink";
-import { IProductFull } from "@/types/types";
+import { IProductFull } from "@/types/product";
 import { Verified } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";

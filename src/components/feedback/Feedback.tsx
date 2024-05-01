@@ -15,7 +15,7 @@ import { IImageModalData } from "../modal/ImageModal";
 import React from "react";
 import ImageButton from "../image/ImageButton";
 import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
-import { IReviewItem } from "@/types/types";
+import { IReviewItem } from "@/types/review";
 
 interface IFeedbackComponent {
   data: IReviewItem;

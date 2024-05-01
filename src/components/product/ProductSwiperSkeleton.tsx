@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAppSelector } from "../../../lib/hooks";
 import {
@@ -41,9 +41,7 @@ const ProductSwiperSkeleton = () => {
         padding={2}
         sx={{ marginBottom: 2, bgcolor: "var(--white)", borderRadius: 1 }}
       >
-        <Typography variant={"h4"} fontSize={"1.125rem"} fontWeight={700}>
-          Recommendation
-        </Typography>
+        <Skeleton width={"40%"} />
         <Box marginTop={2}>
           <Swiper
             slidesPerGroup={getSlidesPerGroup()}

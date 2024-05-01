@@ -11,7 +11,7 @@ import ProductList from "./ProductList";
 import { useAppSelector } from "../../../lib/hooks";
 import { Button, Skeleton } from "@mui/material";
 import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
-import { IProduct, IHome } from "@/types/types";
+import { IProduct, IHome } from "@/types/product";
 
 interface ICustomLabel {
   imageUrl: string | StaticImport;

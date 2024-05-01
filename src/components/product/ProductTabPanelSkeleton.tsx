@@ -42,12 +42,7 @@ const ProductTabPanelSkeleton: React.FC<IProductTabPanelSkeleton> = ({
         padding={2}
         sx={{ ...sx, width: "100%", bgcolor: "var(--white)", borderRadius: 1 }}
       >
-        <Typography
-          variant={"h4"}
-          sx={{ marginBottom: 1, fontSize: "1.125rem", fontWeight: "700" }}
-        >
-          Today recommendations
-        </Typography>
+        <Skeleton width={"40%"} />
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={0}

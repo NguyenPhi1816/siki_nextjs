@@ -6,8 +6,9 @@ import DefaultBottomNavbar from "@/components/navbar/components/bottombar/Defaul
 import DefaultTopNavbar from "@/components/navbar/components/topbar/DefaultTopNavbar";
 
 export const metadata: Metadata = {
-  title: "Siki - Home",
-  description: "This is the Siki's home page",
+  title: "Siki - Mua hàng online giá tốt, chất lượng",
+  description:
+    "Hàng ngàn mặt hàng, dễ dàng thanh toán, vận chuyển hỏa tốc,... tất cả Siki đều có",
 };
 
 export default function RootLayout({

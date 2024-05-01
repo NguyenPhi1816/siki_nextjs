@@ -1,4 +1,4 @@
-import { IModal } from "@/types/types";
+import { IModal } from "@/types/modal";
 import { Box, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import ImageButton from "../image/ImageButton";

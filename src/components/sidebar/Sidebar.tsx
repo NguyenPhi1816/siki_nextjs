@@ -7,7 +7,7 @@ import {
 } from "../../../lib/feartures/ui/uiSlice";
 import SidebarItem from "./SidebarItem";
 import SidebarItemSkeleton from "./SidebarItemSkeleton";
-import { ICategory } from "@/types/types";
+import { ICategory } from "@/types/category";
 import React from "react";
 
 interface ISidebar {
@@ -45,22 +45,17 @@ const Sidebar: React.FC<ISidebar> = ({ data }) => {
         <Box sx={{ bgcolor: "var(--white)", borderRadius: 1 }}>
           <List sx={{ padding: "1rem 0.5rem" }}>
             <ListItem sx={{ padding: 0, paddingLeft: "0.5rem" }}>
-              <Typography fontWeight={700}>Danh mục sản phẩm</Typography>
+              <Typography fontSize={"0.875rem"} fontWeight={700}>
+                Danh mục sản phẩm
+              </Typography>
             </ListItem>
-            {
-              data?.map((item) => {
-                return (
-                  <ListItem key={item.id} disablePadding>
-                    <SidebarItem data={item} />
-                  </ListItem>
-                );
-              })
-              // : new Array(15).fill(0).map((item, i) => (
-              //     <ListItem key={i} disablePadding>
-              //       <SidebarItemSkeleton />
-              //     </ListItem>
-              //   ))
-            }
+            {data?.map((item) => {
+              return (
+                <ListItem key={item.id} disablePadding>
+                  <SidebarItem data={item} />
+                </ListItem>
+              );
+            })}
           </List>
         </Box>
         <Box

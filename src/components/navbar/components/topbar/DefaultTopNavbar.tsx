@@ -4,8 +4,8 @@ import { useAppSelector } from "../../../../../lib/hooks";
 import LargeScreenNavbar from "./LargeScreenNavbar";
 import MobileScreenNavbar from "./MobileScreenNavbar";
 
-const DefaultTopNavbar = () => {
-  const isMobile = useAppSelector(selectIsMobile);
+const DefaultTopNavbar: React.FC = () => {
+  const isMobile: boolean = useAppSelector(selectIsMobile);
   return isMobile ? <MobileScreenNavbar /> : <LargeScreenNavbar />;
 };
 

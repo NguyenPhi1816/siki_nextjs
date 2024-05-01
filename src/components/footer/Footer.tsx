@@ -37,22 +37,22 @@ const Footer = () => {
           <Box
             sx={{
               margin: "1.5rem 0",
-              width: "50%",
+              width: "70%",
               display: "flex",
               justifyContent: "space-between",
             }}
           >
             <FooterLink isHeader href="/">
-              About Us
+              Về chúng tôi
             </FooterLink>
             <FooterLink isHeader href="/">
-              Contact
+              Kết nối với chúng tôi
             </FooterLink>
             <FooterLink isHeader href="/">
-              Privacy
+              Chính sách
             </FooterLink>
             <FooterLink isHeader href="/">
-              Support
+              Hỗ trợ khách hàng
             </FooterLink>
           </Box>
           <Box

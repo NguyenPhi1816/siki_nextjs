@@ -1,5 +1,5 @@
 // Need to use the React-specific entry point to import createApi
-import { IReview } from "@/types/types";
+import { IReview } from "@/types/review";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;

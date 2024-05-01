@@ -1,4 +1,4 @@
-import { IBreadcrumb } from "@/types/types";
+import { IBreadcrumb } from "@/types/category";
 import React from "react";
 import CustomLink, { LinkColor } from "../links/CustomLink";
 

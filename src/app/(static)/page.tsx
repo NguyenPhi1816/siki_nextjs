@@ -24,6 +24,7 @@ import {
   selectCloseAction,
 } from "../../../lib/feartures/modal/modalSlice";
 import { Dispatch } from "@reduxjs/toolkit";
+import { useGetPromotionsQuery } from "../../../lib/feartures/promotion/promotionSlice";
 
 export default function Home() {
   const dispatch: Dispatch = useAppDispatch();
@@ -42,6 +43,15 @@ export default function Home() {
     error: categoriesError,
     isLoading: isCategoriesLoading,
   } = useGetCategoriesQuery();
+
+  const {
+    refetch: promotionRefetch,
+    data: promotionData,
+    error: promotionError,
+    isLoading: isPromotionLoading,
+  } = useGetPromotionsQuery();
+
+  console.log(promotionData);
 
   useEffect(() => {
     if (categoriesError || homeError) {

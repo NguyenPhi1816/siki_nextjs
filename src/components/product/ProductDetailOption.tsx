@@ -13,7 +13,7 @@ import {
   IProductAttribute,
   IProductAttributeValue,
   IProductVariant,
-} from "@/types/types";
+} from "@/types/product";
 import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 
 interface IProductDetailOption {
