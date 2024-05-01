@@ -108,7 +108,7 @@ export default function Home() {
                 <ProductTabPanelSkeleton />
               </>
             )}
-            {categoriesData && <Footer data={categoriesData} />}
+            <Footer />
           </Box>
         </Wrapper>
       )}

@@ -1,9 +1,29 @@
 :root {
+  /* theme */
+  --theme-primary-pink: #f0739d;
+
+  /* background */
+  --bg-primary-pink: #f0739d;
+  --bg-white: #ffffff;
+  --bg-red: red;
+  --bg-light-grey: #0000000a;
+
+  /* text */
+  --text-primary-pink: #f0739d;
+  --text-grey: #808089;
+  --text-white: #ffffff;
+
+  /* outline */
+  --outline-primary-pink: #f0739d;
+  --outline-light-grey: #efefef;
+  --outline-dark-grey: #808089;
+  --outline-grey: #d2d2d2;
+
   --main-grey: #efefef;
   --black: #000000;
   --white: #ffffff;
   --grey: #d2d2d2;
-  --text-grey: #808089;
+
   --overlay: rgba(0, 0, 0, 0.3);
   --pink-primary: #f0739d;
   --pink-secondary: #f7a3b7;

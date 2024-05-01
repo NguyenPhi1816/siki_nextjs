@@ -32,7 +32,7 @@ const ButtonLink = styled(Link)({
   backgroundColor: "transparent",
   textDecoration: "none",
   ":hover": {
-    backgroundColor: "var(--pink-secondary)",
+    backgroundColor: "var(--bg-light-grey)",
   },
   display: "flex",
   justifyContent: "center",

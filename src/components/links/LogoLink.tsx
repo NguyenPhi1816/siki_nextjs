@@ -8,25 +8,16 @@ export enum LogoSize {
   xl,
 }
 
-export enum LogoColor {
-  pink,
-  white,
-}
-
 interface LogoLinkProps {
   size?: LogoSize;
-  color?: LogoColor;
 }
 
-const LogoLink: React.FC<LogoLinkProps> = ({
-  size,
-  color = LogoColor.white,
-}) => {
-  const logoSizeMd = { width: "3.125rem", height: "1.3125rem" };
-  const logoSizeLg = { width: "4.375rem", height: "1.8125rem" };
-  const logoSizeXl = { width: "8.375rem", height: "3.4696rem" };
+const LogoLink: React.FC<LogoLinkProps> = ({ size }) => {
+  const logoSizeMd = { width: "50px", height: "30px" };
+  const logoSizeLg = { width: "100px", height: "60px" };
+  const logoSizeXl = { width: "125px", height: "75px" };
 
-  const logoSrc = color === LogoColor.white ? "/logo.png" : "/logo_pink.png";
+  const logoSrc = "/logo.png";
 
   return (
     <Link href="/" underline="none" color="inherit">

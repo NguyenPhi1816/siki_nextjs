@@ -45,7 +45,7 @@ const Sidebar: React.FC<ISidebar> = ({ data }) => {
         <Box sx={{ bgcolor: "var(--white)", borderRadius: 1 }}>
           <List sx={{ padding: "1rem 0.5rem" }}>
             <ListItem sx={{ padding: 0, paddingLeft: "0.5rem" }}>
-              <Typography fontWeight={700}>Categories</Typography>
+              <Typography fontWeight={700}>Danh mục sản phẩm</Typography>
             </ListItem>
             {
               data?.map((item) => {

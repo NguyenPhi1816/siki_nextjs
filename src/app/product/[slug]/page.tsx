@@ -101,15 +101,9 @@ const ProductPage = ({
     error: productError,
     isLoading: isProductLoading,
   } = useGetProductsBySlugQuery(params.slug);
-  const {
-    refetch: categoriesRefetch,
-    data: categoriesData,
-    error: categoriesError,
-    isLoading: isCategoriesLoading,
-  } = useGetCategoriesQuery();
 
   useEffect(() => {
-    if (categoriesError || productError) {
+    if (productError) {
       const messageData: IMessageModalData = {
         type: MessageType.ERROR,
         title: "Oops! Đã có lỗi xảy ra",
@@ -119,15 +113,14 @@ const ProductPage = ({
         openModal({ modalType: ModalType.message, modalProps: messageData })
       );
     }
-  }, [categoriesError, productError]);
+  }, [productError]);
 
   useEffect(() => {
     if (closeAction === CloseAction.refetchData) {
       if (productError) productRefetch();
-      if (categoriesError) categoriesRefetch();
       dispatch(resetCloseAction());
     }
-  }, [closeAction, categoriesError, productError]);
+  }, [closeAction, productError]);
 
   return (
     isAppLoaded && (
@@ -140,7 +133,7 @@ const ProductPage = ({
           overflow: "hidden",
         }}
       >
-        {!productError && !categoriesError && product && categoriesData && (
+        {!productError && product && (
           <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
             <Topbar>
               {isMobile ? <ProductNavbar /> : <DefaultTopNavbar />}
@@ -175,7 +168,7 @@ const ProductPage = ({
               <ProductPageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
                 <ProductFeedback slug={params.slug} />
               </ProductPageSection>
-              {!isCategoriesLoading && <Footer data={categoriesData} />}
+              <Footer />
             </Wrapper>
           </Box>
         )}

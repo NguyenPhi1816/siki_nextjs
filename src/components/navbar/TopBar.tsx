@@ -13,8 +13,12 @@ const Topbar: React.FC<ITopbar> = ({ children }) => {
     selectIsStatesInitialized
   );
   return (
-    <AppBar position="fixed">
-      {isStatesInitialized && <Toolbar variant="dense">{children}</Toolbar>}
+    <AppBar position="fixed" sx={{ boxShadow: "none" }}>
+      {isStatesInitialized && (
+        <Toolbar variant="dense" sx={{ bgcolor: "var(--bg-white)" }}>
+          {children}
+        </Toolbar>
+      )}
     </AppBar>
   );
 };

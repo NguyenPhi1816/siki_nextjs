@@ -1,21 +1,15 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
-import FooterCategory from "./FooterCategory";
+import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../../../lib/hooks";
 import {
   selectIsMobile,
   selectIsStatesInitialized,
 } from "../../../lib/feartures/ui/uiSlice";
-import LogoLink, { LogoColor, LogoSize } from "../links/LogoLink";
+import LogoLink, { LogoSize } from "../links/LogoLink";
 import FooterLink from "./FooterLink";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { ICategory } from "@/types/types";
 
-interface IFooter {
-  data: ICategory[];
-}
-
-const Footer: React.FC<IFooter> = ({ data }) => {
+const Footer = () => {
   const isMobile = useAppSelector(selectIsMobile);
   const isStatesInitialized = useAppSelector(selectIsStatesInitialized);
 
@@ -39,7 +33,7 @@ const Footer: React.FC<IFooter> = ({ data }) => {
             alignItems: "center",
           }}
         >
-          <LogoLink color={LogoColor.pink} size={LogoSize.xl} />
+          <LogoLink size={LogoSize.xl} />
           <Box
             sx={{
               margin: "1.5rem 0",
@@ -90,56 +84,6 @@ const Footer: React.FC<IFooter> = ({ data }) => {
             &#169; 2024 Siki Company. All rights reserved.
           </Typography>
         </Box>
-        {data && (
-          <>
-            <Typography
-              variant="h4"
-              fontWeight={700}
-              fontSize={"1.125rem"}
-              marginBottom={"0.75rem"}
-            >
-              Categories
-            </Typography>
-            <Grid container spacing={2} columns={5}>
-              <Grid item xs={1}>
-                <FooterCategory data={data[0]} />
-                <FooterCategory data={data[1]} />
-                <FooterCategory data={data[2]} />
-                <FooterCategory data={data[3]} />
-                <FooterCategory data={data[4]} />
-              </Grid>
-              <Grid item xs={1}>
-                <FooterCategory data={data[5]} />
-                <FooterCategory data={data[6]} />
-                <FooterCategory data={data[7]} />
-                <FooterCategory data={data[8]} />
-                <FooterCategory data={data[9]} />
-                <FooterCategory data={data[10]} />
-              </Grid>
-              <Grid item xs={1}>
-                <FooterCategory data={data[11]} />
-                <FooterCategory data={data[12]} />
-                <FooterCategory data={data[13]} />
-                <FooterCategory data={data[14]} />
-                <FooterCategory data={data[15]} />
-                <FooterCategory data={data[16]} />
-              </Grid>
-              <Grid item xs={1}>
-                <FooterCategory data={data[17]} />
-                <FooterCategory data={data[18]} />
-                <FooterCategory data={data[19]} />
-                <FooterCategory data={data[20]} />
-                <FooterCategory data={data[21]} />
-              </Grid>
-              <Grid item xs={1}>
-                <FooterCategory data={data[22]} />
-                <FooterCategory data={data[23]} />
-                <FooterCategory data={data[24]} />
-                <FooterCategory data={data[25]} />
-              </Grid>
-            </Grid>
-          </>
-        )}
       </Box>
     )
   );

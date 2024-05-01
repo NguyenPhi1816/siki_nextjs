@@ -15,20 +15,19 @@ export const searchBarBoxStyles = {
   padding: "0 0.5rem",
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: "center",
 };
 
 export const searchResultStyles = {
   width: "100%",
-  maxWidth: "37.5rem!important",
+  maxWidth: "35rem!important",
 };
 
 export const searchBarStyles = {
-  bgcolor: "var(--pink-secondary)",
+  color: "var(--text-grey)",
 };
 
 export const CustomLinkStyles = {
-  marginLeft: "0.5rem",
   padding: "0.25rem 0.5rem",
 };
 

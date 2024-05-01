@@ -18,6 +18,7 @@ import SearchResult from "@/components/search/SearchResult";
 import CustomDrawer from "@/components/drawer/Drawer";
 import { useState } from "react";
 import LogoLink, { LogoSize } from "@/components/links/LogoLink";
+import { ButtonStyle } from "@/components/search/SearchBar/SearchBar";
 
 const MobileScreenNavbar = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
@@ -32,13 +33,17 @@ const MobileScreenNavbar = () => {
         <SearchResult
           sx={searchResultStyles}
           renderInput={(params) => (
-            <SearchBar sx={searchBarStyles} autoCompleteParams={params} />
+            <SearchBar
+              sx={searchBarStyles}
+              autoCompleteParams={params}
+              buttonStyle={ButtonStyle.icon}
+            />
           )}
         />
       </Box>
       <CustomLink
         href="/cart"
-        color={LinkColor.white}
+        color={LinkColor.primaryPink}
         noUnderline
         component={LinkComponent.roundedButton}
         sx={CustomLinkStyles}
