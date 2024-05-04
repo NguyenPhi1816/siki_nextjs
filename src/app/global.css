@@ -20,6 +20,9 @@
   --outline-dark-grey: #808089;
   --outline-grey: #d2d2d2;
 
+  /* swiper */
+  --swiper-theme-color: #f0739d !important;
+
   --main-grey: #efefef;
   --black: #000000;
   --white: #ffffff;

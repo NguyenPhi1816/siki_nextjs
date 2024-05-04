@@ -50,6 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 ? "80px!important"
                 : "40px!important",
             width: "100%",
+            fontSize: "0.875rem",
             color: "var(--text-grey)",
 
             "& div": {

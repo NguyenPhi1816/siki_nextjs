@@ -37,7 +37,9 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
         <Box component="div" sx={wrapper}>
           <Box component="div" sx={leftSide}>
             <Search sx={{ mr: 1, ...icon }} />
-            <Typography variant="body1">{option.label}</Typography>
+            <Typography variant="body1" sx={{ fontSize: "0.875rem" }}>
+              {option.label}
+            </Typography>
           </Box>
           {option.type === searchTypes.SEARCH_HISTORY ? (
             <IconButton

@@ -25,6 +25,7 @@ import {
 } from "../../../lib/feartures/modal/modalSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useGetPromotionsQuery } from "../../../lib/feartures/promotion/promotionSlice";
+import Promotion from "@/components/promotion/Promotion";
 
 export default function Home() {
   const dispatch: Dispatch = useAppDispatch();
@@ -50,8 +51,6 @@ export default function Home() {
     error: promotionError,
     isLoading: isPromotionLoading,
   } = useGetPromotionsQuery();
-
-  console.log(promotionData);
 
   useEffect(() => {
     if (categoriesError || homeError) {
@@ -96,6 +95,9 @@ export default function Home() {
               overflowY: "scroll",
             }}
           >
+            {!isPromotionLoading && !!promotionData && (
+              <Promotion data={promotionData.data} />
+            )}
             {!isHomeLoading ? (
               !!homeData && (
                 <>

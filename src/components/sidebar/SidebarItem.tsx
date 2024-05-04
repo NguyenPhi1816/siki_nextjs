@@ -29,7 +29,7 @@ const SidebarItem: React.FC<ISidebarItem> = ({ data }) => {
         <Typography
           sx={{
             marginLeft: "0.5rem",
-            fontSize: "0.875rem",
+            fontSize: "0.75rem",
             color: "var(--text-black)",
           }}
           variant="body1"

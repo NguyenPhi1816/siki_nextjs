@@ -10,7 +10,7 @@ export const promotionApi = createApi({
     baseUrl: apiBaseUrl,
   }),
   endpoints: (builder) => ({
-    getPromotions: builder.query<IPromotion[], void>({
+    getPromotions: builder.query<{ data: IPromotion[] }, void>({
       query: () => "promotions",
     }),
   }),
