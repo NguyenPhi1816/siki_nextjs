@@ -14,8 +14,25 @@ import CustomModal from "@/components/modal/CustomModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Siki",
-  description: "This is Siki",
+  title: "Siki - Website mua hàng online",
+  description:
+    "Siki cung cấp một nền tảng mua hàng online với đa dạng sản phẩm",
+  openGraph: {
+    title: "Siki - Website mua hàng online",
+    description:
+      "Siki cung cấp một nền tảng mua hàng online với đa dạng sản phẩm",
+    url: "https://siki-nextjs.vercel.app/",
+    siteName: "Siki",
+    images: [
+      {
+        url: "https://siki-nextjs.vercel.app/default-image.png", // Must be an absolute URL
+        width: 1200,
+        height: 628,
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

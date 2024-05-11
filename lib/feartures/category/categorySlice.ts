@@ -11,7 +11,7 @@ export const categoryApi = createApi({
   }),
   endpoints: (builder) => ({
     getCategories: builder.query<ICategory[], void>({
-      query: () => "categories",
+      query: () => "/categories",
     }),
   }),
   keepUnusedDataFor: 120, // time in seconds

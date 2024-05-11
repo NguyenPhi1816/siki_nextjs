@@ -11,7 +11,7 @@ export const promotionApi = createApi({
   }),
   endpoints: (builder) => ({
     getPromotions: builder.query<{ data: IPromotion[] }, void>({
-      query: () => "promotions",
+      query: () => "/promotions",
     }),
   }),
   keepUnusedDataFor: 120, // time in seconds

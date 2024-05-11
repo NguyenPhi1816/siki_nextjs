@@ -11,13 +11,13 @@ export const productApi = createApi({
   }),
   endpoints: (builder) => ({
     getProducts: builder.query<IProduct[], void>({
-      query: () => "products",
+      query: () => "/products",
     }),
     getHome: builder.query<IHome[], void>({
-      query: () => "home",
+      query: () => "/home",
     }),
     getProductsBySlug: builder.query<IProductFull, string>({
-      query: (slug: string) => `products/${slug}`,
+      query: (slug: string) => `/products/${slug}`,
     }),
   }),
   keepUnusedDataFor: 120, // time in seconds

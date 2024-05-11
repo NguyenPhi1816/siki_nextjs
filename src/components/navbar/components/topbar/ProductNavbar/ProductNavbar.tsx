@@ -9,7 +9,7 @@ import { Box, Container, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const IconButtonStyle = { color: "var(--white)" };
+const IconButtonStyle = { color: "var(--text-primary-pink)" };
 
 const ProductNavbar = () => {
   const router = useRouter();
@@ -35,7 +35,7 @@ const ProductNavbar = () => {
         <Box sx={{ display: "flex" }}>
           <CustomLink
             href="/cart"
-            color={LinkColor.white}
+            color={LinkColor.primaryPink}
             noUnderline
             component={LinkComponent.roundedButton}
             sx={{ ...IconButtonStyle, marginRight: 1 }}

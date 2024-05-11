@@ -18,7 +18,7 @@ export const reviewApi = createApi({
     getReviews: builder.query<IReview, IRequestArguments>({
       query: (args) => {
         const { slug, filterTag } = args;
-        return `products/storefront/${slug}/reviews/${"?" + filterTag}`;
+        return `/products/storefront/${slug}/reviews/${"?" + filterTag}`;
       },
     }),
   }),

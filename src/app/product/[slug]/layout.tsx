@@ -1,14 +1,32 @@
+import { getProductBySlug } from "@/services/product";
+import { IProductFull } from "@/types/product";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Product page",
-  description: "This is the Siki's home page",
-};
+export async function generateMetadata({
+  params,
+}: Readonly<{
+  params: { slug: string };
+}>): Promise<Metadata> {
+  const slug = params.slug;
 
-export default function ProductLayout({
+  let product: IProductFull | null = await getProductBySlug(slug);
+
+  if (!product) {
+    return { title: "Product not found" };
+  }
+
+  return {
+    title: product.name,
+    openGraph: {
+      images: product.productVariants[0].image,
+    },
+  };
+}
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return children;
 }
