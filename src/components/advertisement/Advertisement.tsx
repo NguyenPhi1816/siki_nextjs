@@ -4,14 +4,14 @@ import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import React from "react";
 import Image from "next/image";
-import { IPromotion } from "@/types/promotion";
 import { Box } from "@mui/system";
+import { IAdvertisement } from "@/types/advertisement";
 
-interface IPromotionComponent {
-  data: IPromotion[];
+interface IAdvertisementComponent {
+  data: IAdvertisement[];
 }
 
-const Promotion: React.FC<IPromotionComponent> = ({ data }) => {
+const Advertisement: React.FC<IAdvertisementComponent> = ({ data }) => {
   const isMobile = useAppSelector(selectIsMobile);
 
   return (
@@ -74,4 +74,4 @@ const Promotion: React.FC<IPromotionComponent> = ({ data }) => {
   );
 };
 
-export default Promotion;
+export default Advertisement;

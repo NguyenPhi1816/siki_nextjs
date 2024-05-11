@@ -5,7 +5,7 @@ import { productApi } from "./feartures/product/productSlice";
 import { categoryApi } from "./feartures/category/categorySlice";
 import { modalSlice } from "./feartures/modal/modalSlice";
 import { reviewApi } from "./feartures/review/reviewSlice";
-import { promotionApi } from "./feartures/promotion/promotionSlice";
+import { advertisementApi } from "./feartures/advertisement/advertisementSlice";
 
 const rootReducer = combineSlices(
   uiSlice,
@@ -13,7 +13,7 @@ const rootReducer = combineSlices(
   categoryApi,
   productApi,
   reviewApi,
-  promotionApi
+  advertisementApi
 );
 
 export const makeStore = () => {
@@ -24,7 +24,7 @@ export const makeStore = () => {
         productApi.middleware,
         categoryApi.middleware,
         reviewApi.middleware,
-        promotionApi.middleware
+        advertisementApi.middleware
       ),
   });
 };

@@ -24,8 +24,8 @@ import {
   selectCloseAction,
 } from "../../../lib/feartures/modal/modalSlice";
 import { Dispatch } from "@reduxjs/toolkit";
-import { useGetPromotionsQuery } from "../../../lib/feartures/promotion/promotionSlice";
-import Promotion from "@/components/promotion/Promotion";
+import { useGetAdvertisementQuery } from "../../../lib/feartures/advertisement/advertisementSlice";
+import Advertisement from "@/components/advertisement/Advertisement";
 
 export default function Home() {
   const dispatch: Dispatch = useAppDispatch();
@@ -46,11 +46,11 @@ export default function Home() {
   } = useGetCategoriesQuery();
 
   const {
-    refetch: promotionRefetch,
-    data: promotionData,
-    error: promotionError,
-    isLoading: isPromotionLoading,
-  } = useGetPromotionsQuery();
+    refetch: advertisementRefetch,
+    data: advertisementData,
+    error: advertisementError,
+    isLoading: isAdvertisementLoading,
+  } = useGetAdvertisementQuery();
 
   useEffect(() => {
     if (categoriesError || homeError) {
@@ -95,8 +95,8 @@ export default function Home() {
               overflowY: "scroll",
             }}
           >
-            {!isPromotionLoading && !!promotionData && (
-              <Promotion data={promotionData.data} />
+            {!isAdvertisementLoading && !!advertisementData && (
+              <Advertisement data={advertisementData.data} />
             )}
             {!isHomeLoading ? (
               !!homeData && (
