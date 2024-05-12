@@ -33,6 +33,7 @@ const ProductDetail: React.FC<IProductDetail> = ({ spid, data, isLoading }) => {
   const [showMobileOptionDrawer, setShowMobileOptionDrawer] =
     useState<boolean>(false);
 
+  // get variant base on spid (spid is variant id)
   useEffect(() => {
     if (data) {
       const selectedProductVariant = data.productVariants.find(
@@ -44,8 +45,10 @@ const ProductDetail: React.FC<IProductDetail> = ({ spid, data, isLoading }) => {
     }
   }, [data, spid]);
 
+  // get product information base on variant changes
   useEffect(() => {
     if (selectedProductVariant) {
+      // get product images
       let _slideImages = [];
       const _mainImage = selectedProductVariant.image;
       const productImages = selectedProductVariant.productImages.map(
@@ -53,11 +56,15 @@ const ProductDetail: React.FC<IProductDetail> = ({ spid, data, isLoading }) => {
       );
       _slideImages = [_mainImage, ...productImages];
       setSlideImages(_slideImages);
+
+      // set selected option
       setSelectedOptions(selectedProductVariant.productAttributeValues);
     }
   }, [selectedProductVariant]);
 
+  // handle change variant and url base on option changed
   useEffect(() => {
+    // get selected variant
     const variant = data?.productVariants.find(
       (item) =>
         JSON.stringify(item.productAttributeValues) ===
@@ -65,19 +72,22 @@ const ProductDetail: React.FC<IProductDetail> = ({ spid, data, isLoading }) => {
     );
     if (variant) {
       setSelectedProductVariant(variant);
+      // change url base on variant changed
       router.push(`/product/${data?.slug}?spid=${variant.id}`);
     }
   }, [data, selectedOptions, router]);
 
   const handleChangeOption = (option: IProductAttributeValue) => {
     setSelectedOptions((prev) => {
-      const newSelectedOption = prev.map((item) => {
+      // get new selected options base on attribute value changed:
+      // replace an item in the previous array with the new item with the same attribute id
+      const newSelectedOptions = prev.map((item) => {
         if (item.attributeId === option.attributeId) {
           return option;
         }
         return item;
       });
-      return newSelectedOption;
+      return newSelectedOptions;
     });
   };
 

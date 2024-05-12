@@ -26,6 +26,7 @@ import {
 import { Dispatch } from "@reduxjs/toolkit";
 import { useGetAdvertisementQuery } from "../../../lib/feartures/advertisement/advertisementSlice";
 import Advertisement from "@/components/advertisement/Advertisement";
+import AdvertisementSkeleton from "@/components/advertisement/AdvertisementSkeleton";
 
 export default function Home() {
   const dispatch: Dispatch = useAppDispatch();
@@ -53,7 +54,7 @@ export default function Home() {
   } = useGetAdvertisementQuery();
 
   useEffect(() => {
-    if (categoriesError || homeError) {
+    if (categoriesError || homeError || advertisementError) {
       const messageData: IMessageModalData = {
         type: MessageType.ERROR,
         title: "Oops! Đã có lỗi xảy ra",
@@ -63,19 +64,20 @@ export default function Home() {
         openModal({ modalType: ModalType.message, modalProps: messageData })
       );
     }
-  }, [categoriesError, homeError]);
+  }, [categoriesError, homeError, advertisementError]);
 
   useEffect(() => {
     if (closeAction === CloseAction.refetchData) {
       if (homeError) homeRefetch();
       if (categoriesError) categoriesRefetch();
+      if (advertisementError) advertisementRefetch();
       dispatch(resetCloseAction());
     }
-  }, [closeAction, categoriesError, homeError]);
+  }, [closeAction, categoriesError, homeError, advertisementError]);
 
   return (
     <>
-      {!categoriesError && !homeError && (
+      {!categoriesError && !homeError && !advertisementError && (
         <Wrapper
           sx={{
             display: "flex",
@@ -95,9 +97,14 @@ export default function Home() {
               overflowY: "scroll",
             }}
           >
-            {!isAdvertisementLoading && !!advertisementData && (
-              <Advertisement data={advertisementData.data} />
+            {!isAdvertisementLoading ? (
+              advertisementData && (
+                <Advertisement data={advertisementData.data} />
+              )
+            ) : (
+              <AdvertisementSkeleton />
             )}
+
             {!isHomeLoading ? (
               !!homeData && (
                 <>
