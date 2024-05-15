@@ -6,7 +6,14 @@
   --bg-primary-pink: #f0739d;
   --bg-white: #ffffff;
   --bg-red: red;
+  --bg-grey: #d2d2d2;
   --bg-light-grey: #0000000a;
+  --bg-main: #f5f5fa;
+  --bg-overlay: rgba(0, 0, 0, 0.3);
+  --bg-secondary-pink-opacity-20: rgba(247, 163, 183, 0.2);
+  --bg-secondary-pink: #f7a3b7;
+  --bg-error: #e85e6c;
+  --bg-success: #3cb878;
 
   /* text */
   --text-primary-pink: #f0739d;
@@ -16,25 +23,14 @@
 
   /* outline */
   --outline-primary-pink: #f0739d;
-  --outline-light-grey: #efefef;
+  --outline-light-grey: #ebebf0;
   --outline-dark-grey: #808089;
   --outline-grey: #d2d2d2;
 
   /* swiper */
   --swiper-theme-color: #f0739d !important;
 
-  --main-grey: #efefef;
-  --black: #000000;
-  --white: #ffffff;
-  --grey: #d2d2d2;
-
-  --overlay: rgba(0, 0, 0, 0.3);
-  --pink-primary: #f0739d;
-  --pink-secondary: #f7a3b7;
-  --pink-secondary-opacity-20: rgba(247, 163, 183, 0.2);
-  --error: #e85e6c;
-  --success: #3cb878;
-
+  /* dimension */
   --top-bar-height: 3.5rem;
   --bottom-bar-height: 3.5rem;
   --product-page-main-image: 26rem;
@@ -42,15 +38,16 @@
   --product-page-slide-image: 5.625rem;
   --side-bar-width: 14.375rem;
 
+  /* z-index */
   --navbar-z-index: 9998;
-  --drawer-z-index: 9999;
+  --drawer-z-index: 9997;
   --modal-z-index: 9999;
 }
 
 body {
   width: 100vw;
   height: 100vh;
-  background-color: var(--main-grey) !important;
+  background-color: var(--bg-main) !important;
   overflow: hidden;
 }
 
@@ -86,7 +83,7 @@ html *::-webkit-scrollbar-track {
 .swiper-button-prev {
   width: 2rem !important;
   height: 2rem !important;
-  background-color: var(--white);
+  background-color: var(--bg-white);
   border-radius: 100%;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
 }
@@ -95,5 +92,5 @@ html *::-webkit-scrollbar-track {
 .swiper-button-prev::after {
   font-size: 0.75rem !important;
   font-weight: 700;
-  color: var(--pink-primary);
+  color: var(--text-primary-pink);
 }

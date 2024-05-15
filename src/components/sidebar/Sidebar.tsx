@@ -42,7 +42,7 @@ const Sidebar: React.FC<ISidebar> = ({ data }) => {
           },
         }}
       >
-        <Box sx={{ bgcolor: "var(--white)", borderRadius: 1 }}>
+        <Box sx={{ bgcolor: "var(--bg-white)", borderRadius: 1 }}>
           <List sx={{ padding: "1rem 0.5rem" }}>
             <ListItem sx={{ padding: 0, paddingLeft: "0.5rem" }}>
               <Typography fontSize={"0.875rem"} fontWeight={700}>
@@ -60,7 +60,7 @@ const Sidebar: React.FC<ISidebar> = ({ data }) => {
         </Box>
         <Box
           sx={{
-            bgcolor: "var(--white)",
+            bgcolor: "var(--bg-white)",
             borderRadius: 1,
             marginTop: "1rem",
             marginBottom: "3rem",

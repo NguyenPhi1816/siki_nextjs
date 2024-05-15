@@ -1,26 +1,40 @@
 "use client";
-import { Box, SxProps } from "@mui/material";
+import { Box, Container, SxProps } from "@mui/material";
 import { useAppSelector } from "../../../lib/hooks";
 import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 
 interface IWrapper {
   children: React.ReactNode;
+  disableScroll?: boolean;
   sx?: SxProps;
 }
 
-const Wrapper: React.FC<IWrapper> = ({ children, sx }) => {
+const Wrapper: React.FC<IWrapper> = ({
+  children,
+  disableScroll = false,
+  sx,
+}) => {
   const isMobile = useAppSelector(selectIsMobile);
   return (
     <Box
       sx={{
-        ...sx,
-        paddingTop: "var(--top-bar-height)",
+        marginTop: "var(--top-bar-height)",
         paddingBottom: isMobile ? "var(--bottom-bar-height)" : 0,
-        height: "100%",
         width: "100%",
+        height: disableScroll ? "auto" : "calc(100% - var(--top-bar-height))",
+        overflowY: disableScroll ? "visible" : "scroll",
+        overflowX: "hidden",
       }}
     >
-      {children}
+      <Container
+        sx={{
+          width: "100%",
+          ...sx,
+        }}
+        maxWidth="lg"
+      >
+        {children}
+      </Container>
     </Box>
   );
 };

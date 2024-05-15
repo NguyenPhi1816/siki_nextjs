@@ -39,7 +39,7 @@ const ProductSwiperSkeleton = () => {
     isAppLoaded && (
       <Box
         padding={2}
-        sx={{ marginBottom: 2, bgcolor: "var(--white)", borderRadius: 1 }}
+        sx={{ marginBottom: 2, bgcolor: "var(--bg-white)", borderRadius: 1 }}
       >
         <Skeleton width={"40%"} />
         <Box marginTop={2}>

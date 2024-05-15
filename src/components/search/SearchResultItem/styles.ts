@@ -1,4 +1,4 @@
-export const link = { width: "100%", color: "var(--black)" };
+export const link = { width: "100%", color: "var(--text-black)" };
 
 export const wrapper = {
   width: "100%",
@@ -13,6 +13,6 @@ export const leftSide = {
   alignItems: "center",
 };
 
-export const icon = { color: "var(--grey)" };
+export const icon = { color: "var(--text-grey)" };
 
 export const button = { width: "2.25rem", height: "2.25rem" };

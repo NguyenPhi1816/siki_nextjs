@@ -25,7 +25,7 @@ const ProductMoreActionItem: React.FC<IProductMoreActionItem> = ({
         {icon}
         <Typography
           variant="body1"
-          sx={{ marginLeft: "1rem", color: "var(--black)" }}
+          sx={{ marginLeft: "1rem", color: "var(--text-black)" }}
         >
           {title}
         </Typography>

@@ -75,7 +75,7 @@ const ProductDetailPrice: React.FC<IProductDetailPrice> = ({
             {product?.numberOfPurchases} Lượt bán
           </Typography>
         </Box>
-        <Box sx={{ padding: "15px 0", color: "var(--pink-primary)" }}>
+        <Box sx={{ padding: "15px 0", color: "var(--text-primary-pink)" }}>
           <Typography
             variant="body2"
             sx={{ fontSize: isMobile ? "1.5rem" : "1.875rem", fontWeight: 700 }}

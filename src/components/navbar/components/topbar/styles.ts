@@ -5,10 +5,10 @@ export const containerStyles = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  color: "var(--white)",
+  color: "var(--text-white)",
 };
 
-export const MenuButtonStyles = { mr: 1, color: "var(--white)" };
+export const MenuButtonStyles = { mr: 1, color: "var(--text-white)" };
 
 export const searchBarBoxStyles = {
   flex: "1",

@@ -48,7 +48,7 @@ const SignInForm = () => {
         <Typography
           component="h5"
           variant="body1"
-          sx={{ fontWeight: 700, color: "var(--white)" }}
+          sx={{ fontWeight: 700, color: "var(--bg-white)" }}
         >
           Sign In
         </Typography>

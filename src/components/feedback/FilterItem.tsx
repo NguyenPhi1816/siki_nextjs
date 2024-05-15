@@ -16,11 +16,13 @@ const FilterItem: React.FC<IFilterItem> = ({ content, selected, onClick }) => {
         marginTop: "0.5rem",
         marginRight: "0.5rem",
         borderRadius: 10,
-        borderColor: selected ? "var(--pink-primary)" : "var(--text-grey)",
-        color: selected ? "var(--pink-primary)" : "var(--text-grey)",
+        borderColor: selected
+          ? "var(--outline-primary-pink)"
+          : "var(--outline-dark-grey)",
+        color: selected ? "var(--text-primary-pink)" : "var(--text-grey)",
         ":hover": {
-          borderColor: "var(--pink-primary)",
-          color: "var(--pink-primary)",
+          borderColor: "var(--outline-primary-pink)",
+          color: "var(--text-primary-pink)",
         },
       }}
       onClick={onClick}

@@ -8,7 +8,7 @@ const ProductItemSkeleton = () => {
       sx={{
         margin: "0.125rem 0",
         boxShadow: "0",
-        border: "1px solid var(--main-grey)",
+        border: "1px solid var(--outline-light-grey)",
       }}
     >
       <Box sx={{ paddingTop: "80%", position: "relative" }}>

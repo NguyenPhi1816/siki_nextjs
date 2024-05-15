@@ -3,9 +3,9 @@ import { Link, SxProps, styled } from "@mui/material";
 import React from "react";
 
 export enum LinkColor {
-  primaryPink = "var(--pink-primary)",
-  white = "var(--white)",
-  black = "var(--black)",
+  primaryPink = "var(--text-primary-pink)",
+  white = "var(--text-white)",
+  black = "var(--text-black)",
   grey = "var(--text-grey)",
 }
 
@@ -44,10 +44,10 @@ const OutlinedButtonLink = styled(Link)({
   backgroundColor: "transparent",
   textDecoration: "none",
   ":hover": {
-    backgroundColor: "var(--pink-primary)",
-    color: "var(--white)",
+    backgroundColor: "var(--bg-primary-pink)",
+    color: "var(--text-white)",
   },
-  border: "1px solid var(--pink-primary)",
+  border: "1px solid var(--outline-primary-pink)",
   borderRadius: "0.25rem",
   display: "flex",
   justifyContent: "center",

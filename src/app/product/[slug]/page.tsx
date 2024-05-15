@@ -31,6 +31,7 @@ import ProductDetail from "@/components/product/pageComponents/ProductDetail";
 import ProductStore from "@/components/product/pageComponents/ProductStore";
 import ProductDesc from "@/components/product/pageComponents/ProductDesc";
 import ProductFeedback from "@/components/product/pageComponents/ProductFeedback";
+import PageSection from "@/components/wrapper/PageSection";
 
 const breadcrumb: IBreadcrumb[] = [
   { path: "/", title: "Trang chủ" },
@@ -44,31 +45,6 @@ const breadcrumb: IBreadcrumb[] = [
     title: "Iphone 15 Pro Max",
   },
 ];
-
-interface IProductPageSection {
-  children: React.ReactNode;
-  sx?: SxProps;
-}
-
-const ProductPageSection: React.FC<IProductPageSection> = ({
-  children,
-  sx,
-}) => {
-  return (
-    <Box
-      sx={{
-        ...sx,
-        marginBottom: "1rem",
-        bgcolor: "white",
-        width: "100%",
-        overflowY: "scroll",
-        borderRadius: 1,
-      }}
-    >
-      {children}
-    </Box>
-  );
-};
 
 const ProductPage = ({
   params,
@@ -111,55 +87,52 @@ const ProductPage = ({
 
   return (
     isAppLoaded && (
-      <Container
-        sx={{
-          p: 0,
-          m: "0 auto",
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
-        }}
-      >
+      <>
         {!productError && product && (
-          <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              overflowY: "scroll",
+              overflowX: "hidden",
+            }}
+          >
             <Topbar>
               {isMobile ? <ProductNavbar /> : <DefaultTopNavbar />}
             </Topbar>
-            <Wrapper sx={{ overflow: "scroll" }}>
+            <Wrapper disableScroll={true}>
               {!isMobile && (
                 <Box sx={{ margin: "0.5rem 0" }}>
                   <BreadcrumbContainer data={breadcrumb} />
                 </Box>
               )}
-              <ProductPageSection>
+              <PageSection>
                 <ProductDetail
                   data={product}
                   isLoading={isProductLoading}
                   spid={searchParams.spid}
                 />
-              </ProductPageSection>
-              <ProductPageSection
-                sx={{ padding: !isMobile ? "1rem 2rem" : "1rem" }}
-              >
+              </PageSection>
+              <PageSection sx={{ padding: !isMobile ? "1rem 2rem" : "1rem" }}>
                 <ProductStore data={product} />
-              </ProductPageSection>
-              <ProductPageSection sx={{ padding: !isMobile ? "1rem" : "0" }}>
+              </PageSection>
+              <PageSection sx={{ padding: !isMobile ? "1rem" : "0" }}>
                 <ProductSwiper
                   data={product.relatedProducts}
                   title="Các sản phẩm liên quan"
                 />
-              </ProductPageSection>
-              <ProductPageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
+              </PageSection>
+              <PageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
                 <ProductDesc content={product.description} />
-              </ProductPageSection>
-              <ProductPageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
+              </PageSection>
+              <PageSection sx={{ padding: !isMobile ? "2rem" : "1rem" }}>
                 <ProductFeedback slug={params.slug} />
-              </ProductPageSection>
-              <Footer />
+              </PageSection>
             </Wrapper>
+            <Footer />
           </Box>
         )}
-      </Container>
+      </>
     )
   );
 };

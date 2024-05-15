@@ -24,7 +24,7 @@ const ImageButton: React.FC<IImageButton> = ({
         height: "var(--product-page-slide-image)",
         borderRadius: 1,
         overflow: "hidden",
-        border: selected ? "3px solid var(--pink-primary)" : "none",
+        border: selected ? "3px solid var(--outline-primary-pink)" : "none",
         ...sx,
       }}
       onClick={onClick}

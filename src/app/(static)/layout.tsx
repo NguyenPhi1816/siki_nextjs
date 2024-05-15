@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Topbar from "../../components/navbar/TopBar";
 import BottomBar from "@/components/navbar/BottomBar";
 import DefaultBottomNavbar from "@/components/navbar/components/bottombar/DefaultBottomNavbar";
@@ -21,16 +21,16 @@ export default function RootLayout({
       <Topbar>
         <DefaultTopNavbar />
       </Topbar>
-      <Container
+      <Box
         component={"main"}
         sx={{
+          width: "100vw",
           height: "100vh",
           overflow: "hidden",
         }}
-        maxWidth="lg"
       >
         {children}
-      </Container>
+      </Box>
       <BottomBar>
         <DefaultBottomNavbar />
       </BottomBar>

@@ -66,7 +66,7 @@ const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
         <Box
           sx={{
             padding: "1rem",
-            bgcolor: "var(--white)",
+            bgcolor: "var(--bg-white)",
             width: !isMobile ? "600px" : "100%",
             height: !isMobile ? "750px" : "100%",
             display: "flex",
@@ -93,7 +93,7 @@ const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
             <IconButton
               onClick={handleCloseModal}
               size="medium"
-              sx={{ color: "var(--black)" }}
+              sx={{ color: "var(--text-black)" }}
             >
               <Clear fontSize="medium" />
             </IconButton>
@@ -125,7 +125,7 @@ const ImageModal: React.FC<IModal<IImageModalData>> = React.forwardRef(
                     style={{
                       width: "100%",
                       height: "100%",
-                      backgroundColor: "var(--white)",
+                      backgroundColor: "var(--bg-white)",
                       objectFit: "contain",
                     }}
                     src={item}

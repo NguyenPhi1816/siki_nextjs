@@ -14,7 +14,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "var(--white)",
+  bgcolor: "var(--bg-white)",
   boxShadow: 1,
   borderRadius: 1,
   textAlign: "center",
@@ -49,11 +49,11 @@ const MessageModal: React.FC<IModal<IMessageModalData>> = React.forwardRef(
             width: "100%",
             bgcolor:
               data?.type === MessageType.ERROR
-                ? "var(--error)"
+                ? "var(--bg-error)"
                 : data?.type === MessageType.SUCCESS
-                ? "var(--success)"
-                : "var(--grey)",
-            color: "var(--white)",
+                ? "var(--bg-success)"
+                : "var(--bg-grey)",
+            color: "var(--text-white)",
             fontSize: "5rem",
           }}
         >
@@ -76,11 +76,11 @@ const MessageModal: React.FC<IModal<IMessageModalData>> = React.forwardRef(
             sx={{
               bgcolor:
                 data?.type === MessageType.ERROR
-                  ? "var(--error)"
+                  ? "var(--bg-error)"
                   : data?.type === MessageType.SUCCESS
-                  ? "var(--success)"
-                  : "var(--grey)",
-              color: "var(--white)",
+                  ? "var(--bg-success)"
+                  : "var(--bg-grey)",
+              color: "var(--text-white)",
               boxShadow: 0,
             }}
           >

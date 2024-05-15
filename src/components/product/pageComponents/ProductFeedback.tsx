@@ -45,11 +45,13 @@ const PageButton: React.FC<IPageButton> = ({
         width: "2.25rem",
         height: "2.25rem",
         padding: "0.5rem",
-        color: selected ? "var(--white)" : "var(--black)",
-        bgcolor: selected ? "var(--pink-primary)" : "transparent",
+        color: selected ? "var(--text-white)" : "var(--text-black)",
+        bgcolor: selected ? "var(--bg-primary-pink)" : "transparent",
         borderRadius: 10,
         ":hover": {
-          bgcolor: selected ? "var(--pink-primary)" : "var(--pink-secondary)",
+          bgcolor: selected
+            ? "var(--bg-primary-pink)"
+            : "var(--bg-secondary-pink)",
         },
       }}
       onClick={onClick}

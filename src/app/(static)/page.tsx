@@ -81,7 +81,6 @@ export default function Home() {
         <Wrapper
           sx={{
             display: "flex",
-            overflow: "hidden",
           }}
         >
           {!isCategoriesLoading ? (

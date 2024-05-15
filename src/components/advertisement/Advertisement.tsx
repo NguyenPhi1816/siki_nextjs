@@ -44,7 +44,7 @@ const Advertisement: React.FC<IAdvertisementComponent> = ({ data }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                backgroundColor: "var(--white)",
+                backgroundColor: "var(--bg-white)",
                 objectFit: "cover",
                 borderRadius: "0.5rem",
               }}

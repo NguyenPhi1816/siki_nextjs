@@ -27,7 +27,7 @@ const SignIn = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "var(--overlay)",
+          backgroundColor: "var(--bg-overlay)",
         },
       }}
     >
@@ -43,7 +43,7 @@ const SignIn = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: "var(--white)",
+            backgroundColor: "var(--bg-white)",
             borderRadius: 1,
           }}
         >

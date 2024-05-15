@@ -16,7 +16,7 @@ const CategoryDrawerItem: React.FC<ICategoryDrawerItem> = ({ data }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          bgcolor: "var(--white)",
+          bgcolor: "var(--bg-white)",
           borderRadius: 1,
         }}
       >

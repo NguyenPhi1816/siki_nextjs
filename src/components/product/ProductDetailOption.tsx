@@ -118,7 +118,7 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
                 sx={{
                   width: "2rem",
                   height: "2rem",
-                  border: "1px solid var(--grey)",
+                  border: "1px solid var(--outline-grey)",
                   borderRadius: 1,
                 }}
                 onClick={decreaseQuantity}
@@ -147,7 +147,7 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
                 sx={{
                   width: "2rem",
                   height: "2rem",
-                  border: "1px solid var(--grey)",
+                  border: "1px solid var(--outline-grey)",
                   borderRadius: 1,
                 }}
                 onClick={increaseQuantity}
@@ -191,7 +191,7 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
             component="p"
             sx={{
               textTransform: "none",
-              color: "var(--white)",
+              color: "var(--text-white)",
               boxShadow: 0,
             }}
           >

@@ -28,7 +28,7 @@ const SidebarSkeleton = () => {
           },
         }}
       >
-        <Box sx={{ bgcolor: "var(--white)", borderRadius: 1 }}>
+        <Box sx={{ bgcolor: "var(--bg-white)", borderRadius: 1 }}>
           <List sx={{ padding: "1rem 0.5rem" }}>
             <ListItem sx={{ padding: 0, paddingLeft: "0.5rem" }}>
               <Typography fontWeight={700}>Categories</Typography>

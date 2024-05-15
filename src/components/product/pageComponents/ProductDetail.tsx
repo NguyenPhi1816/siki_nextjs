@@ -146,7 +146,7 @@ const ProductDetail: React.FC<IProductDetail> = ({ spid, data, isLoading }) => {
                 <Typography variant="body1">{data.name}</Typography>
                 <Typography
                   variant="h5"
-                  sx={{ fontWeight: 700, color: "var(--pink-primary)" }}
+                  sx={{ fontWeight: 700, color: "var(--text-primary-pink)" }}
                 >
                   {currencyFormat(selectedProductVariant.price)}
                 </Typography>

@@ -50,7 +50,7 @@ const ProductStore: React.FC<IProductStore> = ({ data }) => {
             sx={{
               marginTop: "0.25rem",
               display: "flex",
-              color: "var(--pink-primary)",
+              color: "var(--text-primary-pink)",
             }}
           >
             <Verified fontSize="small" />

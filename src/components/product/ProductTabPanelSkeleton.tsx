@@ -40,7 +40,12 @@ const ProductTabPanelSkeleton: React.FC<IProductTabPanelSkeleton> = ({
     isAppLoaded && (
       <Box
         padding={2}
-        sx={{ ...sx, width: "100%", bgcolor: "var(--white)", borderRadius: 1 }}
+        sx={{
+          ...sx,
+          width: "100%",
+          bgcolor: "var(--bg-white)",
+          borderRadius: 1,
+        }}
       >
         <Skeleton width={"40%"} />
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -50,7 +55,7 @@ const ProductTabPanelSkeleton: React.FC<IProductTabPanelSkeleton> = ({
             aria-label="basic tabs example"
             sx={{
               "& .Mui-selected": {
-                backgroundColor: "var(--pink-secondary-opacity-20)",
+                backgroundColor: "var(--bg-secondary-pink-opacity-20)",
               },
             }}
           >

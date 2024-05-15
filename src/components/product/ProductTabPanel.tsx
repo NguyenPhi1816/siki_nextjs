@@ -86,7 +86,12 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx, data }) => {
     isAppLoaded && (
       <Box
         padding={2}
-        sx={{ ...sx, width: "100%", bgcolor: "var(--white)", borderRadius: 1 }}
+        sx={{
+          ...sx,
+          width: "100%",
+          bgcolor: "var(--bg-white)",
+          borderRadius: 1,
+        }}
       >
         <Typography
           variant={"h4"}
@@ -102,7 +107,7 @@ const ProductTabPanel: React.FC<IProductTabPanel> = ({ sx, data }) => {
             aria-label="basic tabs example"
             sx={{
               "& .Mui-selected": {
-                backgroundColor: "var(--pink-secondary-opacity-20)",
+                backgroundColor: "var(--bg-secondary-pink-opacity-20)",
               },
             }}
           >

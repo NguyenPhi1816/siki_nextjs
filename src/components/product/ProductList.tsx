@@ -11,7 +11,10 @@ interface IProductList {
 const ProductList: React.FC<IProductList> = ({ data, sx }) => {
   return (
     data && (
-      <Box padding={2} sx={{ ...sx, bgcolor: "var(--white)", borderRadius: 1 }}>
+      <Box
+        padding={2}
+        sx={{ ...sx, bgcolor: "var(--bg-white)", borderRadius: 1 }}
+      >
         <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 12 }}>
           {data.map((item) => (
             <Grid item xs={2} key={item.id}>

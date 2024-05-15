@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../../../lib/hooks";
@@ -22,7 +23,7 @@ const Footer = () => {
           padding: "1rem",
           width: "100%",
           height: "auto",
-          backgroundColor: "var(--white)",
+          backgroundColor: "var(--bg-white)",
         }}
       >
         <Box

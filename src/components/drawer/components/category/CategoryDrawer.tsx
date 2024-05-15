@@ -59,7 +59,7 @@ const CategoryDrawer: React.FC<ICategoryDrawer> = ({ onClose }) => {
           paddingBottom: "var(--bottom-bar-height)",
           width: "100%",
           flex: 1,
-          bgcolor: "var(--main-grey)",
+          bgcolor: "var(--bg-main)",
           overflow: "hidden",
         }}
       >

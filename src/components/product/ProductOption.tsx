@@ -31,8 +31,8 @@ const ProductOption: React.FC<IProductOptionComponent> = ({
         color: "var(--text-grey)",
         textTransform: "none",
         border: selected
-          ? "1px solid var(--pink-primary)"
-          : "1px solid var(--grey)",
+          ? "1px solid var(--outline-primary-pink)"
+          : "1px solid var(--outline-grey)",
       }}
     >
       {data && data.image && (
@@ -65,14 +65,14 @@ const ProductOption: React.FC<IProductOptionComponent> = ({
             height: 0,
             borderTop: "0.5rem solid transparent",
             borderLeft: "0.5rem solid transparent",
-            borderRight: "0.5rem solid var(--pink-primary)",
-            borderBottom: "0.5rem solid var(--pink-primary)",
+            borderRight: "0.5rem solid var(--outline-primary-pink)",
+            borderBottom: "0.5rem solid var(--outline-primary-pink)",
           }}
         >
           <Check
             sx={{
               fontSize: "0.75rem",
-              color: "var(--white)",
+              color: "var(--text-white)",
               transform: "translate(-20%, -80%)",
             }}
           />

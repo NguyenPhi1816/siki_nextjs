@@ -1,5 +1,6 @@
 import { getProductBySlug } from "@/services/product";
 import { IProductFull } from "@/types/product";
+import { Box } from "@mui/material";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -28,5 +29,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      <Box
+        component={"main"}
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        {children}
+      </Box>
+    </>
+  );
 }

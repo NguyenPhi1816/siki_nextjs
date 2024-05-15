@@ -15,7 +15,7 @@ const SidebarItem: React.FC<ISidebarItem> = ({ data }) => {
       href={`/category/${data?.id}`}
       noUnderline
       component={LinkComponent.button}
-      hoverBgColor="var(--grey)"
+      hoverBgColor="var(--bg-grey)"
       color={LinkColor.black}
     >
       <Box
