@@ -1,5 +1,5 @@
 // components/Cart.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -9,12 +9,17 @@ import {
   IconButton,
   Divider,
 } from "@mui/material";
-import CartStore from "./CartStore";
+import CartSection from "./CartSection";
 import PageSection from "../wrapper/PageSection";
 import { Delete } from "@mui/icons-material";
 import { currencyFormat } from "../numberFormat/currency";
+import CartItem from "./CartItem";
 
-const Cart = () => {
+interface ICartComponent {
+  data: any;
+}
+
+const Cart: React.FC<ICartComponent> = ({ data }) => {
   return (
     <>
       <Typography
@@ -35,7 +40,7 @@ const Cart = () => {
               </Grid>
               <Grid item xs={10}>
                 <Typography variant="h6" fontSize={"0.875rem"}>
-                  Tất cả (3 sản phẩm)
+                  Tất cả ({data.totalItems} sản phẩm)
                 </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -61,18 +66,17 @@ const Cart = () => {
             </Grid>
           </PageSection>
 
-          <PageSection sx={{ padding: "0 1rem" }}>
-            <CartStore />
-          </PageSection>
-          <PageSection sx={{ padding: "0 1rem" }}>
-            <CartStore />
-          </PageSection>
-          <PageSection sx={{ padding: "0 1rem" }}>
-            <CartStore />
-          </PageSection>
-          <PageSection sx={{ padding: "0 1rem" }}>
-            <CartStore />
-          </PageSection>
+          {data?.stores.map((store: any) => (
+            <CartSection
+              key={store.id}
+              storeName={store.name}
+              href={`/store/${store.id}`}
+            >
+              {store.items.map((item: any) => (
+                <CartItem key={item.id} data={item} />
+              ))}
+            </CartSection>
+          ))}
         </Box>
         <Box sx={{ width: "1rem" }} />
         {/* Summary */}
