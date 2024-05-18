@@ -36,13 +36,14 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
     stores: [],
     totalItems: 0,
   });
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectedItems, setSelectedItems] = useState<ICart[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     if (data) {
       let initData: IFormattedData = { stores: [], totalItems: 0 };
 
-      // format data
+      // pre-processing data
       const formattedData = data.reduce(
         (accumulator: IFormattedData, currentValue: ICart) => {
           // check if the store of this item already exists in accumulator
@@ -76,21 +77,71 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
     }
   }, [data]);
 
-  const handleSelectItem = (id: number) => {
+  useEffect(() => {
+    const total = selectedItems.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.product.price * currentValue.quantity;
+    }, 0);
+    setTotalPrice(total);
+  }, [selectedItems]);
+
+  const handleSelectItem = (item: ICart) => {
     setSelectedItems((prev) => {
-      const index = prev.findIndex((item) => item === id);
-      if (index !== -1) {
-        const newValue = [...prev, id];
+      const isChecked = checkIsItemSelected(item.id);
+      // if item is not in selectedItems array => push it into this array
+      if (!isChecked) {
+        const newValue = [...prev, item];
         return newValue;
       }
-      const newValue = prev.filter((item) => item !== id);
+      // if there is => remove it from this array
+      const newValue = prev.filter((i) => i.id !== item.id);
       return newValue;
     });
   };
 
+  const handleSelectStore = (items: ICart[]) => {
+    const isChecked = checkIsStoreSelected(items);
+    if (isChecked) {
+      setSelectedItems((prev) => {
+        // remove all items in store from selectedItems array
+        return prev.filter((item) => !items.includes(item));
+      });
+    } else {
+      items.forEach((item) => {
+        const isExist = checkIsItemSelected(item.id);
+        if (!isExist) {
+          setSelectedItems((prev) => [...prev, item]);
+        }
+      });
+    }
+  };
+
   const handleSelectAllItems = () => {
-    // data.forEach(item => {
-    // });
+    const isChecked = checkIsAllItemsSelected();
+    if (isChecked) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(data);
+    }
+  };
+
+  // check if all items are in the selectedItems array
+  const checkIsAllItemsSelected: () => boolean = () => {
+    return (
+      selectedItems.length > 0 &&
+      JSON.stringify(selectedItems.sort((a, b) => a.id - b.id)) ===
+        JSON.stringify(data.sort((a, b) => a.id - b.id))
+    );
+  };
+
+  // check if all items in store are in the selectedItems array
+  const checkIsStoreSelected: (items: ICart[]) => boolean = (items) => {
+    return items.every((item) => selectedItems.includes(item));
+  };
+
+  // check if this item is in the selectedItems array
+  const checkIsItemSelected: (id: number) => boolean = (id) => {
+    const index = selectedItems.findIndex((item) => item.id === id);
+    return index !== -1;
   };
 
   return (
@@ -109,7 +160,11 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
           <PageSection sx={{ display: "flex", alignItems: "center" }}>
             <Grid container padding="16px" alignItems={"center"} columns={24}>
               <Grid item xs={1}>
-                <Checkbox size="small" />
+                <Checkbox
+                  size="small"
+                  checked={checkIsAllItemsSelected()}
+                  onClick={handleSelectAllItems}
+                />
               </Grid>
               <Grid item xs={10}>
                 <Typography variant="h6" fontSize={"0.875rem"}>
@@ -139,14 +194,21 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
             </Grid>
           </PageSection>
 
-          {formattedData?.stores.map((store: any) => (
+          {formattedData?.stores.map((store: IGroupByStoreItems) => (
             <CartSection
               key={store.id}
               storeName={store.name}
               href={`/store/${store.id}`}
+              isSelected={checkIsStoreSelected(store.items)}
+              onSelect={() => handleSelectStore(store.items)}
             >
-              {store.items.map((item: any) => (
-                <CartItem key={item.id} data={item} />
+              {store.items.map((item: ICart) => (
+                <CartItem
+                  key={item.id}
+                  data={item}
+                  isSelected={checkIsItemSelected(item.id)}
+                  onSelect={() => handleSelectItem(item)}
+                />
               ))}
             </CartSection>
           ))}
@@ -169,7 +231,9 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
             >
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="body1">Tạm tính:</Typography>
-                <Typography variant="body1">{currencyFormat(1000)}</Typography>
+                <Typography variant="body1">
+                  {currencyFormat(totalPrice)}
+                </Typography>
               </Box>
               <Divider sx={{ margin: "1rem 0" }} />
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -180,7 +244,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                   fontSize={"1.25rem"}
                   marginBottom={"0.5rem"}
                 >
-                  {currencyFormat(1000)}
+                  {currencyFormat(totalPrice)}
                 </Typography>
               </Box>
               <Typography
@@ -201,7 +265,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                 color: "var(--text-white)",
               }}
             >
-              Mua Hàng (0)
+              Mua Hàng ({selectedItems.length})
             </Button>
           </Box>
         </Box>

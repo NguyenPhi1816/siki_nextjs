@@ -19,9 +19,11 @@ import { ICart } from "@/types/cart";
 
 interface CartItemProps {
   data: ICart;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ data }) => {
+const CartItem: React.FC<CartItemProps> = ({ data, isSelected, onSelect }) => {
   const [quantity, setQuantity] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [message, setMessage] = useState<string>("");
@@ -95,13 +97,14 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
     <>
       <Grid container padding="1rem 0" alignItems={"center"} columns={24}>
         <Grid item xs={1}>
-          <Checkbox size="small" />
+          <Checkbox size="small" checked={isSelected} onClick={onSelect} />
         </Grid>
         <Grid item xs={10}>
           <Box display={"flex"} alignItems={"center"}>
             <Image
               width={80}
               height={80}
+              priority
               src={data.product.image}
               alt={data.product.name}
               style={{

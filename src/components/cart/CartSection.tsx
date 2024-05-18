@@ -8,15 +8,23 @@ interface ICartSection {
   children: React.ReactNode;
   storeName: string;
   href: string;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-const CartSection: React.FC<ICartSection> = ({ children, storeName, href }) => {
+const CartSection: React.FC<ICartSection> = ({
+  children,
+  storeName,
+  href,
+  isSelected,
+  onSelect,
+}) => {
   return (
     <PageSection sx={{ padding: "0 1rem" }}>
       <Box>
         <Grid container alignItems={"center"} padding={"1rem 0"} columns={24}>
           <Grid item xs={1}>
-            <Checkbox size="small" />
+            <Checkbox size="small" checked={isSelected} onClick={onSelect} />
           </Grid>
           <Grid item xs={10}>
             <CustomLink
