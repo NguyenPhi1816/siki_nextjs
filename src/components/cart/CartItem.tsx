@@ -15,9 +15,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
 import { Add, Close, Remove } from "@mui/icons-material";
 import { currencyFormat } from "../numberFormat/currency";
+import { ICart } from "@/types/cart";
 
 interface CartItemProps {
-  data: any;
+  data: ICart;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
@@ -52,24 +53,24 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
 
   useEffect(() => {
     if (data) {
-      setQuantity(data.cartQuantity);
+      setQuantity(data.quantity);
     }
   }, [data]);
 
   useEffect(() => {
     if (quantity > 0) {
-      setTotalPrice(data.variant.price * quantity);
+      setTotalPrice(data.product.price * quantity);
     }
   }, [quantity]);
 
   const handleIncreaseQuantity = () => {
     setQuantity((prev) => {
       let newValue = prev + 1;
-      if (newValue > data.variant.quantity) {
+      if (newValue > data.product.quantity) {
         handleShowToast(
-          `Số lượng tồn kho của sản phẩm này là ${data.variant.quantity}`
+          `Số lượng tồn kho của sản phẩm này là ${data.product.quantity}`
         );
-        return data.variant.quantity;
+        return data.product.quantity;
       }
       return newValue;
     });
@@ -101,8 +102,8 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             <Image
               width={80}
               height={80}
-              src={data.variant.image}
-              alt={data.name}
+              src={data.product.image}
+              alt={data.product.name}
               style={{
                 width: "80px",
                 height: "80px",
@@ -125,7 +126,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                   WebkitBoxOrient: "vertical",
                 }}
               >
-                {data.name}
+                {data.product.name}
               </Typography>
               <Typography
                 variant="body1"
@@ -141,7 +142,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                   WebkitBoxOrient: "vertical",
                 }}
               >
-                {data.variant.attributeValue}
+                {data.product.productAttributeValues}
               </Typography>
             </Box>
             <Box width={"100px"} />
@@ -149,7 +150,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
         </Grid>
         <Grid item xs={4}>
           <Typography variant="h6" fontSize={"0.875rem"} fontWeight={700}>
-            {currencyFormat(data.variant.price)}
+            {currencyFormat(data.product.price)}
           </Typography>
         </Grid>
         <Grid item xs={4}>

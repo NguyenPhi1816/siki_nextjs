@@ -1,4 +1,4 @@
-// components/Cart.tsx
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -14,12 +14,85 @@ import PageSection from "../wrapper/PageSection";
 import { Delete } from "@mui/icons-material";
 import { currencyFormat } from "../numberFormat/currency";
 import CartItem from "./CartItem";
+import { ICart } from "@/types/cart";
+
+interface IGroupByStoreItems {
+  id: number;
+  name: string;
+  items: ICart[];
+}
+
+interface IFormattedData {
+  stores: IGroupByStoreItems[];
+  totalItems: number;
+}
 
 interface ICartComponent {
-  data: any;
+  data: ICart[];
 }
 
 const Cart: React.FC<ICartComponent> = ({ data }) => {
+  const [formattedData, setFormattedData] = useState<IFormattedData>({
+    stores: [],
+    totalItems: 0,
+  });
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      let initData: IFormattedData = { stores: [], totalItems: 0 };
+
+      // format data
+      const formattedData = data.reduce(
+        (accumulator: IFormattedData, currentValue: ICart) => {
+          // check if the store of this item already exists in accumulator
+          const index = accumulator.stores.findIndex(
+            (item) => item.id === currentValue.product.store.id
+          );
+          // if it exists, push this item to the store's items array, increase the total items
+          if (index !== -1) {
+            accumulator.stores[index].items.push(currentValue);
+            accumulator.totalItems += 1;
+            return accumulator;
+          }
+          // if not, create new store item, push it into the stores array and increase the total items
+          const newValue: IFormattedData = {
+            stores: [
+              ...accumulator.stores,
+              {
+                id: currentValue.product.store.id,
+                name: currentValue.product.store.name,
+                items: [currentValue],
+              },
+            ],
+            totalItems: (accumulator.totalItems += 1),
+          };
+          return newValue;
+        },
+        initData
+      );
+
+      setFormattedData(formattedData);
+    }
+  }, [data]);
+
+  const handleSelectItem = (id: number) => {
+    setSelectedItems((prev) => {
+      const index = prev.findIndex((item) => item === id);
+      if (index !== -1) {
+        const newValue = [...prev, id];
+        return newValue;
+      }
+      const newValue = prev.filter((item) => item !== id);
+      return newValue;
+    });
+  };
+
+  const handleSelectAllItems = () => {
+    // data.forEach(item => {
+    // });
+  };
+
   return (
     <>
       <Typography
@@ -32,7 +105,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
         Giỏ Hàng
       </Typography>
       <Box sx={{ display: "flex" }}>
-        <Box>
+        <Box sx={{ width: "70%" }}>
           <PageSection sx={{ display: "flex", alignItems: "center" }}>
             <Grid container padding="16px" alignItems={"center"} columns={24}>
               <Grid item xs={1}>
@@ -40,7 +113,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
               </Grid>
               <Grid item xs={10}>
                 <Typography variant="h6" fontSize={"0.875rem"}>
-                  Tất cả ({data.totalItems} sản phẩm)
+                  Tất cả ({formattedData.totalItems} sản phẩm)
                 </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -66,7 +139,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
             </Grid>
           </PageSection>
 
-          {data?.stores.map((store: any) => (
+          {formattedData?.stores.map((store: any) => (
             <CartSection
               key={store.id}
               storeName={store.name}
@@ -79,7 +152,6 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
           ))}
         </Box>
         <Box sx={{ width: "1rem" }} />
-        {/* Summary */}
         <Box sx={{ flex: 1 }}>
           <Box
             sx={{
