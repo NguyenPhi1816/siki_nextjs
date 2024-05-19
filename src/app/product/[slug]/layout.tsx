@@ -30,17 +30,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <Box
-        component={"main"}
-        sx={{
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
-        }}
-      >
-        {children}
-      </Box>
-    </>
+    <Box
+      component={"main"}
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
+      {children}
+    </Box>
   );
 }

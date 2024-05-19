@@ -1,5 +1,4 @@
 import Cart from "@/components/cart/Cart";
-import Wrapper from "@/components/wrapper/Wrapper";
 import { ICart } from "@/types/cart";
 
 const CART_DATA: ICart[] = [
@@ -60,11 +59,7 @@ const CART_DATA: ICart[] = [
 ];
 
 const CartPage = () => {
-  return (
-    <Wrapper disableScroll={true}>
-      <Cart data={CART_DATA} />
-    </Wrapper>
-  );
+  return <Cart data={CART_DATA} />;
 };
 
 export default CartPage;

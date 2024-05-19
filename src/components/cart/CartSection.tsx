@@ -10,6 +10,7 @@ interface ICartSection {
   href: string;
   isSelected: boolean;
   onSelect: () => void;
+  isMobile: boolean;
 }
 
 const CartSection: React.FC<ICartSection> = ({
@@ -18,15 +19,21 @@ const CartSection: React.FC<ICartSection> = ({
   href,
   isSelected,
   onSelect,
+  isMobile,
 }) => {
   return (
-    <PageSection sx={{ padding: "0 1rem" }}>
+    <PageSection sx={!isMobile ? { padding: "0 1rem" } : {}}>
       <Box>
-        <Grid container alignItems={"center"} padding={"1rem 0"} columns={24}>
-          <Grid item xs={1}>
+        <Grid
+          container
+          alignItems={"center"}
+          padding={isMobile ? "0.5rem" : "1rem 0"}
+          columns={24}
+        >
+          <Grid item xs={2} md={1}>
             <Checkbox size="small" checked={isSelected} onClick={onSelect} />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={22} md={10}>
             <CustomLink
               href={href}
               sx={{ display: "flex", alignItems: "center" }}

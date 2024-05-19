@@ -15,6 +15,16 @@ import { Delete } from "@mui/icons-material";
 import { currencyFormat } from "../numberFormat/currency";
 import CartItem from "./CartItem";
 import { ICart } from "@/types/cart";
+import { useAppSelector } from "../../../lib/hooks";
+import {
+  selectIsMobile,
+  selectIsStatesInitialized,
+} from "../../../lib/feartures/ui/uiSlice";
+import Wrapper from "../wrapper/Wrapper";
+import Topbar from "../navbar/TopBar";
+import DefaultTopNavbar from "../navbar/components/topbar/DefaultTopNavbar";
+import CartNavbar from "../navbar/components/topbar/CartNavbar";
+import Footer from "../footer/Footer";
 
 interface IGroupByStoreItems {
   id: number;
@@ -32,6 +42,8 @@ interface ICartComponent {
 }
 
 const Cart: React.FC<ICartComponent> = ({ data }) => {
+  const isMobile = useAppSelector(selectIsMobile);
+  const isAppLoaded = useAppSelector(selectIsStatesInitialized);
   const [formattedData, setFormattedData] = useState<IFormattedData>({
     stores: [],
     totalItems: 0,
@@ -145,132 +157,174 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
   };
 
   return (
-    <>
-      <Typography
-        padding={"1rem 0"}
-        variant="h4"
-        fontSize={"1.25rem"}
-        textTransform={"uppercase"}
-        fontWeight={"bold"}
-      >
-        Giỏ Hàng
-      </Typography>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ width: "70%" }}>
-          <PageSection sx={{ display: "flex", alignItems: "center" }}>
-            <Grid container padding="16px" alignItems={"center"} columns={24}>
-              <Grid item xs={1}>
-                <Checkbox
-                  size="small"
-                  checked={checkIsAllItemsSelected()}
-                  onClick={handleSelectAllItems}
-                />
-              </Grid>
-              <Grid item xs={10}>
-                <Typography variant="h6" fontSize={"0.875rem"}>
-                  Tất cả ({formattedData.totalItems} sản phẩm)
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant="h6" fontSize={"0.875rem"}>
-                  Đơn giá
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant="h6" fontSize={"0.875rem"}>
-                  Số lượng
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant="h6" fontSize={"0.875rem"}>
-                  Thành tiền
-                </Typography>
-              </Grid>
-              <Grid item xs={1}>
-                <IconButton size="small">
-                  <Delete />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </PageSection>
-
-          {formattedData?.stores.map((store: IGroupByStoreItems) => (
-            <CartSection
-              key={store.id}
-              storeName={store.name}
-              href={`/store/${store.id}`}
-              isSelected={checkIsStoreSelected(store.items)}
-              onSelect={() => handleSelectStore(store.items)}
+    isAppLoaded && (
+      <Box sx={{ height: "100vh", width: "100vw", overflow: "scroll" }}>
+        <Topbar>{isMobile ? <CartNavbar /> : <DefaultTopNavbar />}</Topbar>
+        <Wrapper disableScroll={true} sx={isMobile ? { padding: "0" } : {}}>
+          {!isMobile && (
+            <Typography
+              padding={"1rem 0"}
+              variant="h4"
+              fontSize={"1.25rem"}
+              textTransform={"uppercase"}
+              fontWeight={"bold"}
             >
-              {store.items.map((item: ICart) => (
-                <CartItem
-                  key={item.id}
-                  data={item}
-                  isSelected={checkIsItemSelected(item.id)}
-                  onSelect={() => handleSelectItem(item)}
-                />
-              ))}
-            </CartSection>
-          ))}
-        </Box>
-        <Box sx={{ width: "1rem" }} />
-        <Box sx={{ flex: 1 }}>
-          <Box
-            sx={{
-              position: "sticky",
-              top: "1rem",
-              zIndex: 10,
-            }}
-          >
-            <Box
-              sx={{
-                padding: "1rem",
-                bgcolor: "var(--bg-white)",
-                borderRadius: 1,
-              }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="body1">Tạm tính:</Typography>
-                <Typography variant="body1">
-                  {currencyFormat(totalPrice)}
-                </Typography>
-              </Box>
-              <Divider sx={{ margin: "1rem 0" }} />
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="body1">Thành tiền:</Typography>
-                <Typography
-                  variant="body1"
-                  color={"var(--text-primary-pink)"}
-                  fontSize={"1.25rem"}
-                  marginBottom={"0.5rem"}
+              Giỏ Hàng
+            </Typography>
+          )}
+          <Box sx={isMobile ? {} : { display: "flex" }}>
+            <Box sx={{ width: isMobile ? "100%" : "70%" }}>
+              <PageSection sx={{ display: "flex", alignItems: "center" }}>
+                <Grid
+                  container
+                  padding={isMobile ? "0.5rem" : "1rem"}
+                  alignItems={"center"}
+                  columns={24}
                 >
-                  {currencyFormat(totalPrice)}
-                </Typography>
-              </Box>
-              <Typography
-                variant="body1"
-                color={"var(--text-grey)"}
-                fontSize={"0.75rem"}
-                textAlign={"end"}
-              >
-                (Đã bao gồm VAT nếu có)
-              </Typography>
+                  <Grid item xs={2} md={1}>
+                    <Checkbox
+                      size="small"
+                      checked={checkIsAllItemsSelected()}
+                      onClick={handleSelectAllItems}
+                    />
+                  </Grid>
+                  <Grid item xs={20} md={10}>
+                    <Typography variant="h6" fontSize={"0.875rem"}>
+                      Tất cả ({formattedData.totalItems} sản phẩm)
+                    </Typography>
+                  </Grid>
+                  {!isMobile && (
+                    <>
+                      <Grid item xs={4}>
+                        <Typography variant="h6" fontSize={"0.875rem"}>
+                          Đơn giá
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography variant="h6" fontSize={"0.875rem"}>
+                          Số lượng
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography variant="h6" fontSize={"0.875rem"}>
+                          Thành tiền
+                        </Typography>
+                      </Grid>
+                    </>
+                  )}
+                  <Grid item xs={2} md={1}>
+                    <IconButton size="small">
+                      <Delete />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </PageSection>
+
+              {formattedData?.stores.map((store: IGroupByStoreItems) => (
+                <CartSection
+                  isMobile={isMobile}
+                  key={store.id}
+                  storeName={store.name}
+                  href={`/store/${store.id}`}
+                  isSelected={checkIsStoreSelected(store.items)}
+                  onSelect={() => handleSelectStore(store.items)}
+                >
+                  {store.items.map((item: ICart) => (
+                    <CartItem
+                      isMobile={isMobile}
+                      key={item.id}
+                      data={item}
+                      isSelected={checkIsItemSelected(item.id)}
+                      onSelect={() => handleSelectItem(item)}
+                    />
+                  ))}
+                </CartSection>
+              ))}
             </Box>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                marginTop: "1rem",
-                width: "100%",
-                color: "var(--text-white)",
-              }}
+            {!isMobile && <Box sx={{ width: "1rem" }} />}
+            <Box
+              sx={
+                isMobile
+                  ? {
+                      position: "fixed",
+                      bottom: 0,
+                      left: 0,
+                      padding: "1rem 0",
+                      width: "100%",
+                      bgcolor: "var(--bg-white)",
+                    }
+                  : { flex: 1 }
+              }
             >
-              Mua Hàng ({selectedItems.length})
-            </Button>
+              <Box
+                sx={{
+                  position: "sticky",
+                  top: "1rem",
+                  zIndex: 10,
+                }}
+              >
+                <Box
+                  sx={{
+                    padding: "1rem",
+                    bgcolor: "var(--bg-white)",
+                    borderRadius: 1,
+                  }}
+                >
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography variant="body1" fontSize={"0.875rem"}>
+                      Tạm tính:
+                    </Typography>
+                    <Typography variant="body1" fontSize={"0.875rem"}>
+                      {currencyFormat(totalPrice)}
+                    </Typography>
+                  </Box>
+                  <Divider sx={{ margin: "1rem 0" }} />
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography variant="body1" fontSize={"0.875rem"}>
+                      Tổng tiền:
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color={"var(--text-primary-pink)"}
+                      fontSize={"1.25rem"}
+                      marginBottom={"0.5rem"}
+                    >
+                      {currencyFormat(totalPrice)}
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    color={"var(--text-grey)"}
+                    fontSize={"0.75rem"}
+                    textAlign={"end"}
+                  >
+                    (Đã bao gồm VAT nếu có)
+                  </Typography>
+                </Box>
+                <Box sx={isMobile ? { padding: "0 1rem" } : {}}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      marginTop: "1rem",
+                      width: "100%",
+                      color: "var(--text-white)",
+                    }}
+                  >
+                    Mua Hàng ({selectedItems.length})
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
           </Box>
-        </Box>
+        </Wrapper>
+        <Footer />
       </Box>
-    </>
+    )
   );
 };
 
