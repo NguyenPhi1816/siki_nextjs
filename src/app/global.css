@@ -12,6 +12,7 @@
   --bg-overlay: rgba(0, 0, 0, 0.3);
   --bg-secondary-pink-opacity-20: rgba(247, 163, 183, 0.2);
   --bg-secondary-pink: #f7a3b7;
+  --bg-information: #808089;
   --bg-error: #e85e6c;
   --bg-success: #3cb878;
 
@@ -20,6 +21,9 @@
   --text-grey: #808089;
   --text-white: #ffffff;
   --text-black: #27272a;
+  --text-information: #808089;
+  --text-error: #e85e6c;
+  --text-success: #3cb878;
 
   /* outline */
   --outline-primary-pink: #f0739d;
@@ -37,6 +41,7 @@
   --modal-main-image: 31rem;
   --product-page-slide-image: 5.625rem;
   --side-bar-width: 14.375rem;
+  --mobile-cart-summary-height: 13.75rem;
 
   /* z-index */
   --navbar-z-index: 9998;

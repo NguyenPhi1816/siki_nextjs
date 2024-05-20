@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Metadata } from "next";
 import React from "react";
 
@@ -12,18 +11,7 @@ interface ICartLayout {
 }
 
 const CartLayout: React.FC<ICartLayout> = ({ children }) => {
-  return (
-    <Box
-      component={"main"}
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      {children}
-    </Box>
-  );
+  return <>{children}</>;
 };
 
 export default CartLayout;

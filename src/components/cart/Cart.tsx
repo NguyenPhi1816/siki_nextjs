@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import CartSection from "./CartSection";
 import PageSection from "../wrapper/PageSection";
-import { Delete } from "@mui/icons-material";
+import { ChevronRight, Delete, LocationOn } from "@mui/icons-material";
 import { currencyFormat } from "../numberFormat/currency";
 import CartItem from "./CartItem";
 import { ICart } from "@/types/cart";
-import { useAppSelector } from "../../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
 import {
   selectIsMobile,
   selectIsStatesInitialized,
@@ -23,8 +23,12 @@ import {
 import Wrapper from "../wrapper/Wrapper";
 import Topbar from "../navbar/TopBar";
 import DefaultTopNavbar from "../navbar/components/topbar/DefaultTopNavbar";
-import CartNavbar from "../navbar/components/topbar/CartNavbar";
+import BackNavbar from "../navbar/components/topbar/BackNavbar";
 import Footer from "../footer/Footer";
+import { useRouter } from "next/navigation";
+import { IMessageModalData, MessageType } from "../modal/MessageModal";
+import { ModalType, openModal } from "../../../lib/feartures/modal/modalSlice";
+import CustomLink, { LinkColor } from "../links/CustomLink";
 
 interface IGroupByStoreItems {
   id: number;
@@ -42,7 +46,9 @@ interface ICartComponent {
 }
 
 const Cart: React.FC<ICartComponent> = ({ data }) => {
-  const isMobile = useAppSelector(selectIsMobile);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const isMobile: boolean = useAppSelector(selectIsMobile);
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
   const [formattedData, setFormattedData] = useState<IFormattedData>({
     stores: [],
@@ -156,11 +162,43 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
     return index !== -1;
   };
 
+  const handleCheckout = () => {
+    if (selectedItems.length > 0) {
+      router.push("/checkout");
+    } else {
+      const messageData: IMessageModalData = {
+        type: MessageType.INFORMATION,
+        title: "Đơn hàng trống",
+        message: "Bạn vẫn chưa chọn một sản phẩm để mua",
+      };
+      dispatch(
+        openModal({ modalType: ModalType.message, modalProps: messageData })
+      );
+    }
+  };
+
   return (
     isAppLoaded && (
       <Box sx={{ height: "100vh", width: "100vw", overflow: "scroll" }}>
-        <Topbar>{isMobile ? <CartNavbar /> : <DefaultTopNavbar />}</Topbar>
-        <Wrapper disableScroll={true} sx={isMobile ? { padding: "0" } : {}}>
+        <Topbar>
+          {isMobile ? (
+            <BackNavbar title={`Giỏ hàng (${selectedItems.length})`} />
+          ) : (
+            <DefaultTopNavbar />
+          )}
+        </Topbar>
+        <Wrapper
+          disableScroll={true}
+          showBottomBar={false}
+          sx={
+            isMobile
+              ? {
+                  padding: "0",
+                  marginBottom: "var(--mobile-cart-summary-height)",
+                }
+              : {}
+          }
+        >
           {!isMobile && (
             <Typography
               padding={"1rem 0"}
@@ -171,6 +209,62 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
             >
               Giỏ Hàng
             </Typography>
+          )}
+          {isMobile && (
+            <Box
+              sx={{
+                marginBottom: "1rem",
+                padding: "1rem",
+                bgcolor: "var(--bg-white)",
+                borderRadius: 1,
+              }}
+            >
+              <Box sx={{ display: "flex" }}>
+                <Box>
+                  <Box sx={{ marginBottom: "0.5rem", display: "flex" }}>
+                    <LocationOn
+                      fontSize="small"
+                      sx={{
+                        marginRight: "0.25rem",
+                        color: "var(--text-primary-pink)",
+                      }}
+                    />
+                    <Typography
+                      variant="body1"
+                      fontSize={"0.875rem"}
+                      fontWeight={700}
+                    >
+                      Khả Phi
+                    </Typography>
+                    <Divider
+                      flexItem
+                      orientation="vertical"
+                      sx={{ margin: "0 0.25rem" }}
+                    />
+                    <Typography
+                      variant="body1"
+                      fontSize={"0.875rem"}
+                      fontWeight={700}
+                    >
+                      0927195291
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    fontSize={"0.875rem"}
+                    color={"var(--text-grey)"}
+                  >
+                    9/5 Đường số 16, Phường Linh Chiểu, Thành phố Thủ Đức, Hồ
+                    Chí Minh
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <IconButton>
+                    <ChevronRight />
+                  </IconButton>
+                </Box>
+              </Box>
+            </Box>
           )}
           <Box sx={isMobile ? {} : { display: "flex" }}>
             <Box sx={{ width: isMobile ? "100%" : "70%" }}>
@@ -251,11 +345,71 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                       left: 0,
                       padding: "1rem 0",
                       width: "100%",
+                      height: "var(--mobile-cart-summary-height)",
                       bgcolor: "var(--bg-white)",
                     }
                   : { flex: 1 }
               }
             >
+              {!isMobile && (
+                <Box
+                  sx={{
+                    marginBottom: "1rem",
+                    padding: "1rem",
+                    bgcolor: "var(--bg-white)",
+                    borderRadius: 1,
+                  }}
+                >
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography
+                      variant="body1"
+                      fontSize={"0.875rem"}
+                      color={"var(--text-grey)"}
+                    >
+                      Giao tới
+                    </Typography>
+                    <CustomLink
+                      href="/"
+                      color={LinkColor.primaryPink}
+                      noUnderline
+                      fontSize="0.875rem"
+                    >
+                      Thay đổi
+                    </CustomLink>
+                  </Box>
+                  <Box sx={{ margin: "0.5rem 0", display: "flex" }}>
+                    <Typography
+                      variant="body1"
+                      fontSize={"0.875rem"}
+                      fontWeight={700}
+                    >
+                      Khả Phi
+                    </Typography>
+                    <Divider
+                      flexItem
+                      orientation="vertical"
+                      sx={{ margin: "0 0.25rem" }}
+                    />
+                    <Typography
+                      variant="body1"
+                      fontSize={"0.875rem"}
+                      fontWeight={700}
+                    >
+                      0927195291
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    fontSize={"0.875rem"}
+                    color={"var(--text-grey)"}
+                  >
+                    9/5 Đường số 16, Phường Linh Chiểu, Thành phố Thủ Đức, Hồ
+                    Chí Minh
+                  </Typography>
+                </Box>
+              )}
               <Box
                 sx={{
                   position: "sticky",
@@ -290,10 +444,12 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                     <Typography
                       variant="body1"
                       color={"var(--text-primary-pink)"}
-                      fontSize={"1.25rem"}
+                      fontSize={"1rem"}
                       marginBottom={"0.5rem"}
                     >
-                      {currencyFormat(totalPrice)}
+                      {selectedItems.length > 0
+                        ? currencyFormat(totalPrice)
+                        : "Vui lòng chọn một sản phẩm"}
                     </Typography>
                   </Box>
                   <Typography
@@ -314,6 +470,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                       width: "100%",
                       color: "var(--text-white)",
                     }}
+                    onClick={handleCheckout}
                   >
                     Mua Hàng ({selectedItems.length})
                   </Button>

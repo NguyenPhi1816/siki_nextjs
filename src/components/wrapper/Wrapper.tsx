@@ -6,12 +6,14 @@ import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 interface IWrapper {
   children: React.ReactNode;
   disableScroll?: boolean;
+  showBottomBar?: boolean;
   sx?: SxProps;
 }
 
 const Wrapper: React.FC<IWrapper> = ({
   children,
   disableScroll = false,
+  showBottomBar = true,
   sx,
 }) => {
   const isMobile = useAppSelector(selectIsMobile);
@@ -19,7 +21,8 @@ const Wrapper: React.FC<IWrapper> = ({
     <Box
       sx={{
         marginTop: "var(--top-bar-height)",
-        paddingBottom: isMobile ? "var(--bottom-bar-height)" : 0,
+        paddingBottom:
+          isMobile && showBottomBar ? "var(--bottom-bar-height)" : 0,
         width: "100%",
         height: disableScroll ? "auto" : "calc(100% - var(--top-bar-height))",
         overflowY: disableScroll ? "visible" : "scroll",

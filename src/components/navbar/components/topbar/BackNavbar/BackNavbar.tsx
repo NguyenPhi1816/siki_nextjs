@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 
 const IconButtonStyle = { color: "var(--text-primary-pink)" };
 
-const CartNavbar = () => {
+interface IBackNavbar {
+  title: string;
+}
+
+const BackNavbar: React.FC<IBackNavbar> = ({ title }) => {
   const router = useRouter();
 
   const goBack = () => router.back();
@@ -25,7 +29,7 @@ const CartNavbar = () => {
       </Box>
       <Box>
         <Typography fontSize={"1.0625rem"} sx={IconButtonStyle}>
-          Giỏ hàng (3)
+          {title}
         </Typography>
       </Box>
       <Box sx={{ width: "2.5rem", height: "2.5rem" }}></Box>
@@ -33,4 +37,4 @@ const CartNavbar = () => {
   );
 };
 
-export default CartNavbar;
+export default BackNavbar;
