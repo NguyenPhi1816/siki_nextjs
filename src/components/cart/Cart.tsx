@@ -12,7 +12,7 @@ import {
 import CartSection from "./CartSection";
 import PageSection from "../wrapper/PageSection";
 import { ChevronRight, Delete, LocationOn } from "@mui/icons-material";
-import { currencyFormat } from "../numberFormat/currency";
+import { currencyFormat } from "../../lib/number";
 import CartItem from "./CartItem";
 import { ICart } from "@/types/cart";
 import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
@@ -28,7 +28,7 @@ import Footer from "../footer/Footer";
 import { useRouter } from "next/navigation";
 import { IMessageModalData, MessageType } from "../modal/MessageModal";
 import { ModalType, openModal } from "../../../lib/feartures/modal/modalSlice";
-import CustomLink, { LinkColor } from "../links/CustomLink";
+import OrderRecipientInfo from "../user/OrderRecipientInfo";
 
 interface IGroupByStoreItems {
   id: number;
@@ -210,62 +210,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
               Giỏ Hàng
             </Typography>
           )}
-          {isMobile && (
-            <Box
-              sx={{
-                marginBottom: "1rem",
-                padding: "1rem",
-                bgcolor: "var(--bg-white)",
-                borderRadius: 1,
-              }}
-            >
-              <Box sx={{ display: "flex" }}>
-                <Box>
-                  <Box sx={{ marginBottom: "0.5rem", display: "flex" }}>
-                    <LocationOn
-                      fontSize="small"
-                      sx={{
-                        marginRight: "0.25rem",
-                        color: "var(--text-primary-pink)",
-                      }}
-                    />
-                    <Typography
-                      variant="body1"
-                      fontSize={"0.875rem"}
-                      fontWeight={700}
-                    >
-                      Khả Phi
-                    </Typography>
-                    <Divider
-                      flexItem
-                      orientation="vertical"
-                      sx={{ margin: "0 0.25rem" }}
-                    />
-                    <Typography
-                      variant="body1"
-                      fontSize={"0.875rem"}
-                      fontWeight={700}
-                    >
-                      0927195291
-                    </Typography>
-                  </Box>
-                  <Typography
-                    variant="body1"
-                    fontSize={"0.875rem"}
-                    color={"var(--text-grey)"}
-                  >
-                    9/5 Đường số 16, Phường Linh Chiểu, Thành phố Thủ Đức, Hồ
-                    Chí Minh
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <IconButton>
-                    <ChevronRight />
-                  </IconButton>
-                </Box>
-              </Box>
-            </Box>
-          )}
+          {isMobile && <OrderRecipientInfo mobile />}
           <Box sx={isMobile ? {} : { display: "flex" }}>
             <Box sx={{ width: isMobile ? "100%" : "70%" }}>
               <PageSection sx={{ display: "flex", alignItems: "center" }}>
@@ -351,65 +296,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                   : { flex: 1 }
               }
             >
-              {!isMobile && (
-                <Box
-                  sx={{
-                    marginBottom: "1rem",
-                    padding: "1rem",
-                    bgcolor: "var(--bg-white)",
-                    borderRadius: 1,
-                  }}
-                >
-                  <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Typography
-                      variant="body1"
-                      fontSize={"0.875rem"}
-                      color={"var(--text-grey)"}
-                    >
-                      Giao tới
-                    </Typography>
-                    <CustomLink
-                      href="/"
-                      color={LinkColor.primaryPink}
-                      noUnderline
-                      fontSize="0.875rem"
-                    >
-                      Thay đổi
-                    </CustomLink>
-                  </Box>
-                  <Box sx={{ margin: "0.5rem 0", display: "flex" }}>
-                    <Typography
-                      variant="body1"
-                      fontSize={"0.875rem"}
-                      fontWeight={700}
-                    >
-                      Khả Phi
-                    </Typography>
-                    <Divider
-                      flexItem
-                      orientation="vertical"
-                      sx={{ margin: "0 0.25rem" }}
-                    />
-                    <Typography
-                      variant="body1"
-                      fontSize={"0.875rem"}
-                      fontWeight={700}
-                    >
-                      0927195291
-                    </Typography>
-                  </Box>
-                  <Typography
-                    variant="body1"
-                    fontSize={"0.875rem"}
-                    color={"var(--text-grey)"}
-                  >
-                    9/5 Đường số 16, Phường Linh Chiểu, Thành phố Thủ Đức, Hồ
-                    Chí Minh
-                  </Typography>
-                </Box>
-              )}
+              {!isMobile && <OrderRecipientInfo />}
               <Box
                 sx={{
                   position: "sticky",

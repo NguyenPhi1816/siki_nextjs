@@ -5,7 +5,7 @@ import {
 } from "@/types/product";
 import { Box, Divider, Rating, Skeleton, Typography } from "@mui/material";
 import React from "react";
-import { currencyFormat } from "../numberFormat/currency";
+import { currencyFormat } from "../../lib/number";
 import { useAppSelector } from "../../../lib/hooks";
 import { selectIsMobile } from "../../../lib/feartures/ui/uiSlice";
 import ProductDetailOption from "./ProductDetailOption";

@@ -3,15 +3,21 @@ import * as React from "react";
 import Drawer from "@mui/material/Drawer";
 
 import { createPortal } from "react-dom";
-import { Box } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 
 interface ICustomDrawer {
   open: boolean;
   setOpen: () => void;
   children: React.ReactNode;
+  sx?: SxProps;
 }
 
-const CustomDrawer: React.FC<ICustomDrawer> = ({ open, setOpen, children }) => {
+const CustomDrawer: React.FC<ICustomDrawer> = ({
+  open,
+  setOpen,
+  children,
+  sx = {},
+}) => {
   const toggleDrawer = () => () => {
     setOpen();
   };
@@ -21,7 +27,7 @@ const CustomDrawer: React.FC<ICustomDrawer> = ({ open, setOpen, children }) => {
       anchor="bottom"
       open={open}
       onClose={toggleDrawer()}
-      sx={{ zIndex: "var(--drawer-z-index)" }}
+      sx={{ zIndex: "var(--drawer-z-index)", ...sx }}
     >
       <Box
         sx={{

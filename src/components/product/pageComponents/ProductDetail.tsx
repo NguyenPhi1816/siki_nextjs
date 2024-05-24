@@ -13,7 +13,7 @@ import CustomDrawer from "@/components/drawer/Drawer";
 import BottomBar from "@/components/navbar/BottomBar";
 import ProductBottomNavbar from "@/components/navbar/components/bottombar/ProductBottomNavbar";
 import Image from "next/image";
-import { currencyFormat } from "@/components/numberFormat/currency";
+import { currencyFormat } from "../../../lib/number";
 import ProductDetailOption from "../ProductDetailOption";
 
 interface IProductDetail {

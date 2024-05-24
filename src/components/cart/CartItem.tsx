@@ -14,7 +14,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
 import { Add, Close, Remove } from "@mui/icons-material";
-import { currencyFormat } from "../numberFormat/currency";
+import { currencyFormat } from "../../lib/number";
 import { ICart } from "@/types/cart";
 
 interface CartItemProps {

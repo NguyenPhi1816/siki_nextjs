@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { currencyFormat } from "../numberFormat/currency";
+import { currencyFormat } from "../../lib/number";
 import { IProduct } from "@/types/product";
 
 interface IProductItem {

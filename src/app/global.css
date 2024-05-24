@@ -11,7 +11,7 @@
   --bg-main: #f5f5fa;
   --bg-overlay: rgba(0, 0, 0, 0.3);
   --bg-secondary-pink-opacity-20: rgba(247, 163, 183, 0.2);
-  --bg-secondary-pink: #f7a3b7;
+  --bg-secondary-pink: #f9e6ea;
   --bg-information: #808089;
   --bg-error: #e85e6c;
   --bg-success: #3cb878;
@@ -47,6 +47,7 @@
   --navbar-z-index: 9998;
   --drawer-z-index: 9997;
   --modal-z-index: 9999;
+  --overlay-z-index: 9996;
 }
 
 body {
