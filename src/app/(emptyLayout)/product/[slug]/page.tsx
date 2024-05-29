@@ -1,5 +1,5 @@
 "use client";
-import { Box, Container, SxProps } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect } from "react";
 import Wrapper from "@/components/wrapper/Wrapper";
 import {
@@ -7,12 +7,12 @@ import {
   MessageType,
 } from "@/components/modal/MessageModal";
 import { IBreadcrumb } from "@/types/category";
-import { useGetProductsBySlugQuery } from "../../../../lib/feartures/product/productSlice";
-import { useAppDispatch, useAppSelector } from "../../../../lib/hooks";
+import { useGetProductsBySlugQuery } from "../../../../../lib/feartures/product/productSlice";
+import { useAppDispatch, useAppSelector } from "../../../../../lib/hooks";
 import {
   selectIsMobile,
   selectIsStatesInitialized,
-} from "../../../../lib/feartures/ui/uiSlice";
+} from "../../../../../lib/feartures/ui/uiSlice";
 import Topbar from "@/components/navbar/TopBar";
 import ProductNavbar from "@/components/navbar/components/topbar/ProductNavbar";
 import DefaultTopNavbar from "@/components/navbar/components/topbar/DefaultTopNavbar";
@@ -26,7 +26,7 @@ import {
   openModal,
   resetCloseAction,
   selectCloseAction,
-} from "../../../../lib/feartures/modal/modalSlice";
+} from "../../../../../lib/feartures/modal/modalSlice";
 import ProductDetail from "@/components/product/pageComponents/ProductDetail";
 import ProductStore from "@/components/product/pageComponents/ProductStore";
 import ProductDesc from "@/components/product/pageComponents/ProductDesc";

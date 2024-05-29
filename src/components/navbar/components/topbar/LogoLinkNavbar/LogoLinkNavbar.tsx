@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import LogoLink from "../../../../links/LogoLink";
+import LogoLink, { LogoSize } from "../../../../links/LogoLink";
 
 const LogoLinkNavbar = () => {
   return (
-    <Box sx={{ pt: 2, pb: 2 }}>
-      <LogoLink />
+    <Box sx={{ p: 2 }}>
+      <LogoLink size={LogoSize.md} />
     </Box>
   );
 };
