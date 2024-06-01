@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import google from "next-auth/providers/google";
-import github from "next-auth/providers/github";
 import credentials from "next-auth/providers/credentials";
 import { IAuthResponse, ProfileResponseType } from "@/types/user";
 import { authenticate } from "@/services/auth";
