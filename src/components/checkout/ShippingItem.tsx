@@ -1,22 +1,36 @@
 import { currencyFormat } from "@/lib/number";
+import { Checkout } from "@/types/checkout";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import React from "react";
 
-const ShippingItem = () => {
+interface IShippingItem {
+  data: Checkout;
+}
+
+const ShippingItem: React.FC<IShippingItem> = ({ data }) => {
   return (
-    <Box sx={{ marginBottom: "1rem", display: "flex" }}>
+    <Box
+      sx={{
+        padding: "1rem",
+        marginBottom: "1rem",
+        display: "flex",
+        border: "1px solid var(--outline-light-grey)",
+        borderRadius: 1,
+      }}
+    >
       <Box
         sx={{
           marginRight: "0.5rem",
-          width: "3rem",
-          height: "3rem",
+          width: "4rem",
+          height: "4rem",
         }}
       >
         <Image
-          src="https://cdn.tgdd.vn/Products/Images/42/319665/samsung-galaxy-s24-yellow-thumb-600x600.png"
-          width={50}
-          height={50}
-          alt="item"
+          src={data.image}
+          width={100}
+          height={100}
+          alt={data.name}
           style={{
             width: "100%",
             height: "100%",
@@ -29,17 +43,15 @@ const ShippingItem = () => {
           sx={{
             marginBottom: "0.25rem",
             minHeight: "0.875rem",
+            maxWidth: "85%",
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",
-            WebkitLineClamp: "1",
+            WebkitLineClamp: "2",
             WebkitBoxOrient: "vertical",
           }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-          adipisci officiis obcaecati in iusto assumenda qui sint debitis
-          accusamus voluptates voluptate nesciunt pariatur, animi, at a nam.
-          Inventore, assumenda. Sapiente?
+          {data.name}
         </Typography>
         <Box
           sx={{
@@ -47,9 +59,11 @@ const ShippingItem = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography sx={{ fontSize: "0.875rem" }}>SL: 1</Typography>
+          <Typography sx={{ fontSize: "0.875rem" }}>
+            SL: {data.quantity}
+          </Typography>
           <Typography sx={{ fontSize: "0.875rem", color: "var(--text-black)" }}>
-            {currencyFormat(1000)}
+            {currencyFormat(data.price)}
           </Typography>
         </Box>
       </Box>

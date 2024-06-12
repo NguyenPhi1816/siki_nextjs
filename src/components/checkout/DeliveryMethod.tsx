@@ -9,6 +9,8 @@ import {
 import PageSection from "../wrapper/PageSection";
 import { useState } from "react";
 import ShippingPackage from "./ShippingPackage";
+import { useAppSelector } from "../../../lib/hooks";
+import { selectItems } from "../../../lib/feartures/checkout/CheckoutSlice";
 
 const DELIVERY_METHODS = [
   { id: "standard", label: "Giao hàng tiêu chuẩn", price: 14000 },
@@ -73,7 +75,6 @@ const DeliveryMethod = () => {
               />
               {selectedItem === item.id && (
                 <Box sx={{ marginTop: "1rem" }}>
-                  <ShippingPackage />
                   <ShippingPackage />
                 </Box>
               )}

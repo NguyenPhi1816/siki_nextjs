@@ -3,10 +3,10 @@
 import { signIn } from "@/config/nextauth";
 
 export const doLogin = async (formData: FormData) => {
-  const phoneNumber = formData.get("phoneNumber");
+  const email = formData.get("email");
   const password = formData.get("password");
   const result = await signIn("credentials", {
-    phoneNumber,
+    email,
     password,
     redirect: true,
     redirectTo: "/",

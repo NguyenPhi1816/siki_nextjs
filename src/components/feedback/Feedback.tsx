@@ -25,25 +25,28 @@ const Feedback: React.FC<IFeedbackComponent> = ({ data }) => {
   const dispatch: Dispatch = useAppDispatch();
   const isMobile = useAppSelector(selectIsMobile);
 
-  const handleShowImageModal = (images: string[], defaultIndex: number) => {
-    const modalProps: IImageModalData = {
-      title: "Hình ảnh từ khách hàng",
-      images: images,
-      defaultIndex: defaultIndex,
-    };
-    dispatch(openModal({ modalType: ModalType.image, modalProps: modalProps }));
-  };
+  // const handleShowImageModal = (images: string[], defaultIndex: number) => {
+  //   const modalProps: IImageModalData = {
+  //     title: "Hình ảnh từ khách hàng",
+  //     images: images,
+  //     defaultIndex: defaultIndex,
+  //   };
+  //   dispatch(openModal({ modalType: ModalType.image, modalProps: modalProps }));
+  // };
 
   return (
     <Card sx={{ boxShadow: 0 }}>
       <CardContent sx={{ padding: 0, display: "flex" }}>
         <Box>
-          <Avatar alt={data.customer.name} src={data.customer.image} />
+          <Avatar
+            alt={data.customer.firstName + " " + data.customer.lastName}
+            src={process.env.NEXT_PUBLIC_NO_USER_IMAGE}
+          />
         </Box>
         <Box sx={{ margin: "0 1rem", flex: 1 }}>
           <Box sx={{ width: "100%", color: "var(--text-grey)" }}>
             <Typography sx={{ fontSize: "0.75rem" }}>
-              {data.customer.name}
+              {data.customer.firstName + " " + data.customer.lastName}
             </Typography>
             <Rating name="read-only" size="small" value={5} readOnly />
             <Box
@@ -53,7 +56,7 @@ const Feedback: React.FC<IFeedbackComponent> = ({ data }) => {
               }}
             >
               <Typography sx={{ fontSize: "0.75rem" }}>
-                {data.createAt}
+                {data.create_at}
               </Typography>
               <Divider
                 orientation="vertical"
@@ -69,7 +72,7 @@ const Feedback: React.FC<IFeedbackComponent> = ({ data }) => {
                 {data.content}
               </Typography>
             </Box>
-            {data.images.length > 0 && (
+            {/* {data.images.length > 0 && (
               <Grid container spacing={2}>
                 {data.images.map((item, index) => (
                   <Grid item key={index}>
@@ -82,7 +85,7 @@ const Feedback: React.FC<IFeedbackComponent> = ({ data }) => {
                   </Grid>
                 ))}
               </Grid>
-            )}
+            )} */}
           </Box>
         </Box>
       </CardContent>

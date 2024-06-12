@@ -10,6 +10,7 @@ import {
 import ImageModal, { IImageModalData } from "./ImageModal";
 import MessageModal, { IMessageModalData } from "./MessageModal";
 import React from "react";
+import ReviewModal, { IReviewModalData } from "./ReviewModal";
 
 const CustomModal = () => {
   const showModal = useAppSelector(selectShowModal);
@@ -24,12 +25,19 @@ const CustomModal = () => {
     return props && props.hasOwnProperty("images");
   }
 
+  function isReviewModalData(props: any): props is IReviewModalData {
+    return props && props.hasOwnProperty("productId");
+  }
+
   const child = (() => {
     if (modalType === ModalType.image && isImageModalData(modalProps)) {
       return <ImageModal data={modalProps} />;
     }
     if (modalType === ModalType.message && isMessageModalData(modalProps)) {
       return <MessageModal data={modalProps} />;
+    }
+    if (modalType === ModalType.review && isReviewModalData(modalProps)) {
+      return <ReviewModal data={modalProps} />;
     }
     return <></>;
   })();

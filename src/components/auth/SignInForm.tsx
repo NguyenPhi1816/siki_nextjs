@@ -1,6 +1,5 @@
 "use client";
-import { doLogin, doSocialLogin } from "@/actions/auth";
-import { Google } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -10,35 +9,85 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
+  InputAdornment,
   Link,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { FormEvent, useState } from "react";
-import { useAppSelector } from "../../../lib/hooks";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
 import { selectIsStatesInitialized } from "../../../lib/feartures/ui/uiSlice";
+import { useSignInMutation } from "../../../lib/feartures/auth/authApi";
+import { SignInError, SignInResponse } from "@/types/auth";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { redirect } from "next/navigation";
+import { setCookies } from "@/services/cookie";
+import { setTokens } from "../../../lib/feartures/auth/authSlice";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useGetProfileMutation } from "../../../lib/feartures/user/userApi";
+import { IAuthResponse } from "@/types/user";
+import { setUser } from "../../../lib/feartures/user/userSlice";
 
 const SignInForm = () => {
   const url = process.env.NEXT_PUBLIC_SIGN_IN_BACKGROUND_IMAGE_URL;
   const isAppLoaded = useAppSelector(selectIsStatesInitialized);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isRemember, setIsRemember] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const dispatch: Dispatch = useAppDispatch();
+  const [signIn, { isLoading, data, error }] = useSignInMutation();
+  const [getProfile, { data: profile, error: profileError }] =
+    useGetProfileMutation();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    setIsLoading(true);
-    try {
-      await doLogin(formData);
-    } catch (error) {
-      setErrorMessage("Tài khoản hoặc mật khẩu không chính xác.");
-    } finally {
-      setIsLoading(false);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    if (email && password) {
+      await signIn({ email: email.toString(), password: password.toString() });
     }
   };
 
+  useEffect(() => {
+    if (data) {
+      const storeData = async () => {
+        const myRes = data as SignInResponse;
+        if (isRemember) {
+          await setCookies(myRes);
+        }
+        dispatch(
+          setTokens({
+            accessToken: myRes.access_token,
+            refreshToken: myRes.refresh_token,
+          })
+        );
+        await getProfile(myRes.access_token);
+      };
+
+      storeData();
+    } else if (error) {
+      const myErr = error as FetchBaseQueryError;
+      const myErrData = myErr.data as SignInError;
+      setErrorMessage(myErrData.error_description);
+    }
+  }, [data, error]);
+
+  useEffect(() => {
+    console.log(profile);
+    if (profile) {
+      dispatch(setUser(profile));
+      redirect("/");
+    }
+  }, [profile]);
+
   const handleClearMessage = () => {
     setErrorMessage("");
+  };
+
+  const handleToggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -93,9 +142,9 @@ const SignInForm = () => {
                 error={errorMessage !== ""}
                 required
                 fullWidth
-                id="phoneNumber"
-                label="Số điện thoại"
-                name="phoneNumber"
+                id="email"
+                label="Email"
+                name="email"
                 onFocus={handleClearMessage}
               />
               <TextField
@@ -104,13 +153,33 @@ const SignInForm = () => {
                 fullWidth
                 name="password"
                 label="Mật khẩu"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 onFocus={handleClearMessage}
                 sx={{ mt: 2 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleToggleShowPassword}
+                        onMouseDown={(event) => event.preventDefault()} // Để ngăn sự kiện onblur trên input
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={
+                  <Checkbox
+                    value="isRemember"
+                    color="primary"
+                    checked={isRemember}
+                    onClick={() => setIsRemember((prev) => !prev)}
+                  />
+                }
                 label="Ghi nhớ đăng nhập"
               />
               {errorMessage !== "" && (
@@ -153,7 +222,7 @@ const SignInForm = () => {
                 </Link>
               </Grid>
             </Grid>
-            <Box sx={{ padding: "2rem 0 1rem" }}>
+            {/* <Box sx={{ padding: "2rem 0 1rem" }}>
               <Typography>Hoặc đăng nhập với</Typography>
             </Box>
             <Box sx={{ marginBottom: "2rem" }}>
@@ -175,7 +244,7 @@ const SignInForm = () => {
                   <Google />
                 </IconButton>
               </form>
-            </Box>
+            </Box> */}
           </Box>
         </Container>
       </Container>

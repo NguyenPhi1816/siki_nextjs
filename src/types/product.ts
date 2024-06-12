@@ -5,6 +5,7 @@ export interface IProduct {
   name: string;
   averageRating: number;
   price: number;
+  productId: number;
 }
 
 export interface IProductImage {
@@ -56,8 +57,8 @@ export interface IProductFull {
   numberOfReviews: number;
   numberOfPurchases: number;
   isShowIndividually: boolean;
-  storeDto: IStoreDto;
-  brandDto: IBrandDto;
+  store: IStoreDto;
+  brand: IBrandDto;
   relatedProducts: IProduct[];
   productAttributes: IProductAttribute[];
   productVariants: IProductVariant[];

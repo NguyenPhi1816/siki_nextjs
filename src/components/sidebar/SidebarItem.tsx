@@ -12,7 +12,7 @@ const SidebarItem: React.FC<ISidebarItem> = ({ data }) => {
   return (
     <CustomLink
       sx={{ width: "100%" }}
-      href={`/category/${data?.id}`}
+      href={`/category/${data?.name}?categoryId=${data?.id}`}
       noUnderline
       component={LinkComponent.button}
       hoverBgColor="var(--bg-grey)"
@@ -25,7 +25,7 @@ const SidebarItem: React.FC<ISidebarItem> = ({ data }) => {
           alignItems: "center",
         }}
       >
-        <Image src={data?.imageUrl} alt={data?.parent} width={32} height={32} />
+        <Image src={data?.image} alt={data?.name} width={32} height={32} />
         <Typography
           sx={{
             marginLeft: "0.5rem",
@@ -34,7 +34,7 @@ const SidebarItem: React.FC<ISidebarItem> = ({ data }) => {
           }}
           variant="body1"
         >
-          {data?.parent}
+          {data?.name}
         </Typography>
       </Box>
     </CustomLink>

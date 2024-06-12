@@ -4,7 +4,7 @@ import FilterItem from "@/components/feedback/FilterItem";
 import { IReview } from "@/types/review";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { useGetReviewsQuery } from "../../../../lib/feartures/review/reviewSlice";
+import { useGetReviewsQuery } from "../../../../lib/feartures/review/reviewApi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";

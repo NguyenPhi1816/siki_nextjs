@@ -7,7 +7,7 @@ import {
   MessageType,
 } from "@/components/modal/MessageModal";
 import { IBreadcrumb } from "@/types/category";
-import { useGetProductsBySlugQuery } from "../../../../../lib/feartures/product/productSlice";
+import { useGetProductsBySlugQuery } from "../../../../../lib/feartures/product/productApi";
 import { useAppDispatch, useAppSelector } from "../../../../../lib/hooks";
 import {
   selectIsMobile,
@@ -65,6 +65,8 @@ const ProductPage = ({
     isLoading: isProductLoading,
   } = useGetProductsBySlugQuery(params.slug);
 
+  console.log(product);
+
   useEffect(() => {
     if (productError) {
       const messageData: IMessageModalData = {
@@ -101,11 +103,11 @@ const ProductPage = ({
               {isMobile ? <ProductNavbar /> : <DefaultTopNavbar />}
             </Topbar>
             <Wrapper disableScroll={true}>
-              {!isMobile && (
+              {/* {!isMobile && (
                 <Box sx={{ margin: "0.5rem 0" }}>
                   <BreadcrumbContainer data={breadcrumb} />
                 </Box>
-              )}
+              )} */}
               <PageSection>
                 <ProductDetail
                   data={product}

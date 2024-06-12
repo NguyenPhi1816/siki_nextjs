@@ -6,6 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export enum ModalType {
   message,
   image,
+  review,
 }
 
 export enum CloseAction {

@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import PageSection from "../wrapper/PageSection";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const CHECKOUT_METHODS = [
@@ -25,11 +25,21 @@ const CHECKOUT_METHODS = [
   },
 ];
 
-const CheckoutMethod = () => {
+interface ICheckoutMethod {
+  setMethod: (method: string) => void;
+}
+
+const CheckoutMethod: React.FC<ICheckoutMethod> = ({ setMethod }) => {
   const [selectedItem, setSelectedItem] = useState(CHECKOUT_METHODS[0].id);
 
+  useEffect(() => {
+    setMethod(CHECKOUT_METHODS[0].id);
+  }, []);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedItem((event.target as HTMLInputElement).value);
+    const method = (event.target as HTMLInputElement).value;
+    setSelectedItem(method);
+    setMethod(method);
   };
 
   return (

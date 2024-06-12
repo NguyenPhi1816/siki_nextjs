@@ -17,7 +17,7 @@ const SignUp = () => {
     isStatesInitialized && (
       <Container
         component="section"
-        maxWidth="md"
+        maxWidth="lg"
         sx={{
           pt: 10,
           pb: 3,
@@ -36,12 +36,14 @@ const SignUp = () => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <Box
                 sx={{
                   padding: isMobile ? "0" : "1.25rem",
                   backgroundImage: isMobile ? "" : `url(${url})`,
                   backgroundPosition: "bottom",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
@@ -54,16 +56,16 @@ const SignUp = () => {
                   variant={isMobile ? "h4" : "h2"}
                   sx={{ fontWeight: 700 }}
                 >
-                  Sign up
+                  Đăng ký
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={8}>
               <SignUpForm />
               <Grid container justifyContent="flex-start">
                 <Grid item>
                   <Link href="/login" variant="body2">
-                    Already have an account? Sign in
+                    Đã có tài khoản? Đăng nhập
                   </Link>
                 </Grid>
               </Grid>

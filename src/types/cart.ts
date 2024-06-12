@@ -8,7 +8,7 @@ export interface ICartProduct {
   name: string;
   price: number;
   image: string;
-  productAttributeValues: string;
+  productAttributeValues: string[];
   quantity: number;
   store: ICartStore;
 }
@@ -19,3 +19,8 @@ export interface ICart {
   quantity: number;
   isSelected: boolean;
 }
+
+export type AddToCartRequest = {
+  id: number;
+  token: string;
+};

@@ -20,9 +20,8 @@ const Sidebar: React.FC<ISidebar> = ({ data }) => {
 
   const vender: ICategory = {
     id: 9999,
-    parent: "Bán hàng cùng Siki",
-    children: [],
-    imageUrl:
+    name: "Bán hàng cùng Siki",
+    image:
       "https://salt.tikicdn.com/cache/100x100/ts/upload/08/2f/14/fd9d34a8f9c4a76902649d04ccd9bbc5.png.webp",
   };
 

@@ -1,11 +1,11 @@
-import { Box, Container, Typography } from "@mui/material";
+"use client";
+import { Box, Container } from "@mui/material";
 import LogoLink, { LogoSize } from "../../../../links/LogoLink";
 import SearchBar from "../../../../search/SearchBar";
 import CustomLink, {
   LinkColor,
   LinkComponent,
 } from "../../../../links/CustomLink";
-import { AccountCircle } from "@mui/icons-material";
 import CartButton from "../../../../cart/CartButton";
 import {
   containerStyles,
@@ -15,8 +15,29 @@ import {
   searchResultStyles,
 } from "../styles";
 import SearchResult from "@/components/search/SearchResult";
+import AccountButton from "./AccountButton";
+import { useAppDispatch, useAppSelector } from "../../../../../../lib/hooks";
+import {
+  clearTokens,
+  selectTokens,
+} from "../../../../../../lib/feartures/auth/authSlice";
+import { deleteCookies } from "@/services/cookie";
+import {
+  clearUser,
+  selectUser,
+} from "../../../../../../lib/feartures/user/userSlice";
+import { Dispatch } from "@reduxjs/toolkit";
 
 const LargeScreenNavbar = () => {
+  const dispatch: Dispatch = useAppDispatch();
+  const { user } = useAppSelector(selectUser);
+
+  const handleLogout = async () => {
+    await deleteCookies();
+    dispatch(clearTokens());
+    dispatch(clearUser());
+  };
+
   return (
     <Container
       component="div"
@@ -38,17 +59,9 @@ const LargeScreenNavbar = () => {
         component={LinkComponent.roundedButton}
         sx={CustomLinkStyles}
       >
-        <CartButton />
+        <CartButton user={user} />
       </CustomLink>
-      <CustomLink
-        href="/login"
-        color={LinkColor.primaryPink}
-        noUnderline
-        component={LinkComponent.roundedButton}
-        sx={{ ...CustomLinkStyles, marginLeft: ".75rem" }}
-      >
-        <AccountCircle />
-      </CustomLink>
+      <AccountButton user={user} handleLogout={handleLogout} />
     </Container>
   );
 };

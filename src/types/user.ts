@@ -6,18 +6,29 @@ export interface IUser {
   image: string;
 }
 
-export interface IAuthResponse {
-  _id: string;
+export interface IUserFull {
+  id: string;
+  username: string;
+  email: string;
   firstName: string;
   lastName: string;
   address: string;
-  phoneNumber: string;
-  gender: Gender;
-  dateOfBirth: string;
   avatar: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+}
+
+export interface IAuthResponse {
+  id: string;
+  username: string;
   email: string;
-  __v: number;
-  access_token: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  avatar: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  role: string;
 }
 
 export type ProfileResponseType = {
@@ -29,5 +40,15 @@ export type ProfileResponseType = {
   address: string;
   avatar: null | string;
   phoneNumber: string;
+  dateOfBirth: string;
+};
+
+export type SignUpRequest = {
+  email: string;
+  address: string;
+  phoneNumber: string;
+  firstName: string;
+  lastName: string;
+  password: string;
   dateOfBirth: string;
 };

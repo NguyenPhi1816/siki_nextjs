@@ -2,8 +2,13 @@ import { ChevronRight, LocationOn } from "@mui/icons-material";
 import { Box, Divider, IconButton, Typography } from "@mui/material";
 import React from "react";
 import CustomLink, { LinkColor } from "../links/CustomLink";
+import { IAuthResponse } from "@/types/user";
 
-const MobileComponent = () => {
+interface IMobileComponent {
+  user: IAuthResponse;
+}
+
+const MobileComponent: React.FC<IMobileComponent> = ({ user }) => {
   return (
     <Box
       sx={{
@@ -24,7 +29,7 @@ const MobileComponent = () => {
               }}
             />
             <Typography variant="body1" fontSize={"0.875rem"} fontWeight={700}>
-              Khả Phi
+              {user.firstName + " " + user.lastName}
             </Typography>
             <Divider
               flexItem
@@ -32,7 +37,7 @@ const MobileComponent = () => {
               sx={{ margin: "0 0.25rem" }}
             />
             <Typography variant="body1" fontSize={"0.875rem"} fontWeight={700}>
-              0927195291
+              {user.phoneNumber}
             </Typography>
           </Box>
           <Typography
@@ -40,7 +45,7 @@ const MobileComponent = () => {
             fontSize={"0.875rem"}
             color={"var(--text-grey)"}
           >
-            9/5 Đường số 16, Phường Linh Chiểu, Thành phố Thủ Đức, Hồ Chí Minh
+            {user.address}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -53,7 +58,11 @@ const MobileComponent = () => {
   );
 };
 
-const DesktopComponent = () => {
+interface IDesktopComponent {
+  user: IAuthResponse;
+}
+
+const DesktopComponent: React.FC<IDesktopComponent> = ({ user }) => {
   return (
     <Box
       sx={{
@@ -82,11 +91,11 @@ const DesktopComponent = () => {
       </Box>
       <Box sx={{ margin: "0.5rem 0", display: "flex" }}>
         <Typography variant="body1" fontSize={"0.875rem"} fontWeight={700}>
-          Khả Phi
+          {user.firstName + " " + user.lastName}
         </Typography>
         <Divider flexItem orientation="vertical" sx={{ margin: "0 0.25rem" }} />
         <Typography variant="body1" fontSize={"0.875rem"} fontWeight={700}>
-          0927195291
+          {user.phoneNumber}
         </Typography>
       </Box>
       <Typography
@@ -94,7 +103,7 @@ const DesktopComponent = () => {
         fontSize={"0.875rem"}
         color={"var(--text-grey)"}
       >
-        9/5 Đường số 16, Phường Linh Chiểu, Thành phố Thủ Đức, Hồ Chí Minh
+        {user.address}
       </Typography>
     </Box>
   );
@@ -102,10 +111,21 @@ const DesktopComponent = () => {
 
 interface IOrderRecipientInfo {
   mobile?: boolean;
+  user: IAuthResponse | null;
 }
 
-const OrderRecipientInfo: React.FC<IOrderRecipientInfo> = ({ mobile }) => {
-  return mobile ? <MobileComponent /> : <DesktopComponent />;
+const OrderRecipientInfo: React.FC<IOrderRecipientInfo> = ({
+  mobile = false,
+  user,
+}) => {
+  return (
+    user &&
+    (mobile ? (
+      <MobileComponent user={user} />
+    ) : (
+      <DesktopComponent user={user} />
+    ))
+  );
 };
 
 export default OrderRecipientInfo;

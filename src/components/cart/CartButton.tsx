@@ -1,7 +1,24 @@
+"use client";
+import { IAuthResponse } from "@/types/user";
 import { ShoppingCart } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useGetCartByUserIdQuery } from "../../../lib/feartures/cart/cartApi";
 
-const CartButton = () => {
+interface ICartButton {
+  user: IAuthResponse | null;
+}
+
+const CartButton: React.FC<ICartButton> = ({ user }) => {
+  const { data } = useGetCartByUserIdQuery(user?.id as string);
+  const [quantity, setQuantity] = useState<number>(0);
+
+  useEffect(() => {
+    if (data) {
+      setQuantity(data.length);
+    }
+  }, [data]);
+
   return (
     <Box
       component="div"
@@ -23,7 +40,7 @@ const CartButton = () => {
           textAlign: "center",
         }}
       >
-        1
+        {quantity}
       </Typography>
     </Box>
   );

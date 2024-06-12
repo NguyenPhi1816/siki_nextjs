@@ -15,18 +15,30 @@ import {
   IProductVariant,
 } from "@/types/product";
 import React, { ChangeEvent, SyntheticEvent, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
+import { selectTokens } from "../../../lib/feartures/auth/authSlice";
+import { redirect, useRouter } from "next/navigation";
+import { useAddToCartMutation } from "../../../lib/feartures/cart/cartApi";
+import { Checkout } from "@/types/checkout";
+import { setItems } from "../../../lib/feartures/checkout/CheckoutSlice";
 
 interface IProductDetailOption {
+  productName: string;
   productAttributes: IProductAttribute[] | undefined;
   selectedProductVariant: IProductVariant | null;
   onChangeOption: (option: IProductAttributeValue) => void;
 }
 
 const ProductDetailOption: React.FC<IProductDetailOption> = ({
+  productName,
   productAttributes,
   selectedProductVariant,
   onChangeOption,
 }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const tokens = useAppSelector(selectTokens);
+  const [addToCart, { data, error }] = useAddToCartMutation();
   const [quantity, setQuantity] = useState<string>("1");
 
   const increaseQuantity = () => {
@@ -81,6 +93,33 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
     if (value.trim().length === 0) {
       setQuantity("1");
     }
+  };
+
+  const handleAddToCart = async () => {
+    if (!tokens.accessToken) {
+      router.push("/login");
+    } else {
+      if (!!selectedProductVariant) {
+        await addToCart({
+          id: selectedProductVariant.id,
+          token: tokens.accessToken,
+        });
+      }
+    }
+  };
+
+  console.log(data, error);
+
+  const handleCheckout = () => {
+    const myData: Checkout = {
+      productId: selectedProductVariant?.id as number,
+      price: selectedProductVariant?.price as number,
+      quantity: Number.parseInt(quantity),
+      image: selectedProductVariant?.image as string,
+      name: productName,
+    };
+    dispatch(setItems([myData]));
+    router.push("/checkout");
   };
 
   return (
@@ -170,7 +209,7 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
             width: "50%",
             padding: "0.75rem 1.5rem",
           }}
-          onClick={() => {}}
+          onClick={handleAddToCart}
         >
           <AddShoppingCart />
           <Typography
@@ -194,6 +233,7 @@ const ProductDetailOption: React.FC<IProductDetailOption> = ({
               color: "var(--text-white)",
               boxShadow: 0,
             }}
+            onClick={handleCheckout}
           >
             Mua ngay
           </Typography>

@@ -1,11 +1,31 @@
-import api from "./api";
+export async function authenticate(email: string, password: string) {
+  var details = {
+    client_id: "siki-client",
+    grant_type: "password",
+    client_secret: process.env.KEYCLOAK_CLIENT_SECRET,
+    username: email,
+    password: password,
+    scope: "profile",
+  };
 
-export async function authenticate(phoneNumber: string, password: string) {
-  const response = await fetch(`${api}/auth/signin`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phoneNumber, password }),
-  });
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  const new_formBody = formBody.join("&");
+
+  const response = await fetch(
+    `http://localhost:8880/realms/siki/protocol/openid-connect/token`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: new_formBody,
+    }
+  );
 
   const data = await response.json();
   return data;

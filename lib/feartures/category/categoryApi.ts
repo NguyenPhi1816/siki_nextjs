@@ -2,7 +2,7 @@
 import { ICategory } from "@/types/category";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+const apiBaseUrl = process.env.NEXT_PUBLIC_SIKI_API;
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
@@ -11,10 +11,13 @@ export const categoryApi = createApi({
   }),
   endpoints: (builder) => ({
     getCategories: builder.query<ICategory[], void>({
-      query: () => "/categories",
+      query: () => "/products/category/parents",
+    }),
+    getByName: builder.query<any, string>({
+      query: (name: string) => `/products/category/${name}`,
     }),
   }),
   keepUnusedDataFor: 120, // time in seconds
 });
 
-export const { useGetCategoriesQuery } = categoryApi;
+export const { useGetCategoriesQuery, useGetByNameQuery } = categoryApi;

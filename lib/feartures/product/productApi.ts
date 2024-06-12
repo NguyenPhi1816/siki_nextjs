@@ -17,7 +17,12 @@ export const productApi = createApi({
       query: () => "/home",
     }),
     getProductsBySlug: builder.query<IProductFull, string>({
-      query: (slug: string) => `/products/${slug}`,
+      query: (slug: string) =>
+        `http://localhost:8090/api/products/storefront/${slug}`,
+    }),
+    getProductsByCategoryId: builder.query<IProduct[], string>({
+      query: (id: string) =>
+        `http://localhost:8090/api/products/storefront/category/${id}`,
     }),
   }),
   keepUnusedDataFor: 120, // time in seconds
@@ -27,4 +32,5 @@ export const {
   useGetProductsQuery,
   useGetHomeQuery,
   useGetProductsBySlugQuery,
+  useGetProductsByCategoryIdQuery,
 } = productApi;

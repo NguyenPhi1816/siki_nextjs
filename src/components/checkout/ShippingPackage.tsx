@@ -2,8 +2,12 @@ import { currencyFormat } from "@/lib/number";
 import { LocalShipping } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import ShippingItem from "./ShippingItem";
+import { useAppSelector } from "../../../lib/hooks";
+import { selectItems } from "../../../lib/feartures/checkout/CheckoutSlice";
 
 const ShippingPackage = () => {
+  const items = useAppSelector(selectItems);
+
   return (
     <Box
       sx={{
@@ -34,7 +38,7 @@ const ShippingPackage = () => {
         >
           <LocalShipping fontSize="small" />
           <Typography sx={{ marginLeft: "0.25rem", fontSize: "0.875rem" }}>
-            Gói: Giao đúng chiều mai, 13h - 18h, 22/5
+            Gói: Giao đúng chiều mai
           </Typography>
         </Box>
         <Box
@@ -61,8 +65,10 @@ const ShippingPackage = () => {
           </Typography>
         </Box>
         <Box>
-          <ShippingItem />
-          <ShippingItem />
+          {items &&
+            items.map((item) => (
+              <ShippingItem key={item.productId} data={item} />
+            ))}
         </Box>
       </Box>
     </Box>

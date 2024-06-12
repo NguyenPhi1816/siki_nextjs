@@ -29,6 +29,10 @@ import { useRouter } from "next/navigation";
 import { IMessageModalData, MessageType } from "../modal/MessageModal";
 import { ModalType, openModal } from "../../../lib/feartures/modal/modalSlice";
 import OrderRecipientInfo from "../user/OrderRecipientInfo";
+import { selectUser } from "../../../lib/feartures/user/userSlice";
+import { useGetCartByUserIdQuery } from "../../../lib/feartures/cart/cartApi";
+import { setItems } from "../../../lib/feartures/checkout/CheckoutSlice";
+import { Checkout } from "@/types/checkout";
 
 interface IGroupByStoreItems {
   id: number;
@@ -41,11 +45,11 @@ interface IFormattedData {
   totalItems: number;
 }
 
-interface ICartComponent {
-  data: ICart[];
-}
-
-const Cart: React.FC<ICartComponent> = ({ data }) => {
+const Cart = () => {
+  const { user } = useAppSelector(selectUser);
+  const { data, error, refetch, isLoading } = useGetCartByUserIdQuery(
+    user?.id as string
+  );
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isMobile: boolean = useAppSelector(selectIsMobile);
@@ -97,6 +101,8 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
 
   useEffect(() => {
     const total = selectedItems.reduce((accumulator, currentValue) => {
+      console.log(currentValue.product.price, currentValue.quantity);
+
       return accumulator + currentValue.product.price * currentValue.quantity;
     }, 0);
     setTotalPrice(total);
@@ -134,21 +140,35 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
   };
 
   const handleSelectAllItems = () => {
-    const isChecked = checkIsAllItemsSelected();
-    if (isChecked) {
-      setSelectedItems([]);
-    } else {
-      setSelectedItems(data);
+    if (data) {
+      const isChecked = checkIsAllItemsSelected();
+      if (isChecked) {
+        setSelectedItems([]);
+      } else {
+        setSelectedItems(data);
+      }
     }
   };
 
   // check if all items are in the selectedItems array
   const checkIsAllItemsSelected: () => boolean = () => {
-    return (
-      selectedItems.length > 0 &&
-      JSON.stringify(selectedItems.sort((a, b) => a.id - b.id)) ===
-        JSON.stringify(data.sort((a, b) => a.id - b.id))
-    );
+    let isAllItemsSelected = false;
+
+    if (data && data.length > 0 && selectedItems.length > 0) {
+      let myData: ICart[] = [];
+      myData = myData.concat(data);
+
+      let myItems: ICart[] = [];
+      myItems = myItems.concat(selectedItems);
+
+      const sortedDataJson = JSON.stringify(myData.sort((a, b) => a.id - b.id));
+      const sortedItemsJson = JSON.stringify(
+        myItems.sort((a, b) => a.id - b.id)
+      );
+      isAllItemsSelected = sortedDataJson === sortedItemsJson;
+    }
+
+    return isAllItemsSelected;
   };
 
   // check if all items in store are in the selectedItems array
@@ -164,6 +184,19 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
 
   const handleCheckout = () => {
     if (selectedItems.length > 0) {
+      const myItems: Checkout[] = [];
+
+      for (let item of selectedItems) {
+        const myData: Checkout = {
+          productId: item.product.id,
+          price: item.product.price,
+          quantity: item.quantity,
+          image: item.product.image,
+          name: item.product.name,
+        };
+        myItems.push(myData);
+      }
+      dispatch(setItems(myItems));
       router.push("/checkout");
     } else {
       const messageData: IMessageModalData = {
@@ -210,7 +243,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
               Giỏ Hàng
             </Typography>
           )}
-          {isMobile && <OrderRecipientInfo mobile />}
+          {isMobile && <OrderRecipientInfo mobile user={user} />}
           <Box sx={isMobile ? {} : { display: "flex" }}>
             <Box sx={{ width: isMobile ? "100%" : "70%" }}>
               <PageSection sx={{ display: "flex", alignItems: "center" }}>
@@ -296,7 +329,7 @@ const Cart: React.FC<ICartComponent> = ({ data }) => {
                   : { flex: 1 }
               }
             >
-              {!isMobile && <OrderRecipientInfo />}
+              {!isMobile && <OrderRecipientInfo user={user} />}
               <Box
                 sx={{
                   position: "sticky",

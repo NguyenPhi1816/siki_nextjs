@@ -1,13 +1,13 @@
-import { IUser } from "./user";
+import { IUserFull } from "./user";
 
 export interface IReviewItem {
   id: number;
-  customer: IUser;
-  rating: number;
-  createAt: string;
-  variant: string;
   content: string;
-  images: string[];
+  rating: number;
+  customer: IUserFull;
+  variant: string;
+  create_at: string;
+  updated_at: string;
 }
 
 export interface IReview {
@@ -15,8 +15,12 @@ export interface IReview {
   pageSize: number;
   totalElements: number;
   totalPages: number;
-  sortDir: string;
-  sortField: string;
-  ratingStars: number[];
   data: IReviewItem[];
 }
+
+export type SaveReviewRequest = {
+  token: string;
+  productId: number;
+  content: string;
+  ratingStar: number;
+};

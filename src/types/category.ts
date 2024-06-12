@@ -1,8 +1,7 @@
 export interface ICategory {
   id: number;
-  imageUrl: string;
-  parent: string;
-  children: string[];
+  image: string;
+  name: string;
 }
 
 export interface IBreadcrumb {

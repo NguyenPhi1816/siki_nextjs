@@ -85,6 +85,7 @@ const ProductDetailPrice: React.FC<IProductDetailPrice> = ({
         </Box>
         {!isMobile && (
           <ProductDetailOption
+            productName={product?.name as string}
             productAttributes={product?.productAttributes}
             selectedProductVariant={selectedProductVariant}
             onChangeOption={onChangeOption}

@@ -2,10 +2,14 @@ import { currencyFormat } from "@/lib/number";
 import { Box, Divider, SxProps, Typography } from "@mui/material";
 import PageSection from "../wrapper/PageSection";
 import React from "react";
+import { useAppSelector } from "../../../lib/hooks";
+import { selectItems } from "../../../lib/feartures/checkout/CheckoutSlice";
 
-interface IPriceSummary {}
+interface IPriceSummary {
+  totalPrice: number;
+}
 
-const PriceSummary: React.FC<IPriceSummary> = ({}) => {
+const PriceSummary: React.FC<IPriceSummary> = ({ totalPrice }) => {
   return (
     <PageSection sx={{ padding: "1rem" }}>
       <Box
@@ -25,7 +29,7 @@ const PriceSummary: React.FC<IPriceSummary> = ({}) => {
             fontWeight: "700",
           }}
         >
-          {currencyFormat(1000)}
+          {currencyFormat(totalPrice)}
         </Typography>
       </Box>
       <Box
@@ -45,7 +49,7 @@ const PriceSummary: React.FC<IPriceSummary> = ({}) => {
             fontWeight: "700",
           }}
         >
-          {currencyFormat(1000)}
+          {currencyFormat(0)}
         </Typography>
       </Box>
       <Divider />
@@ -66,7 +70,7 @@ const PriceSummary: React.FC<IPriceSummary> = ({}) => {
             fontWeight: "700",
           }}
         >
-          {currencyFormat(1000)}
+          {currencyFormat(totalPrice)}
         </Typography>
       </Box>
     </PageSection>

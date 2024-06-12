@@ -10,6 +10,8 @@ import "swiper/css/bundle";
 import StoreProvider from "../components/redux/StoreProvider";
 import UIControl from "@/components/redux/UIControl";
 import CustomModal from "@/components/modal/CustomModal";
+import { SessionProvider } from "next-auth/react";
+import Preload from "@/components/hoc/Preload";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,7 +51,8 @@ export default function RootLayout({
               <CssBaseline />
               <UIControl />
               <CustomModal />
-              {children}
+              <Preload />
+              <SessionProvider>{children}</SessionProvider>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </body>

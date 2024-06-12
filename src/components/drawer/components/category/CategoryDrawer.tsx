@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Grid, IconButton, Typography } from "@mui/material";
-import { useGetCategoriesQuery } from "../../../../../lib/feartures/category/categorySlice";
+import { useGetCategoriesQuery } from "../../../../../lib/feartures/category/categoryApi";
 import { Clear } from "@mui/icons-material";
 import DrawerList from "../../DrawerList";
 import CategoryDrawerItem from "./CategoryDrawerItem";

@@ -1,5 +1,7 @@
+import Profile from "@/components/profile/Profile";
+
 const AccountPage = () => {
-  return <p>Hello world</p>;
+  return <Profile />;
 };
 
 export default AccountPage;

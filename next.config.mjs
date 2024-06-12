@@ -10,6 +10,9 @@ const nextConfig = {
       { protocol: "https", hostname: "upload.wikimedia.org" },
       { protocol: "https", hostname: "cdn.tgdd.vn" },
       { protocol: "https", hostname: "substackcdn.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "http", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "cwdaust.com.au" },
     ],
   },
 };

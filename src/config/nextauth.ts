@@ -1,10 +1,8 @@
 import NextAuth from "next-auth";
 import google from "next-auth/providers/google";
 import credentials from "next-auth/providers/credentials";
-import { IAuthResponse, ProfileResponseType } from "@/types/user";
 import { authenticate } from "@/services/auth";
 import { AuthResponseType } from "@/types/auth";
-import { getProfile } from "@/services/user";
 
 const api = process.env.NEXT_PUBLIC_API_BASE_URL2;
 
@@ -23,30 +21,20 @@ export const {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        phoneNumber: { type: "text" },
+        email: { type: "text" },
         password: { type: "password" },
       },
       async authorize(credentials, req) {
-        const { phoneNumber, password } = credentials;
+        const { email, password } = credentials;
 
         const auth: AuthResponseType = await authenticate(
-          phoneNumber as string,
+          email as string,
           password as string
         );
 
         // if data returned with access token -> get user profile
         if (!!auth.access_token) {
-          const profile: ProfileResponseType = await getProfile(
-            auth.access_token
-          );
           return {
-            id: profile.id,
-            name: profile.firstName + profile.lastName,
-            email: profile.email,
-            image: profile.avatar,
-            address: profile.address,
-            phoneNumber: profile.phoneNumber,
-            dateOfBirth: profile.dateOfBirth,
             accessToken: auth.access_token,
             refreshToken: auth.refresh_token,
           };
@@ -74,7 +62,9 @@ export const {
       }
       return token;
     },
-    session: async ({ session, token }) => {
+    session: async ({ session, token, user }) => {
+      console.log(user);
+
       session.user.accessToken = token.jwtToken as string;
       return session;
     },

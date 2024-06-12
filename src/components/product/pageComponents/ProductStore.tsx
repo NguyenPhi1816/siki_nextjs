@@ -10,6 +10,8 @@ interface IProductStore {
 }
 
 const ProductStore: React.FC<IProductStore> = ({ data }) => {
+  console.log(data);
+
   return (
     <Box
       sx={{
@@ -33,8 +35,12 @@ const ProductStore: React.FC<IProductStore> = ({ data }) => {
               height: "100%",
               objectFit: "contain",
             }}
-            src={data.storeDto.logo}
-            alt={data.storeDto.name}
+            src={
+              data.brand.logo
+                ? data.brand.logo
+                : (process.env.NEXT_PUBLIC_NO_STORE_IMAGE as string)
+            }
+            alt={data.brand.name}
             width={100}
             height={100}
           />
@@ -44,7 +50,7 @@ const ProductStore: React.FC<IProductStore> = ({ data }) => {
             variant="h6"
             sx={{ fontSize: "1.125rem", fontWeight: 700 }}
           >
-            {data.storeDto.name}
+            {data.brand.name}
           </Typography>
           <Box
             sx={{
