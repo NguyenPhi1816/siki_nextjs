@@ -24,7 +24,9 @@ export const authApi = createApi({
         const details: SignInRequestBody = {
           client_id: "siki-client",
           grant_type: "password",
-          client_secret: keycloakSecret as string,
+          client_secret: keycloakSecret
+            ? keycloakSecret
+            : "WskCIRbAFZnTQDRaCPK9Fdejfr3uRRFw",
           username: signInRequest.email,
           password: signInRequest.password,
           scope: "profile",
