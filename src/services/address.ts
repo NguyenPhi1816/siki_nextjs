@@ -9,7 +9,7 @@ export const getProvince = async (): Promise<AddressResponse> => {
     headers: {
       "Content-Type": "application/json",
       Token: token,
-    },
+    } as HeadersInit,
   });
   return response.json();
 };
@@ -22,7 +22,7 @@ export const getDistrict = async (
     headers: {
       "Content-Type": "application/json",
       Token: token,
-    },
+    } as HeadersInit,
   });
   return response.json();
 };
@@ -35,7 +35,7 @@ export const getWard = async (
     headers: {
       "Content-Type": "application/json",
       Token: token,
-    },
+    } as HeadersInit,
   });
   return response.json();
 };

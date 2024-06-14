@@ -16,8 +16,12 @@ import SearchResult from "@/components/search/SearchResult";
 import { useState } from "react";
 import LogoLink, { LogoSize } from "@/components/links/LogoLink";
 import { ButtonStyle } from "@/components/search/SearchBar/SearchBar";
+import { useAppSelector } from "../../../../../../lib/hooks";
+import { selectUser } from "../../../../../../lib/feartures/user/userSlice";
 
 const MobileScreenNavbar = () => {
+  const { user } = useAppSelector(selectUser);
+
   return (
     <Container
       component="div"
@@ -46,7 +50,7 @@ const MobileScreenNavbar = () => {
         component={LinkComponent.roundedButton}
         sx={CustomLinkStyles}
       >
-        <CartButton />
+        <CartButton user={user} />
       </CustomLink>
     </Container>
   );

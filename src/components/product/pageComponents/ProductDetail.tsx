@@ -154,6 +154,7 @@ const ProductDetail: React.FC<IProductDetail> = ({ spid, data, isLoading }) => {
             </Box>
             <Box>
               <ProductDetailOption
+                productName={data.name}
                 productAttributes={data?.productAttributes}
                 selectedProductVariant={selectedProductVariant}
                 onChangeOption={handleChangeOption}

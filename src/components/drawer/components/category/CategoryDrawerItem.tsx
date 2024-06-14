@@ -20,7 +20,7 @@ const CategoryDrawerItem: React.FC<ICategoryDrawerItem> = ({ data }) => {
           borderRadius: 1,
         }}
       >
-        <Image src={data.imageUrl} alt={data.parent} width={100} height={100} />
+        <Image src={data.image} alt={data.name} width={100} height={100} />
         <Typography
           variant="body1"
           sx={{
@@ -35,7 +35,7 @@ const CategoryDrawerItem: React.FC<ICategoryDrawerItem> = ({ data }) => {
             WebkitBoxOrient: "vertical",
           }}
         >
-          {data.parent}
+          {data.name}
         </Typography>
       </Box>
     )

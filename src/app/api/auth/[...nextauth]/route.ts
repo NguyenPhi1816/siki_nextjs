@@ -1,1 +1,2 @@
-export { GET, POST } from "@/config/nextauth";
+// export { GET, POST } from "@/config/nextauth";
+export const POST = () => {};

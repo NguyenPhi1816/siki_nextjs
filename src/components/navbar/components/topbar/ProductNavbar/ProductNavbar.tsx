@@ -8,12 +8,15 @@ import { ChevronLeft, MoreHoriz } from "@mui/icons-material";
 import { Box, Container, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { selectUser } from "../../../../../../lib/feartures/user/userSlice";
+import { useAppSelector } from "../../../../../../lib/hooks";
 
 const IconButtonStyle = { color: "var(--text-primary-pink)" };
 
 const ProductNavbar = () => {
   const router = useRouter();
   const [showMoreAction, setShowMoreAction] = useState<boolean>(false);
+  const { user } = useAppSelector(selectUser);
 
   const goBack = () => router.back();
 
@@ -40,7 +43,7 @@ const ProductNavbar = () => {
             component={LinkComponent.roundedButton}
             sx={{ ...IconButtonStyle, marginRight: 1 }}
           >
-            <CartButton />
+            <CartButton user={user} />
           </CustomLink>
           <IconButton
             sx={IconButtonStyle}

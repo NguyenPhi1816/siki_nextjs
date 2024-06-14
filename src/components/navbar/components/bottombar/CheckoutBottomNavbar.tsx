@@ -1,14 +1,26 @@
+"use client";
 import PriceSummary from "@/components/checkout/PriceSummary";
 import CustomDrawer from "@/components/drawer/Drawer";
 import { currencyFormat } from "@/lib/number";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
+import { useAppSelector } from "../../../../../lib/hooks";
+import { selectItems } from "../../../../../lib/feartures/checkout/CheckoutSlice";
 
 const CheckoutBottomNavbar = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
+  const items = useAppSelector(selectItems);
 
   const handleShowDetail = () => setShowDetail((prev) => !prev);
+
+  const getTotalPrice = () => {
+    return items
+      ? items.reduce((accumulator, currentValue) => {
+          return accumulator + currentValue.price * currentValue.quantity;
+        }, 0)
+      : 0;
+  };
 
   return (
     <Box sx={{ position: "relative", zIndex: "var(--navbar-z-index)" }}>
@@ -18,7 +30,7 @@ const CheckoutBottomNavbar = () => {
             marginBottom: "89px",
           }}
         >
-          <PriceSummary />
+          <PriceSummary totalPrice={getTotalPrice()} />
         </Box>
       </CustomDrawer>
       <Box

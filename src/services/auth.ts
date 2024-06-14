@@ -1,8 +1,10 @@
+import { SignInRequestBody } from "@/types/auth";
+
 export async function authenticate(email: string, password: string) {
-  var details = {
+  var details: SignInRequestBody = {
     client_id: "siki-client",
     grant_type: "password",
-    client_secret: process.env.KEYCLOAK_CLIENT_SECRET,
+    client_secret: process.env.KEYCLOAK_CLIENT_SECRET as string,
     username: email,
     password: password,
     scope: "profile",
@@ -11,7 +13,9 @@ export async function authenticate(email: string, password: string) {
   var formBody = [];
   for (var property in details) {
     var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
+    var encodedValue = encodeURIComponent(
+      details[property as keyof SignInRequestBody]
+    );
     formBody.push(encodedKey + "=" + encodedValue);
   }
   const new_formBody = formBody.join("&");
